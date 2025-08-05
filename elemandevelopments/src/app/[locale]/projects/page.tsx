@@ -13,6 +13,9 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { locale } = await params;
   const t = await getTranslations('projects');
   const projects = getAllProjects();
+  
+  // Type assertion for locale
+  const currentLocale = locale as 'ar' | 'en';
 
   return (
     <div className="min-h-screen bg-off-white">
@@ -78,7 +81,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src={project.images[0]}
-                    alt={project.name[locale]}
+                    alt={project.name[currentLocale]}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -94,17 +97,17 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
                         : 'bg-blue-500 text-white'
                     }`}>
                       {project.status === 'ready-for-delivery' 
-                        ? (locale === 'ar' ? 'جاهز للتسليم' : 'Ready for Delivery')
+                        ? (currentLocale === 'ar' ? 'جاهز للتسليم' : 'Ready for Delivery')
                         : project.status === 'under-construction'
-                        ? (locale === 'ar' ? 'قيد الإنشاء' : 'Under Construction')
-                        : (locale === 'ar' ? 'في التخطيط' : 'Planning')
+                        ? (currentLocale === 'ar' ? 'قيد الإنشاء' : 'Under Construction')
+                        : (currentLocale === 'ar' ? 'في التخطيط' : 'Planning')
                       }
                     </span>
                   </div>
 
                   <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <h3 className="text-xl font-bold mb-1">{project.name[locale]}</h3>
-                    <p className="text-sm opacity-90">{project.location[locale]}</p>
+                    <h3 className="text-xl font-bold mb-1">{project.name[currentLocale]}</h3>
+                    <p className="text-sm opacity-90">{project.location[currentLocale]}</p>
                     <p className="text-lg font-semibold text-warm-gold mt-2">
                       {formatPrice(project.startingPrice, 'EGP')}
                     </p>
@@ -113,25 +116,25 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
 
                 <div className="p-6">
                   <p className="text-charcoal mb-4 line-clamp-3">
-                    {project.shortDescription[locale]}
+                    {project.shortDescription[currentLocale]}
                   </p>
 
                   {/* Project Stats */}
                   <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
                     <div className="text-charcoal">
-                      <span className="block font-medium">{locale === 'ar' ? 'إجمالي الوحدات' : 'Total Units'}</span>
+                      <span className="block font-medium">{currentLocale === 'ar' ? 'إجمالي الوحدات' : 'Total Units'}</span>
                       <span className="text-warm-gold font-semibold">{project.totalUnits}</span>
                     </div>
                     <div className="text-charcoal">
-                      <span className="block font-medium">{locale === 'ar' ? 'مساحة المشروع' : 'Project Area'}</span>
-                      <span className="text-warm-gold font-semibold">{project.projectArea.toLocaleString()} {locale === 'ar' ? 'م²' : 'm²'}</span>
+                      <span className="block font-medium">{currentLocale === 'ar' ? 'مساحة المشروع' : 'Project Area'}</span>
+                      <span className="text-warm-gold font-semibold">{project.projectArea.toLocaleString()} {currentLocale === 'ar' ? 'م²' : 'm²'}</span>
                     </div>
                     <div className="text-charcoal">
-                      <span className="block font-medium">{locale === 'ar' ? 'تاريخ التسليم' : 'Delivery Date'}</span>
-                      <span className="text-warm-gold font-semibold">{formatDate(project.deliveryDate, locale)}</span>
+                      <span className="block font-medium">{currentLocale === 'ar' ? 'تاريخ التسليم' : 'Delivery Date'}</span>
+                      <span className="text-warm-gold font-semibold">{formatDate(project.deliveryDate, currentLocale)}</span>
                     </div>
                     <div className="text-charcoal">
-                      <span className="block font-medium">{locale === 'ar' ? 'يبدأ من' : 'Starting from'}</span>
+                      <span className="block font-medium">{currentLocale === 'ar' ? 'يبدأ من' : 'Starting from'}</span>
                       <span className="text-warm-gold font-semibold">{formatPrice(project.startingPrice, 'EGP')}</span>
                     </div>
                   </div>
@@ -139,7 +142,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
                   {/* Unit Types Preview */}
                   <div className="mb-4">
                     <h4 className="text-sm font-medium text-charcoal mb-2">
-                      {locale === 'ar' ? 'أنواع الوحدات' : 'Unit Types'}
+                      {currentLocale === 'ar' ? 'أنواع الوحدات' : 'Unit Types'}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {project.unitTypes.slice(0, 3).map((unit, index) => (
@@ -158,16 +161,16 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
                   {/* CTA Buttons */}
                   <div className="flex gap-2">
                     <Link
-                      href={`/${locale}/projects/${project.slug}`}
+                      href={`/${currentLocale}/projects/${project.slug}`}
                       className="btn-primary flex-1 text-center"
                     >
-                      {locale === 'ar' ? 'استكشف المشروع' : 'Explore Project'}
+                      {currentLocale === 'ar' ? 'استكشف المشروع' : 'Explore Project'}
                     </Link>
                     <Link
-                      href={`/${locale}/contact`}
+                                              href={`/${currentLocale}/contact`}
                       className="btn-secondary text-center px-4"
                     >
-                      {locale === 'ar' ? 'احجز زيارة' : 'Schedule Visit'}
+                                              {currentLocale === 'ar' ? 'احجز زيارة' : 'Schedule Visit'}
                     </Link>
                   </div>
                 </div>

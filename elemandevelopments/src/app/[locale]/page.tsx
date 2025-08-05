@@ -13,6 +13,9 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const t = await getTranslations('homepage');
   const featuredProjects = getFeaturedProjects();
+  
+  // Type assertion for locale
+  const currentLocale = locale as 'ar' | 'en';
 
   return (
     <div className="min-h-screen">
@@ -44,10 +47,10 @@ export default async function HomePage({ params }: HomePageProps) {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href={`/${locale}/projects`} className="btn-primary text-lg px-8 py-4">
+            <Link href={`/${currentLocale}/projects`} className="btn-primary text-lg px-8 py-4">
               {t('hero.cta.browseProjects')}
             </Link>
-            <Link href={`/${locale}/contact`} className="btn-secondary text-lg px-8 py-4">
+                          <Link href={`/${currentLocale}/contact`} className="btn-secondary text-lg px-8 py-4">
               {t('hero.cta.scheduleVisit')}
             </Link>
             <Link href="#" className="btn-ghost text-lg px-8 py-4 text-white border-white hover:bg-white hover:text-pure-black">
@@ -78,14 +81,14 @@ export default async function HomePage({ params }: HomePageProps) {
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src={project.images[0]}
-                    alt={project.name[locale]}
+                    alt={project.name[currentLocale]}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <h3 className="text-xl font-bold mb-1">{project.name[locale]}</h3>
-                    <p className="text-sm opacity-90">{project.location[locale]}</p>
+                    <h3 className="text-xl font-bold mb-1">{project.name[currentLocale]}</h3>
+                    <p className="text-sm opacity-90">{project.location[currentLocale]}</p>
                     <p className="text-lg font-semibold text-warm-gold mt-2">
                       {formatPrice(project.startingPrice, 'EGP')}
                     </p>
@@ -93,15 +96,15 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
                 <div className="p-6">
                   <p className="text-charcoal mb-4 line-clamp-3">
-                    {project.shortDescription[locale]}
+                    {project.shortDescription[currentLocale]}
                   </p>
                   <div className="flex justify-between items-center">
                     <div className="text-sm text-charcoal">
-                      <span className="block">{project.totalUnits} {locale === 'ar' ? 'وحدة' : 'Units'}</span>
-                      <span className="block">{project.projectArea.toLocaleString()} {locale === 'ar' ? 'م²' : 'm²'}</span>
+                      <span className="block">{project.totalUnits} {currentLocale === 'ar' ? 'وحدة' : 'Units'}</span>
+                                              <span className="block">{project.projectArea.toLocaleString()} {currentLocale === 'ar' ? 'م²' : 'm²'}</span>
                     </div>
                     <Link
-                      href={`/${locale}/projects/${project.slug}`}
+                      href={`/${currentLocale}/projects/${project.slug}`}
                       className="btn-primary text-sm"
                     >
                       {t('featuredProjects.explore')}
@@ -252,17 +255,17 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Building size={48} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-pure-black mb-2">
-                {locale === 'ar' ? 'تقدم في بناء حدائق الزعفران' : 'Progress in Saffron Gardens Construction'}
+                {currentLocale === 'ar' ? 'تقدم في بناء حدائق الزعفران' : 'Progress in Saffron Gardens Construction'}
               </h3>
               <p className="text-charcoal mb-4">
-                {locale === 'ar' 
+                {currentLocale === 'ar' 
                   ? 'وصلت نسبة الإنجاز إلى 60% في مشروع حدائق الزعفران'
                   : 'Construction progress reached 60% in Saffron Gardens project'
                 }
               </p>
-              <span className="text-sm text-warm-gold font-medium">
-                {locale === 'ar' ? 'منذ 3 أيام' : '3 days ago'}
-              </span>
+                              <span className="text-sm text-warm-gold font-medium">
+                  {currentLocale === 'ar' ? 'منذ 3 أيام' : '3 days ago'}
+                </span>
             </div>
 
             <div className="card p-6">
@@ -270,17 +273,17 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Award size={48} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-pure-black mb-2">
-                {locale === 'ar' ? 'جائزة أفضل مطور عقاري' : 'Best Real Estate Developer Award'}
+                {currentLocale === 'ar' ? 'جائزة أفضل مطور عقاري' : 'Best Real Estate Developer Award'}
               </h3>
               <p className="text-charcoal mb-4">
-                {locale === 'ar'
+                {currentLocale === 'ar'
                   ? 'حصلت إيمان ديفلوبمنتس على جائزة أفضل مطور عقاري لعام 2024'
                   : 'El Eman Developments won the Best Real Estate Developer Award 2024'
                 }
               </p>
-              <span className="text-sm text-warm-gold font-medium">
-                {locale === 'ar' ? 'منذ أسبوع' : '1 week ago'}
-              </span>
+                              <span className="text-sm text-warm-gold font-medium">
+                  {currentLocale === 'ar' ? 'منذ أسبوع' : '1 week ago'}
+                </span>
             </div>
 
             <div className="card p-6">
@@ -288,17 +291,17 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Star size={48} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-pure-black mb-2">
-                {locale === 'ar' ? 'افتتاح معرض جديد' : 'New Showroom Opening'}
+                {currentLocale === 'ar' ? 'افتتاح معرض جديد' : 'New Showroom Opening'}
               </h3>
               <p className="text-charcoal mb-4">
-                {locale === 'ar'
+                {currentLocale === 'ar'
                   ? 'افتتاح معرض إيمان ديفلوبمنتس الجديد في مدينة نصر'
                   : 'Opening of new El Eman Developments showroom in New Cairo'
                 }
               </p>
-              <span className="text-sm text-warm-gold font-medium">
-                {locale === 'ar' ? 'منذ أسبوعين' : '2 weeks ago'}
-              </span>
+                              <span className="text-sm text-warm-gold font-medium">
+                  {currentLocale === 'ar' ? 'منذ أسبوعين' : '2 weeks ago'}
+                </span>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     domains: ['images.unsplash.com', 'via.placeholder.com'],
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/webp' as const, 'image/avif' as const],
   },
 };
 
