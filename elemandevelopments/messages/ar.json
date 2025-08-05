@@ -1,0 +1,136 @@
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "projects": "المشاريع",
+    "about": "من نحن",
+    "investment": "الاستثمار",
+    "contact": "اتصل بنا",
+    "language": "اللغة"
+  },
+  "homepage": {
+    "hero": {
+      "title": "حيث يتشكل الإيمان",
+      "subtitle": "Where Belief Takes Shape",
+      "description": "نطور مشاريع سكنية فاخرة تجمع بين الأناقة والراحة في أفضل المواقع المميزة",
+      "cta": {
+        "browseProjects": "تصفح المشاريع",
+        "scheduleVisit": "احجز زيارة",
+        "downloadBrochure": "تحميل الكتيب",
+        "calculatePayment": "احسب الدفعة"
+      }
+    },
+    "featuredProjects": {
+      "title": "مشاريعنا المميزة",
+      "subtitle": "اكتشف أحدث مشاريعنا السكنية الفاخرة",
+      "explore": "استكشف"
+    },
+    "whyChoose": {
+      "title": "لماذا تختار إيمان ديفلوبمنتس؟",
+      "subtitle": "أكثر من 30 عاماً من الخبرة في تطوير العقارات",
+      "features": {
+        "trust": {
+          "title": "الثقة والموثوقية",
+          "description": "30+ عاماً من الخبرة في سوق العقارات المصري"
+        },
+        "quality": {
+          "title": "الجودة المتميزة",
+          "description": "أعلى معايير الجودة في البناء والتشطيبات"
+        },
+        "heritage": {
+          "title": "التراث والعراقة",
+          "description": "جزء من مجموعة إيمان العريقة منذ 1990"
+        }
+      }
+    },
+    "successStories": {
+      "title": "قصص النجاح",
+      "subtitle": "ماذا يقول عملاؤنا عنا"
+    },
+    "latestUpdates": {
+      "title": "آخر التحديثات",
+      "subtitle": "تابع تقدم مشاريعنا",
+      "viewAll": "عرض جميع التحديثات"
+    }
+  },
+  "projects": {
+    "title": "مشاريعنا",
+    "subtitle": "اكتشف مجموعة مشاريعنا السكنية الفاخرة",
+    "filters": {
+      "location": "الموقع",
+      "propertyType": "نوع العقار",
+      "priceRange": "نطاق السعر",
+      "deliveryDate": "تاريخ التسليم",
+      "status": "الحالة",
+      "search": "البحث في المشاريع",
+      "sortBy": "ترتيب حسب"
+    },
+    "sortOptions": {
+      "newest": "الأحدث",
+      "priceLowHigh": "السعر: من الأقل للأعلى",
+      "priceHighLow": "السعر: من الأعلى للأقل",
+      "deliveryDate": "تاريخ التسليم"
+    }
+  },
+  "project": {
+    "overview": "نظرة عامة",
+    "masterPlan": "المخطط العام",
+    "units": "الوحدات والطوابق",
+    "amenities": "المرافق",
+    "location": "الموقع",
+    "gallery": "المعرض",
+    "paymentPlans": "خطط الدفع",
+    "startingPrice": "يبدأ من",
+    "deliveryDate": "تاريخ التسليم",
+    "projectStatus": "حالة المشروع",
+    "totalUnits": "إجمالي الوحدات",
+    "projectArea": "مساحة المشروع",
+    "actions": {
+      "scheduleVisit": "احجز زيارة",
+      "downloadBrochure": "تحميل الكتيب",
+      "whatsappAgent": "واتساب المندوب",
+      "requestCallback": "طلب اتصال"
+    }
+  },
+  "calculator": {
+    "title": "حاسبة الدفعات",
+    "propertyPrice": "سعر العقار",
+    "downPayment": "الدفعة المقدمة",
+    "loanTerm": "مدة القرض (بالسنوات)",
+    "monthlyPayment": "الدفعة الشهرية",
+    "calculate": "احسب",
+    "reset": "إعادة تعيين",
+    "shareWhatsapp": "مشاركة عبر واتساب"
+  },
+  "contact": {
+    "title": "اتصل بنا",
+    "subtitle": "نحن هنا لمساعدتك في العثور على منزلك المثالي",
+    "form": {
+      "name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "message": "الرسالة",
+      "inquiryType": "نوع الاستفسار",
+      "submit": "إرسال الرسالة"
+    },
+    "info": {
+      "address": "العنوان",
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "workingHours": "ساعات العمل"
+    }
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "success": "تم بنجاح",
+    "close": "إغلاق",
+    "next": "التالي",
+    "previous": "السابق",
+    "viewMore": "عرض المزيد",
+    "readMore": "اقرأ المزيد",
+    "download": "تحميل",
+    "share": "مشاركة",
+    "bookNow": "احجز الآن",
+    "getInTouch": "تواصل معنا"
+  }
+}

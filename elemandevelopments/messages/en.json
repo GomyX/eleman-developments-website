@@ -1,0 +1,136 @@
+{
+  "navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "investment": "Investment",
+    "contact": "Contact",
+    "language": "Language"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Where Belief Takes Shape",
+      "subtitle": "حيث يتشكل الإيمان",
+      "description": "We develop luxury residential projects that combine elegance and comfort in the most distinguished locations",
+      "cta": {
+        "browseProjects": "Browse Projects",
+        "scheduleVisit": "Schedule Visit",
+        "downloadBrochure": "Download Brochure",
+        "calculatePayment": "Calculate Payment"
+      }
+    },
+    "featuredProjects": {
+      "title": "Our Featured Projects",
+      "subtitle": "Discover our latest luxury residential projects",
+      "explore": "Explore"
+    },
+    "whyChoose": {
+      "title": "Why Choose El Eman Developments?",
+      "subtitle": "Over 30 years of experience in real estate development",
+      "features": {
+        "trust": {
+          "title": "Trust & Reliability",
+          "description": "30+ years of experience in the Egyptian real estate market"
+        },
+        "quality": {
+          "title": "Exceptional Quality",
+          "description": "Highest quality standards in construction and finishing"
+        },
+        "heritage": {
+          "title": "Heritage & Legacy",
+          "description": "Part of the prestigious El Eman Group since 1990"
+        }
+      }
+    },
+    "successStories": {
+      "title": "Success Stories",
+      "subtitle": "What our clients say about us"
+    },
+    "latestUpdates": {
+      "title": "Latest Updates",
+      "subtitle": "Follow our project progress",
+      "viewAll": "View All Updates"
+    }
+  },
+  "projects": {
+    "title": "Our Projects",
+    "subtitle": "Discover our collection of luxury residential projects",
+    "filters": {
+      "location": "Location",
+      "propertyType": "Property Type",
+      "priceRange": "Price Range",
+      "deliveryDate": "Delivery Date",
+      "status": "Status",
+      "search": "Search Projects",
+      "sortBy": "Sort By"
+    },
+    "sortOptions": {
+      "newest": "Newest",
+      "priceLowHigh": "Price: Low to High",
+      "priceHighLow": "Price: High to Low",
+      "deliveryDate": "Delivery Date"
+    }
+  },
+  "project": {
+    "overview": "Overview",
+    "masterPlan": "Master Plan",
+    "units": "Units & Floor Plans",
+    "amenities": "Amenities",
+    "location": "Location",
+    "gallery": "Gallery",
+    "paymentPlans": "Payment Plans",
+    "startingPrice": "Starting from",
+    "deliveryDate": "Delivery Date",
+    "projectStatus": "Project Status",
+    "totalUnits": "Total Units",
+    "projectArea": "Project Area",
+    "actions": {
+      "scheduleVisit": "Schedule Visit",
+      "downloadBrochure": "Download Brochure",
+      "whatsappAgent": "WhatsApp Agent",
+      "requestCallback": "Request Callback"
+    }
+  },
+  "calculator": {
+    "title": "Payment Calculator",
+    "propertyPrice": "Property Price",
+    "downPayment": "Down Payment",
+    "loanTerm": "Loan Term (Years)",
+    "monthlyPayment": "Monthly Payment",
+    "calculate": "Calculate",
+    "reset": "Reset",
+    "shareWhatsapp": "Share via WhatsApp"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help you find your perfect home",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Message",
+      "inquiryType": "Inquiry Type",
+      "submit": "Send Message"
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "workingHours": "Working Hours"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "viewMore": "View More",
+    "readMore": "Read More",
+    "download": "Download",
+    "share": "Share",
+    "bookNow": "Book Now",
+    "getInTouch": "Get in Touch"
+  }
+}
