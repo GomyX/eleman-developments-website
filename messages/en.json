@@ -1,0 +1,667 @@
+{
+  "navigation": {
+    "home": "Home",
+    "projects": "Our Projects",
+    "about": "About El Eman",
+    "investment": "Investment",
+    "locations": "Locations",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title": "Where Belief Takes Shape",
+    "subtitle": "Premium real estate projects combining quality, trust, and belief",
+    "cta_browse": "Browse Properties",
+    "cta_schedule": "Schedule Visit",
+    "cta_download": "Download Brochure"
+  },
+  "search": {
+    "placeholder": "Search for the perfect property...",
+    "filter_location": "Location",
+    "filter_type": "Property Type",
+    "filter_price": "Price",
+    "filter_bedrooms": "Bedrooms",
+    "search_button": "Search",
+    "clear_filters": "Clear Filters",
+    "any_location": "Any Location",
+    "any_type": "Any Type",
+    "any_price": "Any Price",
+    "any_bedrooms": "Any Number",
+    "locations": {
+      "new_cairo": "New Cairo",
+      "sheikh_zayed": "Sheikh Zayed",
+      "october": "October",
+      "north_coast": "North Coast"
+    },
+    "property_types": {
+      "apartment": "Apartment",
+      "villa": "Villa",
+      "townhouse": "Townhouse",
+      "duplex": "Duplex",
+      "penthouse": "Penthouse"
+    },
+    "price_ranges": {
+      "under_2m": "Under 2M EGP",
+      "2m_to_5m": "2M - 5M EGP",
+      "5m_to_10m": "5M - 10M EGP",
+      "10m_to_20m": "10M - 20M EGP",
+      "over_20m": "Over 20M EGP"
+    },
+    "bedrooms": {
+      "1": "1 Bedroom",
+      "2": "2 Bedrooms",
+      "3": "3 Bedrooms",
+      "4": "4 Bedrooms",
+      "5_plus": "5+ Bedrooms"
+    }
+  },
+  "featured_projects": {
+    "title": "Featured Projects",
+    "subtitle": "Discover our latest premium real estate developments",
+    "view_all": "View All Projects",
+    "learn_more": "Learn More",
+    "starting_from": "Starting from",
+    "egp": "EGP",
+    "projects": {
+      "el_eman_heights": {
+        "name": "El Eman Heights",
+        "location": "New Cairo",
+        "description": "Luxury residential compound featuring villas and townhouses with modern designs",
+        "starting_price": "3500000"
+      },
+      "belief_gardens": {
+        "name": "Belief Gardens",
+        "location": "Sheikh Zayed",
+        "description": "An integrated project combining nature and luxury living",
+        "starting_price": "2800000"
+      },
+      "eman_plaza": {
+        "name": "Eman Plaza",
+        "location": "October",
+        "description": "Premium residential apartments with stunning views",
+        "starting_price": "2200000"
+      },
+      "coastal_retreat": {
+        "name": "Coastal Retreat",
+        "location": "North Coast",
+        "description": "Luxury summer units directly on the beach",
+        "starting_price": "4500000"
+      }
+    }
+  },
+  "property_card": {
+    "starting_from": "Starting from",
+    "million_egp": "Million EGP",
+    "egp": "EGP",
+    "bedrooms": "Bedrooms",
+    "area": "Area",
+    "sqm": "sqm",
+    "delivery": "Delivery",
+    "book_visit": "Book Visit",
+    "learn_more": "Learn More",
+    "whatsapp": "WhatsApp",
+    "call_now": "Call Now",
+    "available": "Available",
+    "sold_out": "Sold Out",
+    "coming_soon": "Coming Soon",
+    "features": {
+      "garden": "Garden",
+      "parking": "Parking",
+      "balcony": "Balcony",
+      "roof": "Roof",
+      "pool": "Swimming Pool",
+      "gym": "Gym",
+      "security": "24/7 Security"
+    }
+  },
+  "projects_page": {
+    "title": "Our Projects",
+    "subtitle": "Discover a diverse range of exceptional real estate developments",
+    "no_results": "No Results Found",
+    "no_results_message": "No properties found matching your search criteria",
+    "clear_filters": "Clear Filters",
+    "showing_results": "Showing {count} of {total} properties",
+    "sort_by": "Sort By",
+    "filters": "Filters",
+    "hide_filters": "Hide Filters",
+    "show_filters": "Show Filters",
+    "apply_filters": "Apply Filters",
+    "reset_filters": "Reset",
+    "load_more": "Load More",
+    "sort_options": {
+      "featured": "Featured",
+      "price_low": "Price: Low to High",
+      "price_high": "Price: High to Low",
+      "delivery_soon": "Delivery: Soonest",
+      "delivery_late": "Delivery: Latest",
+      "location": "Location",
+      "newest": "Newest"
+    },
+    "filter_labels": {
+      "location": "Location",
+      "property_type": "Property Type",
+      "price_range": "Price Range",
+      "bedrooms": "Bedrooms",
+      "area_range": "Area",
+      "delivery_year": "Delivery Year",
+      "features": "Features",
+      "status": "Status"
+    }
+  },
+  "property_details": {
+    "overview": "Overview",
+    "specifications": "Specifications",
+    "amenities": "Amenities",
+    "location": "Location",
+    "floor_plans": "Floor Plans",
+    "payment_plan": "Payment Plan",
+    "gallery": "Gallery",
+    "virtual_tour": "Virtual Tour",
+    "download_brochure": "Download Brochure",
+    "schedule_visit": "Schedule Visit",
+    "contact_agent": "Contact Agent",
+    "share_property": "Share Property",
+    "property_id": "Property ID",
+    "property_type": "Property Type",
+    "total_area": "Total Area",
+    "built_area": "Built Area",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "balconies": "Balconies",
+    "parking": "Parking Spaces",
+    "delivery_date": "Delivery Date",
+    "finishing": "Finishing",
+    "view": "View",
+    "floor": "Floor",
+    "unit_features": "Unit Features",
+    "project_amenities": "Project Amenities",
+    "nearby_facilities": "Nearby Facilities",
+    "transportation": "Transportation",
+    "schools": "Schools",
+    "hospitals": "Hospitals",
+    "shopping": "Shopping",
+    "entertainment": "Entertainment",
+    "payment_calculator": "Payment Calculator",
+    "down_payment": "Down Payment",
+    "monthly_installment": "Monthly Installment",
+    "years": "Years",
+    "calculate": "Calculate",
+    "total_price": "Total Price",
+    "interest_rate": "Interest Rate",
+    "financing_options": "Financing Options",
+    "bank_financing": "Bank Financing",
+    "islamic_financing": "Islamic Financing",
+    "developer_financing": "Developer Financing",
+    "cash_discount": "Cash Discount",
+    "lead_form": {
+      "title": "Book Your Visit Now",
+      "subtitle": "Fill in your details and our team will contact you within 24 hours",
+      "name": "Name",
+      "phone": "Phone Number",
+      "email": "Email Address",
+      "message": "Additional Message",
+      "preferred_time": "Preferred Visit Time",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "submit": "Submit Request",
+      "whatsapp": "Contact via WhatsApp",
+      "call_now": "Call Now"
+    },
+    "similar_properties": "Similar Properties",
+    "view_all_properties": "View All Properties"
+  },
+  "about_page": {
+    "title": "About El Eman",
+    "subtitle": "Where Belief Takes Shape - A Success Story Built on Trust and Quality",
+    "our_story": "Our Story",
+    "our_vision": "Our Vision",
+    "our_mission": "Our Mission",
+    "our_values": "Our Values",
+    "leadership": "Leadership Team",
+    "achievements": "Our Achievements",
+    "quality_standards": "Quality Standards",
+    "community_responsibility": "Community Responsibility",
+    "years_experience": "Years Experience",
+    "completed_projects": "Completed Projects",
+    "satisfied_clients": "Satisfied Clients",
+    "awards_won": "Awards Won",
+    "story_content": {
+      "title": "Built on Belief",
+      "paragraph1": "El Eman Developments was founded on the firm conviction that true construction begins with belief. Since our inception, we believe that every project we build is more than just a property - it's a home that embraces dreams and a community that brings hearts together.",
+      "paragraph2": "Our journey began with a clear vision: to be the leaders in Egypt's real estate industry by developing projects that combine world-class quality with authentic Egyptian identity. We don't just build, we shape the future of urban communities in Egypt.",
+      "paragraph3": "Every stone we lay, every design we create, and every green space we plant carries within it our deep belief in every Egyptian family's right to have a home worthy of their dreams and aspirations."
+    },
+    "vision_content": {
+      "title": "Our Vision for the Future",
+      "description": "To be the leading real estate development company in Egypt and the Middle East, known for excellence in design, commitment to quality, and community responsibility."
+    },
+    "mission_content": {
+      "title": "Our Mission",
+      "description": "We strive to develop integrated urban communities that combine modernity with authenticity, providing a healthy and sustainable living environment for our clients, while maintaining the highest standards of quality and transparency."
+    },
+    "values_list": {
+      "belief": {
+        "title": "Belief",
+        "description": "We believe in our ability to achieve the impossible and build our clients' dreams"
+      },
+      "quality": {
+        "title": "Quality",
+        "description": "We commit to the highest quality standards at every stage of development"
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "We build long-term relationships with our clients based on trust and transparency"
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "We always strive to apply the latest technologies and innovative solutions"
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "description": "We are committed to sustainable environmental practices in all our projects"
+      },
+      "community": {
+        "title": "Community",
+        "description": "We contribute to building strong and cohesive communities"
+      }
+    },
+    "leadership_team": {
+      "ceo": {
+        "name": "Ahmed El Eman",
+        "title": "Chief Executive Officer",
+        "bio": "With over 20 years of experience in the real estate development industry, Ahmed El Eman leads the company towards achieving its vision of being the leader in the Egyptian market."
+      },
+      "coo": {
+        "name": "Fatma Mohamed",
+        "title": "Chief Operating Officer",
+        "bio": "An architectural engineer with 15 years of experience, she oversees all development phases and ensures the application of the highest quality standards in projects."
+      },
+      "cfo": {
+        "name": "Mohamed Ali",
+        "title": "Chief Financial Officer",
+        "bio": "A financial expert with 18 years of experience in the real estate sector, he manages the company's financial and investment strategies."
+      }
+    },
+    "achievements_list": {
+      "award1": {
+        "title": "Best Real Estate Developer 2023",
+        "description": "Best Real Estate Developer in Egypt award from the International Real Estate Exhibition"
+      },
+      "award2": {
+        "title": "Architectural Excellence Award 2022",
+        "description": "In recognition of innovative designs in the El Eman Heights project"
+      },
+      "award3": {
+        "title": "ISO 9001 International Quality Certificate",
+        "description": "Quality management system accreditation according to international standards"
+      },
+      "award4": {
+        "title": "Community Responsibility Award 2021",
+        "description": "In recognition of our efforts in serving the community and environment"
+      }
+    },
+    "quality_standards_content": {
+      "title": "Strict Quality Standards",
+      "description": "We apply the highest international quality standards at all stages of development, from site selection to unit delivery.",
+      "standards": {
+        "design": {
+          "title": "Architectural Design",
+          "description": "Modern architectural designs that respect authentic Egyptian character"
+        },
+        "materials": {
+          "title": "Construction Materials",
+          "description": "Using the finest materials and raw materials that comply with international standards"
+        },
+        "construction": {
+          "title": "Implementation",
+          "description": "Precise engineering supervision and work teams trained to the highest level"
+        },
+        "finishing": {
+          "title": "Finishing",
+          "description": "Luxury finishes with the latest global methods and technologies"
+        }
+      }
+    },
+    "community_content": {
+      "title": "Our Responsibility to the Community",
+      "description": "We believe in our role in serving the Egyptian community and contributing to sustainable development",
+      "initiatives": {
+        "education": {
+          "title": "Education",
+          "description": "Supporting schools and educational institutions in areas surrounding our projects"
+        },
+        "environment": {
+          "title": "Environment",
+          "description": "Implementing green practices and environmental conservation in all our projects"
+        },
+        "employment": {
+          "title": "Employment",
+          "description": "Creating new job opportunities and supporting the local economy"
+        },
+        "charity": {
+          "title": "Charity Work",
+          "description": "Participating in charitable work and supporting families in need"
+        }
+      }
+    }
+  },
+  "investment_page": {
+    "title": "Investment",
+    "subtitle": "Invest smartly in Egyptian real estate with El Eman Developments",
+    "hero_title": "Exceptional Investment Opportunities",
+    "hero_description": "Discover rewarding investment returns in the Egyptian real estate sector with quality and trust guarantees",
+    "why_invest": "Why Invest With Us?",
+    "investment_opportunities": "Investment Opportunities",
+    "roi_calculator": "ROI Calculator",
+    "financing_options": "Financing Options",
+    "bank_partnerships": "Our Banking Partnerships",
+    "islamic_financing": "Islamic Financing",
+    "get_started": "Start Investing",
+    "contact_advisor": "Contact Advisor",
+    "download_guide": "Download Investment Guide",
+    "why_invest_reasons": {
+      "stable_market": {
+        "title": "Stable Market",
+        "description": "The Egyptian real estate market is experiencing sustainable growth and increasing demand"
+      },
+      "high_returns": {
+        "title": "High Returns",
+        "description": "Investment returns ranging from 12-18% annually depending on property type"
+      },
+      "prime_locations": {
+        "title": "Prime Locations",
+        "description": "Projects in the best locations in New Cairo and Sheikh Zayed"
+      },
+      "guaranteed_quality": {
+        "title": "Guaranteed Quality",
+        "description": "International construction standards and comprehensive warranties on all units"
+      },
+      "flexible_payment": {
+        "title": "Flexible Payment",
+        "description": "Flexible payment plans suitable for all investors"
+      },
+      "expert_management": {
+        "title": "Expert Management",
+        "description": "Professional management team to ensure the best return on your investment"
+      }
+    },
+    "investment_types": {
+      "residential": {
+        "title": "Residential Units",
+        "description": "Apartments and villas in upscale residential compounds",
+        "roi_range": "12-15%",
+        "min_investment": "EGP 500,000"
+      },
+      "commercial": {
+        "title": "Commercial Properties",
+        "description": "Shops and offices in vibrant commercial areas",
+        "roi_range": "15-18%",
+        "min_investment": "EGP 800,000"
+      },
+      "land": {
+        "title": "Land",
+        "description": "Land plots in new development areas",
+        "roi_range": "20-25%",
+        "min_investment": "EGP 300,000"
+      }
+    },
+    "calculator": {
+      "title": "Calculate Investment Return",
+      "investment_amount": "Investment Amount",
+      "investment_period": "Investment Period",
+      "property_type": "Property Type",
+      "expected_roi": "Expected ROI",
+      "total_return": "Total Return",
+      "monthly_return": "Monthly Return",
+      "calculate": "Calculate",
+      "years": "Years",
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "land": "Land"
+    },
+    "payment_plans": {
+      "title": "Payment Plans",
+      "cash_payment": {
+        "title": "Cash Payment",
+        "discount": "10% Discount",
+        "description": "Immediate 10% discount when paying in full"
+      },
+      "installments_2_years": {
+        "title": "2-Year Installments",
+        "down_payment": "30% Down",
+        "description": "30% down payment and the rest over 24 months"
+      },
+      "installments_3_years": {
+        "title": "3-Year Installments",
+        "down_payment": "25% Down",
+        "description": "25% down payment and the rest over 36 months"
+      },
+      "installments_5_years": {
+        "title": "5-Year Installments",
+        "down_payment": "20% Down",
+        "description": "20% down payment and the rest over 60 months"
+      }
+    },
+    "financing_partners": {
+      "title": "Our Financing Partners",
+      "description": "We collaborate with the best Egyptian banks to provide diverse financing options",
+      "banks": {
+        "nbe": "National Bank of Egypt",
+        "cib": "Commercial International Bank",
+        "banque_misr": "Banque Misr",
+        "alex_bank": "Bank of Alexandria",
+        "faisal_bank": "Faisal Islamic Bank"
+      }
+    },
+    "islamic_financing_details": {
+      "title": "Islamic Financing",
+      "description": "Sharia-compliant financing solutions",
+      "murabaha": {
+        "title": "Murabaha",
+        "description": "Islamic Murabaha financing with fixed profit margin"
+      },
+      "ijara": {
+        "title": "Ijara",
+        "description": "Ijara financing ending with ownership"
+      },
+      "musharaka": {
+        "title": "Musharaka",
+        "description": "Partnership financing sharing profits and losses"
+      }
+    },
+    "investment_process": {
+      "title": "Investment Steps",
+      "step1": {
+        "title": "Free Consultation",
+        "description": "Book a free consultation with our investment experts"
+      },
+      "step2": {
+        "title": "Choose Investment",
+        "description": "Select the investment type and property suitable for your budget"
+      },
+      "step3": {
+        "title": "Financing & Payment",
+        "description": "Choose the payment plan or financing option that suits you"
+      },
+      "step4": {
+        "title": "Follow-up & Management",
+        "description": "We manage your investment and ensure the best return"
+      }
+    },
+    "testimonials": {
+      "title": "Investor Testimonials",
+      "testimonial1": {
+        "name": "Ahmed Mohamed",
+        "role": "Investor",
+        "text": "I achieved a 16% return on my investment in El Eman Heights project within one year"
+      },
+      "testimonial2": {
+        "name": "Fatma Ali",
+        "role": "Investor",
+        "text": "Dealing with El Eman was exceptional, complete transparency and continuous follow-up"
+      },
+      "testimonial3": {
+        "name": "Mohamed Hassan",
+        "role": "Investor",
+        "text": "The best investment decision I made, excellent returns and great customer service"
+      }
+    },
+    "cta": {
+      "title": "Start Your Investment Journey Today",
+      "description": "Join hundreds of investors who have achieved exceptional profits with us",
+      "schedule_meeting": "Schedule Meeting",
+      "call_now": "Call Now",
+      "whatsapp": "WhatsApp"
+    }
+  },
+  "contact_page": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help you find the perfect property",
+    "hero_title": "Get in Touch with El Eman Team",
+    "hero_description": "Our professional team is ready to assist you at every step of your real estate journey",
+    "get_in_touch": "Get in Touch",
+    "contact_form": {
+      "title": "Send us a Message",
+      "subtitle": "Fill out the form and we'll get back to you within 24 hours",
+      "name": "Full Name",
+      "name_placeholder": "Enter your full name",
+      "email": "Email Address",
+      "email_placeholder": "Enter your email address",
+      "phone": "Phone Number",
+      "phone_placeholder": "Enter your phone number",
+      "subject": "Subject",
+      "subject_placeholder": "Choose inquiry subject",
+      "message": "Message",
+      "message_placeholder": "Write your message here...",
+      "preferred_contact": "Preferred Contact Method",
+      "contact_time": "Preferred Contact Time",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully!",
+      "error": "An error occurred, please try again",
+      "subjects": {
+        "general": "General Inquiry",
+        "property": "Property Inquiry",
+        "investment": "Investment Opportunities",
+        "visit": "Schedule Visit",
+        "financing": "Financing",
+        "complaint": "Complaint or Suggestion"
+      },
+      "contact_methods": {
+        "phone": "Phone",
+        "email": "Email",
+        "whatsapp": "WhatsApp"
+      },
+      "contact_times": {
+        "morning": "Morning (9-12)",
+        "afternoon": "Afternoon (12-6)",
+        "evening": "Evening (6-9)"
+      }
+    },
+    "contact_info": {
+      "title": "Contact Information",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "working_hours": "Working Hours",
+      "social_media": "Social Media"
+    },
+    "office_locations": {
+      "title": "Our Office Locations",
+      "main_office": {
+        "title": "Main Office",
+        "address": "North 90th Street, Fifth Settlement, New Cairo",
+        "phone": "+20 2 2615 3000",
+        "working_hours": "Sunday - Thursday: 9:00 AM - 6:00 PM"
+      },
+      "sheikh_zayed_office": {
+        "title": "Sheikh Zayed Office",
+        "address": "16th District, Sheikh Zayed, Giza",
+        "phone": "+20 2 3835 4000",
+        "working_hours": "Sunday - Thursday: 9:00 AM - 6:00 PM"
+      },
+      "north_coast_office": {
+        "title": "North Coast Office",
+        "address": "KM 120, Alexandria-Matrouh Road, North Coast",
+        "phone": "+20 3 459 2000",
+        "working_hours": "Daily: 10:00 AM - 8:00 PM (Seasonal)"
+      }
+    },
+    "quick_contact": {
+      "title": "Quick Contact",
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "Contact us instantly via WhatsApp",
+        "button": "Send Message"
+      },
+      "call": {
+        "title": "Call Us",
+        "description": "Speak directly with our experts",
+        "button": "Call Now"
+      },
+      "email": {
+        "title": "Email",
+        "description": "Send your inquiry via email",
+        "button": "Send Email"
+      },
+      "visit": {
+        "title": "Schedule Visit",
+        "description": "Book an appointment to visit our offices",
+        "button": "Book Appointment"
+      }
+    },
+    "map": {
+      "title": "Find Us on the Map",
+      "view_larger": "View Larger Map",
+      "get_directions": "Get Directions"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "question1": {
+        "q": "How can I schedule a property viewing?",
+        "a": "You can schedule a visit through the form above, call us directly, or via WhatsApp. Our team will coordinate a suitable appointment for you."
+      },
+      "question2": {
+        "q": "What financing options are available?",
+        "a": "We offer various financing options including traditional and Islamic banking, and flexible payment plans from the developer."
+      },
+      "question3": {
+        "q": "Can I invest in properties from abroad?",
+        "a": "Yes, we welcome investors from around the world and provide special services for international clients."
+      },
+      "question4": {
+        "q": "How long does unit delivery take?",
+        "a": "Delivery periods vary by project, typically ranging from 2-4 years from construction start date."
+      },
+      "question5": {
+        "q": "Are there warranties on the units?",
+        "a": "Yes, we provide comprehensive warranties on all units covering structure, finishes, and electrical and plumbing systems."
+      }
+    },
+    "emergency_contact": {
+      "title": "Emergency Contact",
+      "description": "For urgent matters outside business hours",
+      "phone": "Emergency Line: +20 100 123 4567"
+    }
+  },
+  "footer": {
+    "company_name": "El Eman Developments",
+    "tagline": "Where Belief Takes Shape",
+    "description": "We believe in building exceptional communities that combine quality, trust, and belief",
+    "quick_links": "Quick Links",
+    "el_eman_group": "El Eman Group",
+    "contracting": "El Eman Contracting",
+    "capital": "El Eman Capital",
+    "group": "El Eman Group",
+    "contact_info": "Contact Information",
+    "phone": "Phone",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "address": "Address",
+    "address_text": "New Cairo, Egypt",
+    "follow_us": "Follow Us",
+    "all_rights_reserved": "All Rights Reserved",
+    "privacy_policy": "Privacy Policy",
+    "terms_conditions": "Terms & Conditions"
+  }
+}
