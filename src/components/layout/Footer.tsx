@@ -174,13 +174,13 @@ export default function Footer() {
             </div>
             <div className="flex space-x-6 rtl:space-x-reverse">
               <Link
-                href={`/${locale}/privacy`}
+                href={`/${locale}/privacy` as any}
                 className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
               >
                 {t('privacy_policy')}
               </Link>
               <Link
-                href={`/${locale}/terms`}
+                href={`/${locale}/terms` as any}
                 className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
               >
                 {t('terms_conditions')}
