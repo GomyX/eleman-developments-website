@@ -74,14 +74,12 @@ export default function Footer() {
           
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">إ</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-lg">{t('company_name')}</h3>
-                <p className="text-sm opacity-90">{t('tagline')}</p>
-              </div>
+            <div className="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+              <img 
+                src="/images/brand/logo_png.png" 
+                alt="El Eman Group Logo" 
+                className="h-16 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-sm opacity-80 mb-6 leading-relaxed">
               {t('description')}

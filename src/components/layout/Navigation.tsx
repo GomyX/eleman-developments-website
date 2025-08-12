@@ -44,18 +44,12 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href={`/${locale}` as any} className="flex items-center space-x-2 rtl:space-x-reverse">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">إ</span>
-              </div>
-              <div className="text-secondary">
-                <div className="font-bold text-lg leading-tight">
-                  {isRTL ? 'الإيمان للتطوير' : 'El Eman'}
-                </div>
-                <div className="text-sm opacity-90">
-                  {isRTL ? 'العقاري' : 'Developments'}
-                </div>
-              </div>
+            <Link href={`/${locale}` as any} className="flex items-center space-x-3 rtl:space-x-reverse">
+              <img 
+                src="/images/brand/logo_png.png" 
+                alt="El Eman Group Logo" 
+                className="h-12 w-auto"
+              />
             </Link>
           </div>
 
