@@ -1,7 +1,6 @@
-const { fontFamily } = require('tailwindcss/defaultTheme');
+import { type Config } from 'tailwindcss';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,20 +9,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        saffron: '#E29578',
-        teal: '#006D77',
-        sand: '#FFDDD2',
+        primary: '#e8b883',
+        secondary: '#000000',
+        gray: '#6b7280',
       },
       fontFamily: {
-        arabic: ['"Noto Sans Arabic"', ...fontFamily.sans],
-        latin: ['Montserrat', ...fontFamily.sans],
+        arabic: ['Noto Sans Arabic', 'sans-serif'],
+        latin: ['Montserrat', 'sans-serif'],
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
-};
-
-
+} satisfies Config;

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 // Root page - redirects to Arabic (default locale for Egyptian market)
-export default function RootPage() {
+export default function RootPage(): never {
   // Immediate redirect to Arabic homepage
   // This handles any direct access to root domain
   redirect('/ar');

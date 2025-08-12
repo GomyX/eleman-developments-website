@@ -21,7 +21,7 @@ export default async function RootLayout({
   const { locale = 'ar' } = await params;
   
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as 'ar' | 'en')) {
     notFound();
   }
 
@@ -29,7 +29,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html lang={locale === 'ar' ? 'ar' : 'en'} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"

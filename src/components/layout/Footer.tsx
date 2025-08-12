@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 import { 
   PhoneIcon, 
   EnvelopeIcon, 
@@ -14,8 +15,7 @@ export default function Footer() {
   const t = useTranslations('footer');
   const navT = useTranslations('navigation');
   
-  const isRTL = locale === 'ar';
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   const quickLinks = [
     { key: 'home', href: '/' },
@@ -67,7 +67,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-teal text-white">
+    <footer className="bg-secondary text-white">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -75,7 +75,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
-              <div className="w-10 h-10 bg-saffron rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-xl">إ</span>
               </div>
               <div>
@@ -95,7 +95,7 @@ export default function Footer() {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-saffron transition-colors duration-200"
+                    className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200"
                     aria-label={social.name}
                   >
                     <span className="text-sm">{social.icon}</span>
@@ -113,7 +113,7 @@ export default function Footer() {
                 <li key={link.key}>
                   <Link
                     href={`/${locale}${link.href}`}
-                    className="text-sm opacity-80 hover:opacity-100 hover:text-saffron transition-colors duration-200"
+                    className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
                   >
                     {navT(link.key)}
                   </Link>
@@ -130,7 +130,7 @@ export default function Footer() {
                 <li key={index}>
                   <a
                     href={company.href}
-                    className="text-sm opacity-80 hover:opacity-100 hover:text-saffron transition-colors duration-200"
+                    className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
                   >
                     {company.name}
                   </a>
@@ -149,7 +149,7 @@ export default function Footer() {
                   <li key={index}>
                     <a
                       href={contact.href}
-                      className="flex items-start space-x-3 rtl:space-x-reverse text-sm opacity-80 hover:opacity-100 hover:text-saffron transition-colors duration-200"
+                      className="flex items-start space-x-3 rtl:space-x-reverse text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
                     >
                       <IconComponent className="w-4 h-4 mt-0.5 flex-shrink-0" />
                       <div>
@@ -174,14 +174,14 @@ export default function Footer() {
             </div>
             <div className="flex space-x-6 rtl:space-x-reverse">
               <Link
-                href={`/${locale}/privacy` as any} 
-                className="text-sm opacity-80 hover:opacity-100 hover:text-saffron transition-colors duration-200"
+                href={`/${locale}/privacy`}
+                className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
               >
                 {t('privacy_policy')}
               </Link>
               <Link
-                href={`/${locale}/terms` as any}
-                className="text-sm opacity-80 hover:opacity-100 hover:text-saffron transition-colors duration-200"
+                href={`/${locale}/terms`}
+                className="text-sm opacity-80 hover:opacity-100 hover:text-primary transition-colors duration-200"
               >
                 {t('terms_conditions')}
               </Link>

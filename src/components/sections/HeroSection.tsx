@@ -40,43 +40,40 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background with Saffron Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-saffron via-saffron/90 to-saffron/80">
-        {/* Brand Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-32 h-32 border-4 border-white rounded-full animate-pulse"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 border-2 border-white/50 rounded-full animate-pulse delay-300"></div>
-          <div className="absolute bottom-32 left-1/4 w-16 h-16 border-2 border-white/30 rounded-full animate-pulse delay-700"></div>
-          <div className="absolute bottom-20 right-20 w-40 h-40 border-4 border-white/20 rounded-full animate-pulse delay-500"></div>
-        </div>
-        
-        {/* Arabic Calligraphy Pattern */}
+      {/* YouTube Background Video */}
+      <iframe
+        className="absolute inset-0 w-full h-full object-cover scale-150"
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+      />
+      
+      {/* Premium Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60 z-10">
+        {/* Subtle Brand Elements */}
         <div className="absolute inset-0 opacity-5">
-          <div className={`absolute top-1/4 ${isRTL ? 'right-10' : 'left-10'} text-9xl font-bold text-white select-none`}>
+          <div className={`absolute top-1/4 ${isRTL ? 'right-10' : 'left-10'} text-6xl font-light text-white select-none`}>
             إ
-          </div>
-          <div className={`absolute bottom-1/4 ${isRTL ? 'left-10' : 'right-10'} text-6xl font-bold text-white select-none`}>
-            الإيمان
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center text-white">
           {/* Main Title */}
-          <div className="mb-8">
-            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight ${
+          <div className="mb-12">
+            <h1 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-none mb-6 ${
               isRTL ? 'font-arabic' : 'font-latin'
             }`}>
               {t('title')}
             </h1>
-            <div className="w-24 h-1 bg-white mx-auto mt-6 rounded-full"></div>
+            <div className="w-16 h-px bg-primary mx-auto"></div>
           </div>
 
           {/* Subtitle */}
-          <div className="mb-12">
-            <p className={`text-lg sm:text-xl md:text-2xl font-medium max-w-4xl mx-auto leading-relaxed opacity-95 ${
+          <div className="mb-16">
+            <p className={`text-xl sm:text-2xl font-light max-w-3xl mx-auto leading-relaxed opacity-90 ${
               isRTL ? 'font-arabic' : 'font-latin'
             }`}>
               {t('subtitle')}
@@ -84,63 +81,41 @@ export default function HeroSection() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             {/* Browse Properties - Primary CTA */}
             <Link
               href={`/${locale}/projects`}
-              className="group bg-white text-saffron px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-3 rtl:space-x-reverse min-w-[200px] justify-center"
+              className="group bg-white/95 backdrop-blur-sm text-secondary px-10 py-4 text-lg font-medium tracking-wide hover:bg-white hover:scale-105 transition-all duration-500 flex items-center space-x-3 rtl:space-x-reverse min-w-[220px] justify-center shadow-2xl"
             >
-              <MagnifyingGlassIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
+              <MagnifyingGlassIcon className="w-5 h-5" />
               <span>{t('cta_browse')}</span>
             </Link>
 
             {/* Schedule Visit - Secondary CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="group bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-saffron transition-all duration-300 flex items-center space-x-3 rtl:space-x-reverse min-w-[200px] justify-center"
+              className="group border border-white/50 text-white px-10 py-4 text-lg font-medium tracking-wide hover:bg-white/10 hover:border-white transition-all duration-500 flex items-center space-x-3 rtl:space-x-reverse min-w-[220px] justify-center backdrop-blur-sm"
             >
-              <CalendarDaysIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
+              <CalendarDaysIcon className="w-5 h-5" />
               <span>{t('cta_schedule')}</span>
             </Link>
-
-            {/* Download Brochure - Tertiary CTA */}
-            <button className="group bg-teal text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-teal/90 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-3 rtl:space-x-reverse min-w-[200px] justify-center">
-              <DocumentArrowDownIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
-              <span>{t('cta_download')}</span>
-            </button>
           </div>
 
-          {/* Video Play Button - Optional */}
-          <div className="mt-16">
-            <button
-              className="group bg-white/10 backdrop-blur-sm border border-white/30 rounded-full p-6 hover:bg-white/20 transition-all duration-300"
-              aria-label="Play company video"
-            >
-              <PlayIcon className="w-12 h-12 text-white group-hover:scale-110 transition-transform duration-200 ml-1" />
-            </button>
-            <p className="mt-4 text-sm opacity-80 font-medium">
-              {isRTL ? 'شاهد قصة الإيمان' : 'Watch Our Story'}
-            </p>
-          </div>
+
 
           {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white rounded-full mt-2" />
-            </div>
-            <p className="mt-2 text-xs opacity-60">
+          <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
+            <div className="w-px h-16 bg-white/30 animate-pulse"></div>
+            <p className="mt-4 text-xs opacity-60 font-light tracking-widest uppercase">
               {isRTL ? 'اكتشف المزيد' : 'Discover More'}
             </p>
           </div>
         </div>
       </div>
 
-      {/* Floating Elements for Visual Interest */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-white/20 rounded-full" />
-        <div className="absolute top-1/3 right-1/3 w-6 h-6 bg-white/15 rounded-full" />
-        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-white/25 rounded-full" />
-      </div>
+
     </section>
   );
 }
+
+
