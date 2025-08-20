@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import ContactForm from '@/components/forms/ContactForm';
 import {
   PhoneIcon,
@@ -11,9 +11,13 @@ import {
   ChatBubbleLeftRightIcon,
   BuildingOfficeIcon,
   GlobeAltIcon,
-  QuestionMarkCircleIcon,
+  StarIcon,
+  CheckCircleIcon,
+  CalendarDaysIcon,
+  UserGroupIcon,
+  HeartIcon,
   ExclamationTriangleIcon,
-  CheckCircleIcon
+  QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline';
 
 interface ContactClientProps {
@@ -23,34 +27,24 @@ interface ContactClientProps {
 export default function ContactClient({ locale }: ContactClientProps) {
   const t = useTranslations('contact_page');
   const isRTL = locale === 'ar';
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
-  const offices = [
-    {
-      key: 'main_office',
-      icon: BuildingOfficeIcon,
-      color: 'text-saffron bg-saffron/10'
-    },
-    {
-      key: 'sheikh_zayed_office',
-      icon: BuildingOfficeIcon,
-      color: 'text-teal bg-teal/10'
-    },
-    {
-      key: 'north_coast_office',
-      icon: GlobeAltIcon,
-      color: 'text-blue-500 bg-blue-50'
-    }
-  ];
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const quickContactMethods = [
     {
       key: 'whatsapp',
       icon: ChatBubbleLeftRightIcon,
-      color: 'from-green-500 to-green-600',
+      gradient: 'from-green-500 to-emerald-600',
       bgColor: 'bg-green-50',
+      borderColor: 'border-green-200',
+      hoverBg: 'hover:bg-green-100',
       action: () => {
         const message = encodeURIComponent(
-          `${isRTL ? 'مرحباً، أود الاستفسار عن خدماتكم' : 'Hello, I would like to inquire about your services'}`
+          `${isRTL ? 'مرحباً، أود جدولة زيارة لمعاينة العقارات' : 'Hello, I would like to schedule a property visit'}`
         );
         const phoneNumber = '+201234567890';
         window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
@@ -59,8 +53,10 @@ export default function ContactClient({ locale }: ContactClientProps) {
     {
       key: 'call',
       icon: PhoneIcon,
-      color: 'from-blue-500 to-blue-600',
+      gradient: 'from-blue-500 to-blue-700',
       bgColor: 'bg-blue-50',
+      borderColor: 'border-blue-200',
+      hoverBg: 'hover:bg-blue-100',
       action: () => {
         const phoneNumber = '+201234567890';
         window.open(`tel:${phoneNumber}`, '_self');
@@ -69,386 +65,267 @@ export default function ContactClient({ locale }: ContactClientProps) {
     {
       key: 'email',
       icon: EnvelopeIcon,
-      color: 'from-purple-500 to-purple-600',
+      gradient: 'from-purple-500 to-purple-700',
       bgColor: 'bg-purple-50',
+      borderColor: 'border-purple-200',
+      hoverBg: 'hover:bg-purple-100',
       action: () => {
         const subject = encodeURIComponent(
-          `${isRTL ? 'استفسار عن الخدمات' : 'Service Inquiry'}`
+          `${isRTL ? 'طلب جدولة زيارة - الإيمان للتطوير' : 'Visit Scheduling Request - El Eman Developments'}`
         );
         const body = encodeURIComponent(
-          `${isRTL ? 'مرحباً،\n\nأود الاستفسار عن...' : 'Hello,\n\nI would like to inquire about...'}`
+          `${isRTL ? 'مرحباً،\n\nأود جدولة زيارة لمعاينة العقارات المتاحة. يرجى التواصل معي لتحديد موعد مناسب.' : 'Hello,\n\nI would like to schedule a visit to view available properties. Please contact me to arrange a suitable appointment.'}`
         );
         window.open(`mailto:info@elemangroup.com?subject=${subject}&body=${body}`, '_self');
-      }
-    },
-    {
-      key: 'visit',
-      icon: MapPinIcon,
-      color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
-      action: () => {
-        // Scroll to contact form
-        const formElement = document.getElementById('contact-form');
-        if (formElement) {
-          formElement.scrollIntoView({ behavior: 'smooth' });
-        }
       }
     }
   ];
 
-  const faqQuestions = ['question1', 'question2', 'question3', 'question4', 'question5'];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
+  const offices = [
+    {
+      key: 'european_countryside',
+      icon: BuildingOfficeIcon,
+      gradient: 'from-primary to-primary-dark',
+      location: { ar: 'الريف الأوروبي', en: 'European Countryside' },
+      address: { ar: 'الريف الأوروبي', en: 'European Countryside' },
+      phone: '+20 2 1234 5678',
+      hours: { ar: 'يومياً: 10 ص - 10 م', en: 'Daily: 10 AM - 10 PM' }
+    },
+    {
+      key: 'six_october',
+      icon: BuildingOfficeIcon,
+      gradient: 'from-teal-500 to-teal-700',
+      location: { ar: '6 أكتوبر', en: '6 October' },
+      address: { ar: '6 أكتوبر', en: '6 October' },
+      phone: '+20 2 3876 5432',
+      hours: { ar: 'يومياً: 10 ص - 10 م', en: 'Daily: 10 AM - 10 PM' }
     }
-  };
+  ];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
+  const benefits = [
+    {
+      icon: UserGroupIcon,
+      title: { ar: 'خبراء متخصصون', en: 'Expert Specialists' },
+      description: { ar: 'فريق من الخبراء لمساعدتك في اختيار العقار المثالي', en: 'Team of experts to help you choose the perfect property' }
+    },
+    {
+      icon: CheckCircleIcon,
+      title: { ar: 'ضمان الجودة', en: 'Quality Assurance' },
+      description: { ar: 'جميع مشاريعنا تتم بأعلى معايير الجودة', en: 'All our projects are built with the highest quality standards' }
+    },
+    {
+      icon: HeartIcon,
+      title: { ar: 'خدمة مميزة', en: 'Premium Service' },
+      description: { ar: 'نقدم خدمة شخصية مصممة خصيصاً لاحتياجاتك', en: 'We provide personalized service tailored to your needs' }
+    }
+  ];
+
+  const faqQuestions = [
+    'what_is_el_eman',
+    'how_to_schedule_visit',
+    'payment_options',
+    'project_delivery'
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Hero Section */}
-      <motion.section 
-        className="relative bg-gradient-to-r from-teal via-blue-500 to-saffron text-white py-20 overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="absolute inset-0 bg-black/30"></div>
+      <section className={`relative bg-gradient-to-r from-primary via-primary-dark to-secondary text-white py-24 overflow-hidden transform transition-all duration-1000 ${
+        isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+      }`}>
+        <div className="absolute inset-0 bg-black/20"></div>
+        
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-bounce"></div>
+        <div className="absolute bottom-20 right-10 w-16 h-16 bg-white/10 rounded-full animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-white/5 rounded-full animate-ping"></div>
+        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              {t('hero_title')}
-            </motion.h1>
-            <motion.p 
-              className="text-xl sm:text-2xl mb-8 opacity-90 max-w-4xl mx-auto"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              {t('hero_description')}
-            </motion.p>
+            <div className="mb-6 overflow-hidden">
+              <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-light mb-6 transform transition-all duration-1000 delay-300 text-shadow-lg ${
+                isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              }`}>
+                {isRTL ? 'تواصل معنا' : 'Contact Us'}
+              </h1>
+            </div>
+            
+            <div className="flex justify-center items-center space-x-4 rtl:space-x-reverse mb-8">
+              <div className="w-16 h-px bg-white"></div>
+              <StarIcon className="w-6 h-6 text-white" />
+              <div className="w-16 h-px bg-white"></div>
+            </div>
+            
+            <div className="overflow-hidden">
+              <p className={`text-xl sm:text-2xl md:text-3xl font-light opacity-90 max-w-4xl mx-auto leading-relaxed transform transition-all duration-1000 delay-500 text-shadow ${
+                isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}>
+                {isRTL 
+                  ? 'نحن هنا لخدمتكم ومساعدتكم في تحقيق أحلامكم العقارية. تواصلوا معنا بأي طريقة تناسبكم' 
+                  : 'We are here to serve you and help you achieve your real estate dreams. Contact us in any way that suits you'
+                }
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Animated Elements */}
-        <motion.div
-          className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full"
-          animate={{ y: [-20, 20, -20], rotate: [0, 180, 360] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-16 h-16 bg-white/10 rounded-full"
-          animate={{ y: [20, -20, 20], rotate: [360, 180, 0] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
-      </motion.section>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
-        {/* Quick Contact Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('quick_contact.title')}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Quick Contact Methods */}
+        <section className={`mb-20 transform transition-all duration-1000 delay-700 ${
+          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <div className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <h2 className="text-4xl sm:text-5xl font-light text-gray-900 mb-6">
+              {isRTL ? 'طرق التواصل السريع' : 'Quick Contact Methods'}
             </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {quickContactMethods.map((method, index) => {
-              const IconComponent = method.icon;
-              return (
-                <motion.div
-                  key={method.key}
-                  variants={itemVariants}
-                  className={`${method.bgColor} rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300 cursor-pointer group`}
-                  onClick={method.action}
-                >
-                  <div className={`w-16 h-16 bg-gradient-to-r ${method.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className={`text-xl font-bold text-gray-900 mb-2 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`quick_contact.${method.key}.title`)}
-                  </h3>
-                  <p className={`text-gray-600 mb-4 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`quick_contact.${method.key}.description`)}
-                  </p>
-                  <button className="text-saffron font-semibold hover:text-saffron/80 transition-colors duration-200">
-                    {t(`quick_contact.${method.key}.button`)}
-                  </button>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </motion.section>
-
-        {/* Contact Form and Info Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
-        >
-          {/* Contact Form */}
-          <div className="lg:col-span-2" id="contact-form">
-            <ContactForm />
-          </div>
-
-          {/* Contact Information */}
-          <div className="space-y-6">
-            {/* Contact Info Card */}
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h3 className={`text-xl font-bold text-gray-900 mb-6 ${
-                isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-              }`}>
-                {t('contact_info.title')}
-              </h3>
-
-              <div className="space-y-4">
-                <div className={`flex items-start space-x-3 rtl:space-x-reverse ${
-                  isRTL ? 'flex-row-reverse' : 'flex-row'
-                }`}>
-                  <PhoneIcon className="w-5 h-5 text-saffron mt-1 flex-shrink-0" />
-                  <div className={isRTL ? 'text-right' : 'text-left'}>
-                    <p className="font-semibold text-gray-900">{t('contact_info.phone')}</p>
-                    <p className="text-gray-600">+20 2 2615 3000</p>
-                    <p className="text-gray-600">+20 100 123 4567</p>
-                  </div>
-                </div>
-
-                <div className={`flex items-start space-x-3 rtl:space-x-reverse ${
-                  isRTL ? 'flex-row-reverse' : 'flex-row'
-                }`}>
-                  <EnvelopeIcon className="w-5 h-5 text-saffron mt-1 flex-shrink-0" />
-                  <div className={isRTL ? 'text-right' : 'text-left'}>
-                    <p className="font-semibold text-gray-900">{t('contact_info.email')}</p>
-                    <p className="text-gray-600">info@elemangroup.com</p>
-                    <p className="text-gray-600">sales@elemangroup.com</p>
-                  </div>
-                </div>
-
-                <div className={`flex items-start space-x-3 rtl:space-x-reverse ${
-                  isRTL ? 'flex-row-reverse' : 'flex-row'
-                }`}>
-                  <ClockIcon className="w-5 h-5 text-saffron mt-1 flex-shrink-0" />
-                  <div className={isRTL ? 'text-right' : 'text-left'}>
-                    <p className="font-semibold text-gray-900">{t('contact_info.working_hours')}</p>
-                    <p className="text-gray-600">
-                      {locale === 'ar' ? 'الأحد - الخميس: 9:00 ص - 6:00 م' : 'Sunday - Thursday: 9:00 AM - 6:00 PM'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Emergency Contact */}
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
-              <div className={`flex items-center space-x-3 rtl:space-x-reverse mb-3 ${
-                isRTL ? 'flex-row-reverse' : 'flex-row'
-              }`}>
-                <ExclamationTriangleIcon className="w-6 h-6 text-red-500" />
-                <h4 className={`text-lg font-bold text-red-900 ${
-                  isRTL ? 'font-arabic' : 'font-latin'
-                }`}>
-                  {t('emergency_contact.title')}
-                </h4>
-              </div>
-              <p className={`text-red-800 mb-2 ${
-                isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-              }`}>
-                {t('emergency_contact.description')}
-              </p>
-              <p className={`font-semibold text-red-900 ${
-                isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-              }`}>
-                {t('emergency_contact.phone')}
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Office Locations Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('office_locations.title')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary to-primary-dark mx-auto rounded-full"></div>
+            <p className="text-xl text-gray-600 mt-6 max-w-2xl mx-auto">
+              {isRTL 
+                ? 'اختر الطريقة الأنسب لك للتواصل معنا وجدولة زيارتك' 
+                : 'Choose the most convenient way to contact us and schedule your visit'
+              }
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {offices.map((office, index) => {
-              const IconComponent = office.icon;
+            {quickContactMethods.map((method, index) => {
+              const IconComponent = method.icon;
               return (
-                <motion.div
-                  key={office.key}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                <div
+                  key={method.key}
+                  className={`${method.bgColor} ${method.borderColor} ${method.hoverBg} 
+                    border-2 rounded-3xl p-8 text-center transition-all duration-500 cursor-pointer group
+                    hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transform
+                    ${isLoaded ? 'animate-fade-in-up' : 'opacity-0'}`}
+                  style={{ animationDelay: `${800 + index * 100}ms` }}
+                  onClick={method.action}
+                  onMouseEnter={() => setActiveCard(index)}
+                  onMouseLeave={() => setActiveCard(null)}
                 >
-                  <div className={`w-16 h-16 ${office.color} rounded-xl flex items-center justify-center mb-6`}>
-                    <IconComponent className="w-8 h-8" />
-                  </div>
-                  <h3 className={`text-xl font-bold text-gray-900 mb-4 ${
-                    isRTL ? 'font-arabic text-right' : 'font-latin text-left'
+                  <div className={`w-20 h-20 bg-gradient-to-r ${method.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 
+                    group-hover:scale-110 transition-transform duration-300 shadow-lg ${
+                    activeCard === index ? 'animate-pulse' : ''
                   }`}>
-                    {t(`office_locations.${office.key}.title`)}
-                  </h3>
-                  
-                  <div className="space-y-3">
-                    <div className={`flex items-start space-x-2 rtl:space-x-reverse ${
-                      isRTL ? 'flex-row-reverse' : 'flex-row'
-                    }`}>
-                      <MapPinIcon className="w-4 h-4 text-gray-500 mt-1 flex-shrink-0" />
-                      <p className={`text-gray-600 text-sm ${
-                        isRTL ? 'text-right' : 'text-left'
-                      }`}>
-                        {t(`office_locations.${office.key}.address`)}
-                      </p>
-                    </div>
-                    
-                    <div className={`flex items-center space-x-2 rtl:space-x-reverse ${
-                      isRTL ? 'flex-row-reverse' : 'flex-row'
-                    }`}>
-                      <PhoneIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                      <p className="text-gray-600 text-sm">
-                        {t(`office_locations.${office.key}.phone`)}
-                      </p>
-                    </div>
-                    
-                    <div className={`flex items-start space-x-2 rtl:space-x-reverse ${
-                      isRTL ? 'flex-row-reverse' : 'flex-row'
-                    }`}>
-                      <ClockIcon className="w-4 h-4 text-gray-500 mt-1 flex-shrink-0" />
-                      <p className={`text-gray-600 text-sm ${
-                        isRTL ? 'text-right' : 'text-left'
-                      }`}>
-                        {t(`office_locations.${office.key}.working_hours`)}
-                      </p>
-                    </div>
+                    <IconComponent className="w-10 h-10 text-white" />
                   </div>
-                </motion.div>
+                  <h3 className={`text-2xl font-semibold text-gray-900 mb-4 ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}>
+                    {isRTL ? 
+                      (method.key === 'whatsapp' ? 'واتساب' : 
+                       method.key === 'call' ? 'اتصال مباشر' : 
+                       'البريد الإلكتروني') :
+                      (method.key === 'whatsapp' ? 'WhatsApp' : 
+                       method.key === 'call' ? 'Direct Call' : 
+                       'Email')
+                    }
+                  </h3>
+                  <p className={`text-gray-600 mb-6 text-lg leading-relaxed ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}>
+                    {isRTL ? 
+                      (method.key === 'whatsapp' ? 'تواصل فوري ومرن' : 
+                       method.key === 'call' ? 'استشارة مباشرة' : 
+                       'تواصل رسمي ومفصل') :
+                      (method.key === 'whatsapp' ? 'Instant & flexible communication' : 
+                       method.key === 'call' ? 'Direct consultation' : 
+                       'Formal & detailed communication')
+                    }
+                  </p>
+                  <div className={`text-sm font-medium text-gray-500 group-hover:text-gray-700 transition-colors ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}>
+                    {isRTL ? 'انقر للتواصل' : 'Click to connect'}
+                  </div>
+                </div>
               );
             })}
           </div>
-        </motion.section>
+        </section>
 
-        {/* Map Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-3xl shadow-lg p-8 md:p-12"
-        >
-          <div className={`text-center mb-8 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('map.title')}
+        {/* Why Choose Us Section */}
+        <section className={`mb-20 transform transition-all duration-1000 delay-1000 ${
+          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <div className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <h2 className="text-4xl sm:text-5xl font-light text-gray-900 mb-6">
+              {isRTL ? 'لماذا تختار الإيمان؟' : 'Why Choose El Eman?'}
             </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary to-primary-dark mx-auto rounded-full"></div>
           </div>
 
-          {/* Placeholder Map */}
-          <div className="relative bg-gray-200 rounded-2xl h-96 flex items-center justify-center overflow-hidden">
-            <div className="text-center">
-              <MapPinIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <p className={`text-gray-600 text-lg ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-                {locale === 'ar' ? 'خريطة تفاعلية قريباً' : 'Interactive Map Coming Soon'}
-              </p>
-              <div className="mt-4 space-x-4 rtl:space-x-reverse">
-                <button className="bg-saffron text-white px-6 py-2 rounded-lg hover:bg-saffron/90 transition-colors duration-200">
-                  {t('map.view_larger')}
-                </button>
-                <button className="border border-saffron text-saffron px-6 py-2 rounded-lg hover:bg-saffron/10 transition-colors duration-200">
-                  {t('map.get_directions')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* FAQ Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-gray-100 rounded-3xl p-8 md:p-12"
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('faq.title')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-6">
-            {faqQuestions.map((question, index) => (
-              <motion.div
-                key={question}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl shadow-sm p-6"
-              >
-                <div className={`flex items-start space-x-4 rtl:space-x-reverse ${
-                  isRTL ? 'flex-row-reverse' : 'flex-row'
-                }`}>
-                  <div className="w-8 h-8 bg-saffron/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <QuestionMarkCircleIcon className="w-5 h-5 text-saffron" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {benefits.map((benefit, index) => {
+              const IconComponent = benefit.icon;
+              return (
+                <div
+                  key={index}
+                  className="bg-white rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 group hover:scale-105 transform"
+                >
+                  <div className="w-16 h-16 bg-gradient-to-r from-primary to-primary-dark rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  <div className={`flex-1 ${isRTL ? 'text-right' : 'text-left'}`}>
-                    <h4 className={`text-lg font-bold text-gray-900 mb-3 ${
-                      isRTL ? 'font-arabic' : 'font-latin'
-                    }`}>
-                      {t(`faq.${question}.q`)}
-                    </h4>
-                    <p className={`text-gray-600 leading-relaxed ${
-                      isRTL ? 'font-arabic' : 'font-latin'
-                    }`}>
-                      {t(`faq.${question}.a`)}
-                    </p>
+                  <h3 className={`text-2xl font-semibold text-gray-900 mb-4 ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}>
+                    {benefit.title[locale as 'ar' | 'en']}
+                  </h3>
+                  <p className={`text-gray-600 text-lg leading-relaxed ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}>
+                    {benefit.description[locale as 'ar' | 'en']}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Office Locations */}
+        <section className={`mb-20 transform transition-all duration-1000 delay-1200 ${
+          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <div className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <h2 className="text-4xl sm:text-5xl font-light text-gray-900 mb-6">
+              {isRTL ? 'مواقعنا' : 'Our Locations'}
+            </h2>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary to-primary-dark mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {offices.map((office, index) => {
+              const IconComponent = office.icon;
+              return (
+                <div
+                  key={office.key}
+                  className="bg-white rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 border border-gray-100 group hover:scale-105 transform"
+                >
+                  <div className={`w-16 h-16 bg-gradient-to-r ${office.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <IconComponent className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className={`text-2xl font-semibold text-gray-900 mb-4 ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}>
+                    {office.location[locale as 'ar' | 'en']}
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center text-gray-600">
+                      <MapPinIcon className="w-5 h-5 mr-3 rtl:ml-3 rtl:mr-0 text-primary" />
+                      <span className={isRTL ? 'font-arabic' : 'font-latin'}>
+                        {office.address[locale as 'ar' | 'en']}
+                      </span>
+                    </div>
+                    <div className="flex items-center text-gray-600">
+                      <PhoneIcon className="w-5 h-5 mr-3 rtl:ml-3 rtl:mr-0 text-primary" />
+                      <span>{office.phone}</span>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
-        </motion.section>
+        </section>
       </div>
     </div>
   );

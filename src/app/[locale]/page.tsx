@@ -23,11 +23,11 @@ export default async function HomePage({ params }: Props) {
       <HeroSection />
       
       {/* Property Search */}
-      <section className="py-12 bg-sand/20">
+      {/* <section className="py-12 bg-sand/20">
         <div className="container mx-auto px-4">
           <PropertySearch />
         </div>
-      </section>
+      </section> */}
       
       {/* Featured Projects */}
       <FeaturedProjects />

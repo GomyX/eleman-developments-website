@@ -1,45 +1,44 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { routing } from '@/lib/routing';
 
 export const metadata: Metadata = {
   title: 'El Eman Developments | الإيمان للتطوير العقاري',
   description: 'Premium real estate projects in Egypt | مشاريع عقارية متميزة في مصر',
+  keywords: 'real estate Egypt, عقارات مصر, El Eman Developments, الإيمان للتطوير',
+  authors: [{ name: 'El Eman Developments' }],
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
+  alternates: {
+    canonical: 'https://developments.elemangroup.com',
+    languages: {
+      ar: 'https://developments.elemangroup.com/ar',
+      en: 'https://developments.elemangroup.com/en'
+    }
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'El Eman Developments',
+    images: ['/images/brand/logo_png.png']
+  }
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
-  params
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale?: string }>;
 }) {
-  // Get locale from params or default to Arabic
-  const { locale = 'ar' } = await params;
-  
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as 'ar' | 'en')) {
-    notFound();
-  }
-
-  // Providing all messages to the client side is the easiest way to get started
-  const messages = await getMessages();
-
   return (
-    <html lang="ar" dir="rtl">
+    <html suppressHydrationWarning>
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#E29578" />
       </head>
-      <body className="font-arabic">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+      <body className="antialiased bg-white text-gray-900">
+        {children}
       </body>
     </html>
   );

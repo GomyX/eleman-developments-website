@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
   const t = useTranslations();
   
   const handleWhatsAppClick = () => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+201234567890';
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+201031055675';
     const message = encodeURIComponent('مرحباً، أود الاستفسار عن مشاريعكم العقارية');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };

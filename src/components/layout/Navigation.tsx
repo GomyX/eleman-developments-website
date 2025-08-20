@@ -37,7 +37,7 @@ export default function Navigation() {
       segments.unshift(newLocale);
     }
     const newPath = `/${segments.join('/')}`;
-    router.replace(newPath);
+    router.push(newPath as any);
   }, [pathname, locale, router]);
 
   return (
@@ -46,7 +46,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href={`/${locale}`} className="flex items-center space-x-3 rtl:space-x-reverse">
+            <Link href={`/${locale}` as any} className="flex items-center space-x-3 rtl:space-x-reverse">
               <img 
                 src="/images/brand/logo_png.png" 
                 alt="El Eman Group Logo" 
@@ -61,7 +61,7 @@ export default function Navigation() {
               {navigationItems.map((item) => (
                 <Link
                   key={item.key}
-                  href={`/${locale}${item.href}`}
+                  href={`/${locale}${item.href}` as any}
                   className={`text-secondary hover:text-primary transition-colors duration-200 font-medium ${
                     pathname === `/${locale}${item.href}` ? 'text-primary border-b-2 border-primary' : ''
                   }`}
@@ -140,7 +140,7 @@ export default function Navigation() {
             {navigationItems.map((item) => (
               <Link
                 key={item.key}
-                href={`/${locale}${item.href}`}
+                href={`/${locale}${item.href}` as any}
                 className={`block px-3 py-2 text-secondary hover:text-primary hover:bg-gray-100 rounded-md transition-colors duration-200 font-medium ${
                   pathname === `/${locale}${item.href}` ? 'text-primary bg-primary/10' : ''
                 }`}
