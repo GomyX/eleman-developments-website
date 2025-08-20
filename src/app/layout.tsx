@@ -29,14 +29,14 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale === 'ar' ? 'ar' : 'en'} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html lang="ar" dir="rtl">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className={locale === 'ar' ? 'font-arabic' : 'font-latin'}>
+      <body className="font-arabic">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Bars3Icon, XMarkIcon, LanguageIcon } from '@heroicons/react/24/outline';
 
 export default function Navigation() {
@@ -27,16 +27,18 @@ export default function Navigation() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleLanguageMenu = () => setIsLanguageMenuOpen(!isLanguageMenuOpen);
 
-  const switchLanguage = (newLocale: string) => {
-    // Create a URL with the new locale
+  const router = useRouter();
+  
+  const switchLanguage = useCallback((newLocale: string) => {
     const segments = pathname.split('/').filter(Boolean);
     if (segments[0] === locale) {
       segments[0] = newLocale;
     } else {
       segments.unshift(newLocale);
     }
-    window.location.href = `/${segments.join('/')}`;
-  };
+    const newPath = `/${segments.join('/')}`;
+    router.replace(newPath);
+  }, [pathname, locale, router]);
 
   return (
     <nav className="bg-white shadow-lg relative z-50 border-b border-gray-200">
@@ -44,7 +46,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href={`/${locale}` as any} className="flex items-center space-x-3 rtl:space-x-reverse">
+            <Link href={`/${locale}`} className="flex items-center space-x-3 rtl:space-x-reverse">
               <img 
                 src="/images/brand/logo_png.png" 
                 alt="El Eman Group Logo" 
@@ -59,7 +61,7 @@ export default function Navigation() {
               {navigationItems.map((item) => (
                 <Link
                   key={item.key}
-                  href={`/${locale}${item.href}` as any}
+                  href={`/${locale}${item.href}`}
                   className={`text-secondary hover:text-primary transition-colors duration-200 font-medium ${
                     pathname === `/${locale}${item.href}` ? 'text-primary border-b-2 border-primary' : ''
                   }`}
@@ -138,7 +140,7 @@ export default function Navigation() {
             {navigationItems.map((item) => (
               <Link
                 key={item.key}
-                href={`/${locale}${item.href}` as any}
+                href={`/${locale}${item.href}`}
                 className={`block px-3 py-2 text-secondary hover:text-primary hover:bg-gray-100 rounded-md transition-colors duration-200 font-medium ${
                   pathname === `/${locale}${item.href}` ? 'text-primary bg-primary/10' : ''
                 }`}

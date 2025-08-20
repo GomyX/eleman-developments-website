@@ -4,41 +4,43 @@ import PropertyDetailsClient from './PropertyDetailsClient';
 // Mock property data - in a real app, this would come from an API or CMS
 const getPropertyBySlug = async (slug: string) => {
   const properties = {
-    'el-eman-heights-villa-1': {
+    'luxury-villa-825': {
       id: '1',
-      slug: 'el-eman-heights-villa-1',
-      title: { ar: 'فيلا مرتفعات الإيمان', en: 'El Eman Heights Villa' },
+      slug: 'luxury-villa-825',
+      title: { ar: 'فيلا فاخرة ٨٢٥م', en: 'Luxury Villa 825m' },
       location: { ar: 'القاهرة الجديدة', en: 'New Cairo' },
-      startingPrice: 3500000,
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 250,
-      builtArea: 200,
+      startingPrice: 8500000,
+      bedrooms: 8,
+      bathrooms: 6,
+      area: 825,
+      builtArea: 420,
+      poolArea: 60,
+      gardenArea: 180,
       deliveryDate: '2025',
-      floor: 'Ground + First',
-      finishing: { ar: 'تشطيب كامل', en: 'Fully Finished' },
-      view: { ar: 'حديقة ومناظر طبيعية', en: 'Garden & Landscape View' },
+      floor: 'Ground + First + Second',
+      finishing: { ar: 'تشطيب فاخر', en: 'Luxury Finishing' },
+      view: { ar: 'حمام سباحة وحديقة', en: 'Pool & Garden View' },
       status: 'available' as const,
-      features: ['garden', 'parking', 'security'],
-      projectName: { ar: 'مرتفعات الإيمان', en: 'El Eman Heights' },
+      features: ['pool', 'garden', 'parking', 'security', 'balcony'],
+      projectName: { ar: 'مجموعة الإيمان', en: 'El Eman Group' },
       description: {
-        ar: 'فيلا فاخرة في مرتفعات الإيمان بالقاهرة الجديدة، تتميز بالتصميم العصري والمساحات الواسعة. تحتوي على 4 غرف نوم و 3 حمامات مع حديقة خاصة وموقف سيارات.',
-        en: 'Luxury villa in El Eman Heights, New Cairo, featuring modern design and spacious areas. Contains 4 bedrooms and 3 bathrooms with private garden and parking space.'
+        ar: 'فيلا ٨٢٥م - مباني ٤٢٠م\nحمام سباحه ٦٠م له سقف مغطي متحرك للخصوصيه وستائر علي الجناب\nحديقه خاصه نجيله طبيعيه ١٨٠م\n\nالدور الارضي: ريسبشن ٣ قطع - حمام كبير- مطبخ كبير - غرفه ماستر - ٢ تراث\nالدور الثاني: ٤ غرف(منهم ٢ ماستر) ريسبشن - حمام- تراث كبير علي حمام السباحه - ٣ بلكونه\nالدور الثالث: ٢ غرفه منهم ١ ماستر - حمام - اوفيس - ريسبشن صغير - باقي المساحه تراث مكشوف علي حمام السباحه',
+        en: '825m Villa - 420m Built Area\n60m Swimming Pool with movable covered roof for privacy and side curtains\n180m Private Garden with natural grass\n\nGround Floor: 3-piece reception - large bathroom - large kitchen - master room - 2 terraces\nSecond Floor: 4 rooms (2 masters) reception - bathroom - large terrace overlooking pool - 3 balconies\nThird Floor: 2 rooms (1 master) - bathroom - office - small reception - remaining area open terrace overlooking pool'
       },
       amenities: {
-        unit: ['garden', 'parking', 'balcony', 'security'],
-        project: ['pool', 'gym', 'security', 'playground', 'mosque', 'commercial_area'],
+        unit: ['pool', 'garden', 'parking', 'balcony', 'security', 'terrace'],
+        project: ['security', 'maintenance', 'landscaping'],
         nearby: ['schools', 'hospitals', 'shopping', 'transportation']
       },
       images: [
-        { id: '1', url: '/images/properties/villa-1-main.jpg', alt: 'Villa Main View', type: 'image' as const },
-        { id: '2', url: '/images/properties/villa-1-living.jpg', alt: 'Living Room', type: 'image' as const },
-        { id: '3', url: '/images/properties/villa-1-bedroom.jpg', alt: 'Master Bedroom', type: 'image' as const },
-        { id: '4', url: '/images/properties/villa-1-garden.jpg', alt: 'Private Garden', type: 'image' as const },
-        { id: '5', url: '/images/properties/villa-1-tour.mp4', alt: 'Virtual Tour', type: 'video' as const },
+        { id: '1', url: '/images/properties/luxury-villa-825-main.jpg', alt: 'Villa Main View', type: 'image' as const },
+        { id: '2', url: '/images/properties/luxury-villa-825-pool.jpg', alt: 'Swimming Pool', type: 'image' as const },
+        { id: '3', url: '/images/properties/luxury-villa-825-garden.jpg', alt: 'Private Garden', type: 'image' as const },
+        { id: '4', url: '/images/properties/luxury-villa-825-interior.jpg', alt: 'Interior View', type: 'image' as const },
+        { id: '5', url: '/images/properties/luxury-villa-825-tour.mp4', alt: 'Virtual Tour', type: 'video' as const },
       ],
       coordinates: { lat: 30.0444, lng: 31.2357 }, // New Cairo coordinates
-      propertyId: 'EH-V-001'
+      propertyId: 'EG-LV-825'
     }
   };
 
@@ -48,8 +50,8 @@ const getPropertyBySlug = async (slug: string) => {
 export function generateStaticParams() {
   // In a real app, this would fetch all property slugs from an API
   return [
-    { locale: 'ar', slug: 'el-eman-heights-villa-1' },
-    { locale: 'en', slug: 'el-eman-heights-villa-1' },
+    { locale: 'ar', slug: 'luxury-villa-825' },
+    { locale: 'en', slug: 'luxury-villa-825' },
   ];
 }
 
