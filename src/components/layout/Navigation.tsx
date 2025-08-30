@@ -48,7 +48,7 @@ export default function Navigation() {
           <div className="flex-shrink-0 flex items-center">
             <Link href={`/${locale}` as any} className="flex items-center space-x-3 rtl:space-x-reverse">
               <img 
-                src="/images/brand/logo_png.png" 
+                src="/images/brand/logo_svg_ar.svg" 
                 alt="El Eman Group Logo" 
                 className="h-12 w-auto"
               />

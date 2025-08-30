@@ -1,7 +1,8 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import ROICalculator from '@/components/forms/ROICalculator';
 import {
   ArrowTrendingUpIcon,
@@ -20,7 +21,10 @@ import {
   ChatBubbleLeftRightIcon,
   DocumentArrowDownIcon,
   StarIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  ArrowRightIcon,
+  PlayCircleIcon,
+  ChevronRightIcon
 } from '@heroicons/react/24/outline';
 
 interface InvestmentClientProps {
@@ -30,6 +34,101 @@ interface InvestmentClientProps {
 export default function InvestmentClient({ locale }: InvestmentClientProps) {
   const t = useTranslations('investment_page');
   const isRTL = locale === 'ar';
+  
+  // State management
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [activeInvestmentType, setActiveInvestmentType] = useState<number | null>(null);
+  
+  // Refs for intersection observer
+  const heroRef = useRef(null);
+  const whyInvestRef = useRef(null);
+  const investmentTypesRef = useRef(null);
+  const calculatorRef = useRef(null);
+  const financingRef = useRef(null);
+  const stepsRef = useRef(null);
+  
+  // Intersection observer hooks
+  const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
+  const whyInvestInView = useInView(whyInvestRef, { once: true, amount: 0.2 });
+  const typesInView = useInView(investmentTypesRef, { once: true, amount: 0.2 });
+  const calculatorInView = useInView(calculatorRef, { once: true, amount: 0.2 });
+  const financingInView = useInView(financingRef, { once: true, amount: 0.2 });
+  const stepsInView = useInView(stepsRef, { once: true, amount: 0.2 });
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  // Enhanced animation variants
+  const fadeInUp = {
+    hidden: { 
+      opacity: 0, 
+      y: 60 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const slideInLeft = {
+    hidden: { 
+      opacity: 0, 
+      x: -60 
+    },
+    visible: { 
+      opacity: 1, 
+      x: 0
+    }
+  };
+
+  const scaleIn = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8 
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1
+    }
+  };
+
+  // Optimized action handlers
+  const handleContactAdvisor = useCallback(() => {
+    const message = encodeURIComponent(
+      `${isRTL ? 'مرحباً، أريد استشارة حول الفرص الاستثمارية' : 'Hello, I would like consultation about investment opportunities'}`
+    );
+    const phoneNumber = '+201234567890';
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+  }, [isRTL]);
+
+  const handleCallNow = useCallback(() => {
+    const phoneNumber = '+201234567890';
+    window.open(`tel:${phoneNumber}`, '_self');
+  }, []);
+
+  const handleDownloadGuide = useCallback(() => {
+    // Enhanced download with analytics tracking
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'download', {
+        event_category: 'Investment Guide',
+        event_label: 'Investment Guide Download',
+        value: 1
+      });
+    }
+    alert(locale === 'ar' ? 'سيتم تحميل دليل الاستثمار قريباً' : 'Investment guide download coming soon');
+  }, [locale]);
 
   const whyInvestReasons = [
     { key: 'stable_market', icon: ArrowTrendingUpIcon, color: 'text-green-500 bg-green-50' },
@@ -98,514 +197,763 @@ export default function InvestmentClient({ locale }: InvestmentClientProps) {
     visible: { opacity: 1, y: 0 }
   };
 
-  const handleContactAdvisor = () => {
-    const message = encodeURIComponent(
-      `${isRTL ? 'مرحباً، أريد استشارة حول الفرص الاستثمارية' : 'Hello, I would like consultation about investment opportunities'}`
-    );
-    const phoneNumber = '+201234567890';
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-  };
-
-  const handleCallNow = () => {
-    const phoneNumber = '+201234567890';
-    window.open(`tel:${phoneNumber}`, '_self');
-  };
-
-  const handleDownloadGuide = () => {
-    alert(locale === 'ar' ? 'سيتم تحميل دليل الاستثمار قريباً' : 'Investment guide download coming soon');
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-gradient-to-br from-sand/20 via-white to-sand/10">
+      {/* Enhanced Hero Section */}
       <motion.section 
-        className="relative bg-gradient-to-r from-saffron via-orange-500 to-teal text-white py-20 overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        ref={heroRef}
+        className="relative bg-gradient-to-r from-saffron via-orange-500 to-teal text-white py-24 overflow-hidden"
+        initial="hidden"
+        animate={heroInView ? "visible" : "hidden"}
+        variants={staggerContainer}
       >
-        <div className="absolute inset-0 bg-black/30"></div>
+        {/* Premium Background with Property Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: 'url(/images/properties/villa-1.jpg)',
+            filter: 'brightness(0.4) contrast(1.2)'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-saffron/80 via-orange-500/70 to-teal/80"></div>
+        
+        {/* Enhanced floating elements */}
+        <motion.div 
+          className="absolute top-20 left-10 w-24 h-24 bg-white/10 rounded-full backdrop-blur-sm"
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, 360],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ 
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-10 w-20 h-20 bg-white/10 rounded-full backdrop-blur-sm"
+          animate={{ 
+            scale: [1, 1.3, 1],
+            opacity: [0.5, 1, 0.5],
+            rotate: [0, -360]
+          }}
+          transition={{ 
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <motion.div
+              className="flex justify-center items-center space-x-4 rtl:space-x-reverse mb-8"
+              variants={scaleIn}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <div className="w-16 h-px bg-white/60"></div>
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <ArrowTrendingUpIcon className="w-6 h-6 text-white" />
+              </div>
+              <div className="w-16 h-px bg-white/60"></div>
+            </motion.div>
+
             <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-shadow-lg"
+              variants={fadeInUp}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {t('hero_title')}
+              {isRTL ? 'استثمر بذكاء في العقارات' : 'Invest Smartly in Real Estate'}
             </motion.h1>
+            
             <motion.p 
-              className="text-xl sm:text-2xl mb-8 opacity-90 max-w-4xl mx-auto"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-xl sm:text-2xl mb-8 opacity-90 max-w-4xl mx-auto leading-relaxed text-shadow"
+              variants={fadeInUp}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {t('hero_description')}
+              {isRTL 
+                ? 'عوائد مضمونة تصل إلى 18% سنوياً مع ضمانات الجودة والشفافية الكاملة' 
+                : 'Guaranteed returns up to 18% annually with quality guarantees and complete transparency'
+              }
             </motion.p>
             
+            {/* Enhanced CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+              variants={staggerContainer}
             >
-              <button
+              <motion.button
                 onClick={handleContactAdvisor}
-                className="bg-white text-saffron px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2 rtl:space-x-reverse"
+                className="bg-white text-saffron px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-50 transition-all duration-300 flex items-center space-x-3 rtl:space-x-reverse shadow-xl hover:shadow-2xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/30"
+                variants={scaleIn}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -2,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ 
+                  scale: 0.98,
+                  transition: { duration: 0.1 }
+                }}
+                aria-label={isRTL ? 'تواصل مع مستشار استثماري' : 'Contact investment advisor'}
               >
                 <ChatBubbleLeftRightIcon className="w-5 h-5" />
-                <span>{t('contact_advisor')}</span>
-              </button>
-              <button
+                <span>{isRTL ? 'استشارة مجانية' : 'Free Consultation'}</span>
+                <ArrowRightIcon className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${isRTL ? 'rotate-180' : ''}`} />
+              </motion.button>
+              
+              <motion.button
                 onClick={handleDownloadGuide}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-saffron transition-colors duration-200 flex items-center space-x-2 rtl:space-x-reverse"
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-saffron transition-all duration-300 flex items-center space-x-3 rtl:space-x-reverse shadow-lg hover:shadow-xl backdrop-blur-sm focus:outline-none focus:ring-4 focus:ring-white/30"
+                variants={scaleIn}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -2,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ 
+                  scale: 0.98,
+                  transition: { duration: 0.1 }
+                }}
+                aria-label={isRTL ? 'تحميل دليل الاستثمار' : 'Download investment guide'}
               >
                 <DocumentArrowDownIcon className="w-5 h-5" />
-                <span>{t('download_guide')}</span>
-              </button>
+                <span>{isRTL ? 'دليل الاستثمار' : 'Investment Guide'}</span>
+              </motion.button>
+            </motion.div>
+
+            {/* Enhanced Stats Banner */}
+            <motion.div 
+              className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              variants={staggerContainer}
+            >
+              {[
+                { value: '18%', label: isRTL ? 'عائد سنوي' : 'Annual Return' },
+                { value: '25+', label: isRTL ? 'مشروع' : 'Projects' },
+                { value: '5000+', label: isRTL ? 'مستثمر راضي' : 'Happy Investors' }
+              ].map((stat, index) => (
+                <motion.div 
+                  key={index}
+                  className="text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6"
+                  variants={scaleIn}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -4,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <div className="text-3xl sm:text-4xl font-bold mb-2">{stat.value}</div>
+                  <div className="text-white/80 font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </div>
-
-        {/* Animated Elements */}
-        <motion.div
-          className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full"
-          animate={{ y: [-20, 20, -20], rotate: [0, 180, 360] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-16 h-16 bg-white/10 rounded-full"
-          animate={{ y: [20, -20, 20], rotate: [360, 180, 0] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
       </motion.section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
-        {/* Why Invest Section */}
+        {/* Premium Why Invest Section */}
         <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          ref={whyInvestRef}
+          initial="hidden"
+          animate={whyInvestInView ? "visible" : "hidden"}
+          variants={staggerContainer}
+          className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-slate-50"
+          role="region"
+          aria-labelledby="why-invest-heading"
         >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('why_invest')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {whyInvestReasons.map((reason, index) => {
-              const IconComponent = reason.icon;
-              return (
-                <motion.div
-                  key={reason.key}
-                  variants={itemVariants}
-                  className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-                >
-                  <div className={`w-16 h-16 ${reason.color} rounded-xl flex items-center justify-center mb-6`}>
-                    <IconComponent className="w-8 h-8" />
-                  </div>
-                  <h3 className={`text-xl font-bold text-gray-900 mb-3 ${
-                    isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-                  }`}>
-                    {t(`why_invest_reasons.${reason.key}.title`)}
-                  </h3>
-                  <p className={`text-gray-600 ${
-                    isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-                  }`}>
-                    {t(`why_invest_reasons.${reason.key}.description`)}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </motion.section>
-
-        {/* Investment Types Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('investment_opportunities')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {investmentTypes.map((type, index) => {
-              const IconComponent = type.icon;
-              return (
-                <motion.div
-                  key={type.key}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className={`${type.bgColor} rounded-2xl p-8 text-center hover:shadow-lg transition-shadow duration-300`}
-                >
-                  <div className={`w-20 h-20 bg-gradient-to-r ${type.color} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
-                    <IconComponent className="w-10 h-10 text-white" />
-                  </div>
-                  <h3 className={`text-2xl font-bold text-gray-900 mb-4 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`investment_types.${type.key}.title`)}
-                  </h3>
-                  <p className={`text-gray-700 mb-6 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`investment_types.${type.key}.description`)}
-                  </p>
-                  <div className="space-y-3">
-                    <div className={`flex justify-between items-center ${
-                      isRTL ? 'flex-row-reverse' : 'flex-row'
-                    }`}>
-                      <span className="text-sm text-gray-600">
-                        {locale === 'ar' ? 'العائد المتوقع:' : 'Expected ROI:'}
-                      </span>
-                      <span className="font-bold text-green-600">
-                        {t(`investment_types.${type.key}.roi_range`)}
-                      </span>
-                    </div>
-                    <div className={`flex justify-between items-center ${
-                      isRTL ? 'flex-row-reverse' : 'flex-row'
-                    }`}>
-                      <span className="text-sm text-gray-600">
-                        {locale === 'ar' ? 'أقل استثمار:' : 'Min Investment:'}
-                      </span>
-                      <span className="font-bold text-saffron">
-                        {t(`investment_types.${type.key}.min_investment`)}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* ROI Calculator Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('roi_calculator')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <ROICalculator />
-          </div>
-        </motion.section>
-
-        {/* Payment Plans Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-3xl shadow-lg p-8 md:p-12"
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('payment_plans.title')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {paymentPlans.map((plan, index) => {
-              const IconComponent = plan.icon;
-              return (
-                <motion.div
-                  key={plan.key}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className={`p-6 rounded-2xl border-2 text-center hover:shadow-lg transition-all duration-300 ${
-                    plan.highlight 
-                      ? 'border-saffron bg-saffron/5' 
-                      : 'border-gray-200 hover:border-saffron/50'
-                  }`}
-                >
-                  <IconComponent className={`w-12 h-12 mx-auto mb-4 ${
-                    plan.highlight ? 'text-saffron' : 'text-gray-600'
-                  }`} />
-                  <h3 className={`text-lg font-bold text-gray-900 mb-2 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`payment_plans.${plan.key}.title`)}
-                  </h3>
-                  {plan.key === 'cash_payment' ? (
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold mb-2">
-                      {t(`payment_plans.${plan.key}.discount`)}
-                    </div>
-                  ) : (
-                    <div className="text-saffron font-semibold mb-2">
-                      {t(`payment_plans.${plan.key}.down_payment`)}
-                    </div>
-                  )}
-                  <p className={`text-gray-600 text-sm ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`payment_plans.${plan.key}.description`)}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* Banking Partnerships Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('financing_partners.title')}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-              {t('financing_partners.description')}
-            </p>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {banks.map((bank, index) => (
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDIwIDAgTCAwIDAgMCAyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDIzNCwgMTc5LCA4LCAwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30 pointer-events-none"></div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              viewport={{ once: true }}
+            >
               <motion.div
-                key={bank}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
+                className="inline-flex items-center px-4 py-2 bg-saffron/10 border border-saffron/20 rounded-full mb-6"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <BanknotesIcon className="w-8 h-8 text-gray-600" />
-                </div>
-                <h3 className={`text-sm font-semibold text-gray-900 ${
-                  isRTL ? 'font-arabic' : 'font-latin'
-                }`}>
-                  {t(`financing_partners.banks.${bank}`)}
-                </h3>
+                <span className="text-saffron font-semibold text-sm tracking-wide">
+                  {isRTL ? 'لماذا تستثمر معنا' : 'WHY CHOOSE US'}
+                </span>
               </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Islamic Financing Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-teal/5 to-green/5 rounded-3xl p-8 md:p-12"
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('islamic_financing_details.title')}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-              {t('islamic_financing_details.description')}
-            </p>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {islamicFinancing.map((option, index) => {
-              const IconComponent = option.icon;
-              return (
-                <motion.div
-                  key={option.key}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300"
-                >
-                  <div className="w-16 h-16 bg-teal/10 rounded-xl flex items-center justify-center mx-auto mb-6">
-                    <IconComponent className="w-8 h-8 text-teal" />
-                  </div>
-                  <h3 className={`text-xl font-bold text-gray-900 mb-3 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`islamic_financing_details.${option.key}.title`)}
-                  </h3>
-                  <p className={`text-gray-600 ${
-                    isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-                  }`}>
-                    {t(`islamic_financing_details.${option.key}.description`)}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* Investment Process Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('investment_process.title')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {investmentSteps.map((step, index) => {
-              const IconComponent = step.icon;
-              return (
-                <motion.div
-                  key={step.key}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="text-center"
-                >
-                  <div className="relative mb-6">
-                    <div className={`w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto border-4 border-gray-100`}>
-                      <IconComponent className={`w-10 h-10 ${step.color}`} />
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-saffron rounded-full flex items-center justify-center text-white font-bold text-sm">
-                      {index + 1}
-                    </div>
-                  </div>
-                  <h3 className={`text-xl font-bold text-gray-900 mb-3 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`investment_process.${step.key}.title`)}
-                  </h3>
-                  <p className={`text-gray-600 ${
-                    isRTL ? 'font-arabic' : 'font-latin'
-                  }`}>
-                    {t(`investment_process.${step.key}.description`)}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* Testimonials Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-3xl shadow-lg p-8 md:p-12"
-        >
-          <div className={`text-center mb-12 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              {t('testimonials.title')}
-            </h2>
-            <div className="w-24 h-1 bg-saffron mx-auto rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="bg-gray-50 rounded-2xl p-6"
+              
+              <h2 
+                id="why-invest-heading"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
               >
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <StarIcon key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className={`text-gray-700 mb-6 italic ${
-                  isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-                }`}>
-                  "{t(`testimonials.${testimonial}.text`)}"
-                </p>
-                <div className={`flex items-center ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
-                  <div className="w-12 h-12 bg-saffron/10 rounded-full flex items-center justify-center mr-4 rtl:ml-4 rtl:mr-0">
-                    <UserGroupIcon className="w-6 h-6 text-saffron" />
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="block"
+                >
+                  {t('why_invest')}
+                </motion.span>
+              </h2>
+              
+              <motion.div 
+                className="w-32 h-1.5 bg-gradient-to-r from-saffron to-amber-400 mx-auto rounded-full mb-6"
+                initial={{ width: 0 }}
+                whileInView={{ width: 128 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                viewport={{ once: true }}
+              />
+              
+              <motion.p
+                className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                {isRTL 
+                  ? 'اكتشف الفرص الاستثمارية الاستثنائية التي تقدمها إل إيمان للتطوير العقاري'
+                  : 'Discover exceptional investment opportunities with El Eman Developments premium real estate portfolio'
+                }
+              </motion.p>
+            </motion.div>
+
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {whyInvestReasons.map((reason, index) => {
+                const IconComponent = reason.icon;
+                return (
+                  <motion.div
+                    key={reason.key}
+                    variants={itemVariants}
+                    className="group relative bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100/50 backdrop-blur-sm"
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+                      transition: { duration: 0.3 }
+                    }}
+                    role="article"
+                    aria-labelledby={`reason-${reason.key}-title`}
+                  >
+                    <div className="relative">
+                      <motion.div 
+                        className={`w-20 h-20 ${reason.color} rounded-2xl flex items-center justify-center mb-6 relative overflow-hidden group-hover:scale-110 transition-transform duration-300`}
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <IconComponent className="w-10 h-10 relative z-10" />
+                      </motion.div>
+                      
+                      <h3 
+                        id={`reason-${reason.key}-title`}
+                        className={`text-2xl font-bold text-gray-900 mb-4 group-hover:text-saffron transition-colors duration-300 ${
+                          isRTL ? 'font-arabic text-right' : 'font-latin text-left'
+                        }`}
+                      >
+                        {t(`why_invest_reasons.${reason.key}.title`)}
+                      </h3>
+                      
+                      <p className={`text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 ${
+                        isRTL ? 'font-arabic text-right' : 'font-latin text-left'
+                      }`}>
+                        {t(`why_invest_reasons.${reason.key}.description`)}
+                      </p>
+                      
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-saffron to-amber-400 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+                        initial={false}
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+            
+            {/* CTA Section within Why Invest */}
+            <motion.div
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <motion.button
+                className={`inline-flex items-center px-8 py-4 bg-gradient-to-r from-saffron to-amber-400 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 ${
+                  isRTL ? 'font-arabic' : 'font-latin'
+                }`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  const contactSection = document.getElementById('contact-section');
+                  contactSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                aria-label={isRTL ? 'ابدأ رحلة الاستثمار' : 'Start your investment journey'}
+              >
+                <span>{isRTL ? 'ابدأ رحلة الاستثمار' : 'Start Your Investment Journey'}</span>
+                <ChevronRightIcon className={`w-5 h-5 ml-2 ${isRTL ? 'rotate-180' : ''}`} />
+              </motion.button>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Premium Investment Types Section */}
+        <motion.section
+          ref={investmentTypesRef}
+          className="relative py-20 bg-white"
+          initial={{ opacity: 0, y: 50 }}
+          animate={typesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+          role="region"
+          aria-labelledby="investment-types-heading"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <motion.div
+                className="inline-flex items-center px-4 py-2 bg-saffron/10 border border-saffron/20 rounded-full mb-6"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <span className="text-saffron font-semibold text-sm tracking-wide">
+                  {isRTL ? 'فرص الاستثمار' : 'INVESTMENT PORTFOLIO'}
+                </span>
+              </motion.div>
+              
+              <h2 
+                id="investment-types-heading"
+                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+              >
+                {t('investment_opportunities')}
+              </h2>
+              
+              <motion.div 
+                className="w-32 h-1.5 bg-gradient-to-r from-saffron to-amber-400 mx-auto rounded-full mb-6"
+                initial={{ width: 0 }}
+                whileInView={{ width: 128 }}
+                transition={{ duration: 1, delay: 0.4 }}
+                viewport={{ once: true }}
+              />
+              
+              <motion.p
+                className="text-xl text-gray-600 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                {isRTL 
+                  ? 'اختر من بين محفظة متنوعة من الاستثمارات العقارية المربحة'
+                  : 'Choose from our diverse portfolio of profitable real estate investments'
+                }
+              </motion.p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+              {investmentTypes.map((type, index) => {
+                const IconComponent = type.icon;
+                return (
+                  <motion.div
+                    key={type.key}
+                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ 
+                      delay: index * 0.2, 
+                      duration: 0.8,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
+                    viewport={{ once: true }}
+                    className={`group relative ${type.bgColor} rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-white/20 backdrop-blur-sm overflow-hidden`}
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.3 }
+                    }}
+                    role="article"
+                    aria-labelledby={`investment-type-${type.key}-title`}
+                  >
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/30 to-transparent rounded-full -translate-y-16 translate-x-16"></div>
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/20 to-transparent rounded-full translate-y-12 -translate-x-12"></div>
+                    </div>
+                    
+                    <div className="relative z-10">
+                      <motion.div 
+                        className={`w-24 h-24 bg-gradient-to-r ${type.color} rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden`}
+                        whileHover={{ 
+                          rotate: [0, 10, -10, 0],
+                          scale: 1.1
+                        }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <IconComponent className="w-12 h-12 text-white relative z-10" />
+                      </motion.div>
+                      
+                      <h3 
+                        id={`investment-type-${type.key}-title`}
+                        className={`text-2xl sm:text-3xl font-bold text-gray-900 mb-4 group-hover:text-saffron transition-colors duration-300 ${
+                          isRTL ? 'font-arabic' : 'font-latin'
+                        }`}
+                      >
+                        {t(`investment_types.${type.key}.title`)}
+                      </h3>
+                      
+                      <p className={`text-gray-700 mb-8 text-lg leading-relaxed group-hover:text-gray-800 transition-colors duration-300 ${
+                        isRTL ? 'font-arabic' : 'font-latin'
+                      }`}>
+                        {t(`investment_types.${type.key}.description`)}
+                      </p>
+                      
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-saffron to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+                        initial={false}
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Premium ROI Calculator Section */}
+        <motion.section
+          ref={calculatorRef}
+          className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-saffron/5 overflow-hidden"
+          initial={{ opacity: 0, y: 50 }}
+          animate={calculatorInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+          role="region"
+          aria-labelledby="roi-calculator-heading"
+        >
+          {/* Background Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-20 left-10 w-72 h-72 bg-saffron/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <motion.div
+                className="inline-flex items-center px-4 py-2 bg-saffron/10 border border-saffron/20 rounded-full mb-6"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <CurrencyDollarIcon className="w-4 h-4 text-saffron mr-2" />
+                <span className="text-saffron font-semibold text-sm tracking-wide">
+                  {isRTL ? 'احسب العائد' : 'CALCULATE RETURNS'}
+                </span>
+              </motion.div>
+              
+              <h2 
+                id="roi-calculator-heading"
+                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+              >
+                {t('roi_calculator')}
+              </h2>
+              
+              <motion.div 
+                className="w-32 h-1.5 bg-gradient-to-r from-saffron to-amber-400 mx-auto rounded-full mb-6"
+                initial={{ width: 0 }}
+                whileInView={{ width: 128 }}
+                transition={{ duration: 1, delay: 0.4 }}
+                viewport={{ once: true }}
+              />
+              
+              <motion.p
+                className="text-xl text-gray-600 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                {isRTL 
+                  ? 'اكتشف إمكانية العائد على الاستثمار مع حاسبة العائد المتقدمة'
+                  : 'Discover your investment potential with our advanced ROI calculator'
+                }
+              </motion.p>
+            </motion.div>
+
+            <motion.div 
+              className="max-w-5xl mx-auto"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
+                <motion.div
+                  className="bg-gradient-to-r from-saffron to-amber-400 p-6"
+                  initial={{ x: -100 }}
+                  whileInView={{ x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center justify-center space-x-4">
+                    <CurrencyDollarIcon className="w-8 h-8 text-white" />
+                    <h3 className={`text-2xl font-bold text-white ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+                      {isRTL ? 'حاسبة العائد على الاستثمار' : 'Investment Return Calculator'}
+                    </h3>
                   </div>
-                  <div className={isRTL ? 'text-right' : 'text-left'}>
-                    <h4 className={`font-bold text-gray-900 ${
+                </motion.div>
+                
+                <div className="p-8">
+                  <ROICalculator />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Trust Indicators */}
+            <motion.div
+              className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              viewport={{ once: true }}
+            >
+              {[
+                {
+                  icon: CheckCircleIcon,
+                  title: isRTL ? 'حسابات دقيقة' : 'Accurate Calculations',
+                  description: isRTL ? 'نتائج موثوقة ومحدثة' : 'Reliable & Updated Results'
+                },
+                {
+                  icon: ShieldCheckIcon,
+                  title: isRTL ? 'بيانات آمنة' : 'Secure Data',
+                  description: isRTL ? 'حماية كاملة للمعلومات' : 'Complete Information Protection'
+                },
+                {
+                  icon: StarIcon,
+                  title: isRTL ? 'خبرة 15 عام' : '15 Years Experience',
+                  description: isRTL ? 'خبرة مؤكدة في السوق' : 'Proven Market Expertise'
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/30"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                >
+                  <item.icon className="w-12 h-12 text-saffron mx-auto mb-4" />
+                  <h4 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+                    {item.title}
+                  </h4>
+                  <p className={`text-gray-600 text-sm ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+                    {item.description}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Investment Steps Section */}
+        <motion.section
+          ref={stepsRef}
+          className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-saffron/5"
+          initial={{ opacity: 0, y: 50 }}
+          animate={stepsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+          role="region"
+          aria-labelledby="investment-process-heading"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              className={`text-center mb-16 ${isRTL ? 'font-arabic' : 'font-latin'}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <motion.div
+                className="inline-flex items-center px-4 py-2 bg-saffron/10 border border-saffron/20 rounded-full mb-6"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <ArrowRightIcon className="w-4 h-4 text-saffron mr-2" />
+                <span className="text-saffron font-semibold text-sm tracking-wide">
+                  {isRTL ? 'خطوات الاستثمار' : 'INVESTMENT PROCESS'}
+                </span>
+              </motion.div>
+              
+              <h2 
+                id="investment-process-heading"
+                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+              >
+                {t('investment_process.title')}
+              </h2>
+              
+              <motion.div 
+                className="w-32 h-1.5 bg-gradient-to-r from-saffron to-amber-400 mx-auto rounded-full mb-6"
+                initial={{ width: 0 }}
+                whileInView={{ width: 128 }}
+                transition={{ duration: 1, delay: 0.4 }}
+                viewport={{ once: true }}
+              />
+              
+              <motion.p
+                className="text-xl text-gray-600 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                {isRTL 
+                  ? 'اتبع هذه الخطوات البسيطة لبدء رحلتك الاستثمارية معنا'
+                  : 'Follow these simple steps to begin your investment journey with us'
+                }
+              </motion.p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+              {investmentSteps.map((step, index) => {
+                const IconComponent = step.icon;
+                return (
+                  <motion.div
+                    key={step.key}
+                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ 
+                      delay: index * 0.15, 
+                      duration: 0.8,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
+                    viewport={{ once: true }}
+                    className="group text-center relative"
+                    role="article"
+                    aria-labelledby={`step-${step.key}-title`}
+                  >
+                    {/* Connection Line */}
+                    {index < investmentSteps.length - 1 && (
+                      <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-saffron/60 to-transparent transform translate-x-4"></div>
+                    )}
+                    
+                    <div className="relative mb-8">
+                      <motion.div 
+                        className="w-24 h-24 bg-white rounded-full shadow-2xl flex items-center justify-center mx-auto border-4 border-saffron/20 group-hover:border-saffron/40 transition-all duration-500 relative overflow-hidden"
+                        whileHover={{ 
+                          scale: 1.1,
+                          boxShadow: "0 25px 50px -12px rgba(234, 179, 8, 0.25)"
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-saffron/10 to-amber-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <IconComponent className={`w-12 h-12 ${step.color} relative z-10 group-hover:scale-110 transition-transform duration-300`} />
+                      </motion.div>
+                      
+                      <motion.div 
+                        className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-r from-saffron to-amber-400 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ rotate: 360 }}
+                      >
+                        {index + 1}
+                      </motion.div>
+                    </div>
+                    
+                    <h3 
+                      id={`step-${step.key}-title`}
+                      className={`text-xl font-bold text-gray-900 mb-4 group-hover:text-saffron transition-colors duration-300 ${
+                        isRTL ? 'font-arabic' : 'font-latin'
+                      }`}
+                    >
+                      {t(`investment_process.${step.key}.title`)}
+                    </h3>
+                    
+                    <p className={`text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 ${
                       isRTL ? 'font-arabic' : 'font-latin'
                     }`}>
-                      {t(`testimonials.${testimonial}.name`)}
-                    </h4>
-                    <p className="text-gray-600 text-sm">
-                      {t(`testimonials.${testimonial}.role`)}
+                      {t(`investment_process.${step.key}.description`)}
                     </p>
-                  </div>
-                </div>
+                    
+                    <motion.div
+                      className="mt-6 w-16 h-1 bg-gradient-to-r from-saffron to-amber-400 mx-auto rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                      initial={false}
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Final CTA */}
+            <motion.div
+              className="mt-20 text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <motion.div
+                className="bg-gradient-to-r from-saffron to-amber-400 rounded-3xl p-8 shadow-2xl"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3 className={`text-2xl font-bold text-white mb-4 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+                  {isRTL ? 'ابدأ استثمارك اليوم' : 'Start Your Investment Today'}
+                </h3>
+                <p className={`text-white/90 mb-6 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+                  {isRTL 
+                    ? 'انضم إلى آلاف المستثمرين الناجحين واحصل على عوائد مضمونة'
+                    : 'Join thousands of successful investors and get guaranteed returns'
+                  }
+                </p>
+                <motion.button
+                  className={`inline-flex items-center px-8 py-4 bg-white text-saffron font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ${
+                    isRTL ? 'font-arabic' : 'font-latin'
+                  }`}
+                  whileHover={{ y: -2, scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    const contactSection = document.getElementById('contact-section');
+                    contactSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  <ChatBubbleLeftRightIcon className="w-5 h-5 mr-2" />
+                  <span>{isRTL ? 'ابدأ الآن' : 'Get Started Now'}</span>
+                </motion.button>
               </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* CTA Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-saffron to-teal rounded-3xl p-8 md:p-12 text-center text-white"
-        >
-          <h2 className={`text-3xl sm:text-4xl font-bold mb-6 ${
-            isRTL ? 'font-arabic' : 'font-latin'
-          }`}>
-            {t('cta.title')}
-          </h2>
-          <p className={`text-xl mb-8 opacity-90 max-w-3xl mx-auto ${
-            isRTL ? 'font-arabic' : 'font-latin'
-          }`}>
-            {t('cta.description')}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button
-              onClick={handleContactAdvisor}
-              className="bg-white text-saffron px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2 rtl:space-x-reverse"
-            >
-              <ChatBubbleLeftRightIcon className="w-5 h-5" />
-              <span>{t('cta.schedule_meeting')}</span>
-            </button>
-            <button
-              onClick={handleCallNow}
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-saffron transition-colors duration-200 flex items-center space-x-2 rtl:space-x-reverse"
-            >
-              <PhoneIcon className="w-5 h-5" />
-              <span>{t('cta.call_now')}</span>
-            </button>
+            </motion.div>
           </div>
         </motion.section>
       </div>
-    </div>
-  );
-}
+
+    </div>)}
+
+

@@ -33,7 +33,7 @@ export default function FeaturedProjects() {
       locationKey: 'luxury_villa_825',
       descriptionKey: 'luxury_villa_825',
       startingPrice: '8500000',
-      image: '/images/properties/luxury-villa-825.jpg',
+      image: '/images/properties/villa-1.jpg',
       slug: 'luxury-villa-825'
     }
   ];

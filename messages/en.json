@@ -523,6 +523,7 @@
     "contact_form": {
       "title": "Send us a Message",
       "subtitle": "Fill out the form and we'll get back to you within 24 hours",
+      "contact_info_message": "You can contact us directly using the information below",
       "name": "Full Name",
       "name_placeholder": "Enter your full name",
       "email": "Email Address",

@@ -76,7 +76,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 rtl:space-x-reverse mb-4">
               <img 
-                src="/images/brand/logo_png.png" 
+                src="/images/brand/logo_svg_ar.svg" 
                 alt="El Eman Group Logo" 
                 className="h-16 w-auto brightness-0 invert"
               />

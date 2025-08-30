@@ -11,7 +11,7 @@
     "title": "حيث يتشكل الإيمان",
     "subtitle": "مشاريع عقارية متميزة تجمع بين الجودة والثقة والإيمان",
     "cta_browse": "تصفح العقارات",
-    "cta_schedule": "جدولة زيارة",
+    "cta_schedule": "تواصل معنا",
     "cta_download": "تحميل الكتيب"
   },
   "search": {
@@ -157,7 +157,7 @@
     "gallery": "معرض الصور",
     "virtual_tour": "جولة افتراضية",
     "download_brochure": "تحميل الكتيب",
-    "schedule_visit": "جدولة زيارة",
+    "schedule_visit": "تواصل معنا",
     "contact_agent": "تواصل مع المسوق",
     "share_property": "مشاركة العقار",
     "property_id": "رقم العقار",
@@ -523,6 +523,7 @@
     "contact_form": {
       "title": "أرسل لنا رسالة",
       "subtitle": "املأ النموذج وسنتواصل معك خلال 24 ساعة",
+      "contact_info_message": "يمكنك التواصل معنا مباشرة من خلال المعلومات أدناه",
       "name": "الاسم الكامل",
       "name_placeholder": "أدخل اسمك الكامل",
       "email": "البريد الإلكتروني",

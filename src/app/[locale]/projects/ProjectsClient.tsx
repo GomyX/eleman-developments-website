@@ -23,7 +23,7 @@ const mockProperties = [
     bedrooms: 8,
     area: 825,
     deliveryDate: '2025',
-    image: '/images/properties/luxury-villa-825.jpg',
+    image: '/images/properties/villa-1.jpg',
     status: 'available' as const,
     features: ['pool', 'garden', 'parking', 'security', 'balcony'],
     projectName: { ar: 'مجموعة الإيمان', en: 'El Eman Group' },

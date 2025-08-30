@@ -1,30 +1,65 @@
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 
-// Metadata for SEO when users land on root before redirect
+// Enhanced metadata for SEO when users land on root before redirect
 export const metadata: Metadata = {
   title: 'El Eman Group | الإيمان جروب - Egypt\'s Leading Real Estate Developer',
-  description: 'El Eman Group الإيمان جروب - Egypt\'s premier real estate developer. Luxury properties, premium developments in Cairo, New Capital, North Coast. Leading Egyptian property developer.',
-  keywords: 'El Eman Group, الإيمان جروب, El Eman Egypt, Egyptian real estate, luxury properties Egypt, Cairo developments, New Capital properties, North Coast real estate, premium Egyptian developer',
+  description: 'El Eman Group الإيمان جروب - Egypt\'s premier real estate developer since 2010. Discover luxury properties, premium developments in New Cairo, Sheikh Zayed, North Coast. Award-winning Egyptian property developer with world-class amenities and flexible payment plans.',
+  keywords: [
+    'El Eman Group', 'الإيمان جروب', 'El Eman Egypt', 'El Eman Developments',
+    'Egyptian real estate', 'luxury properties Egypt', 'Cairo developments', 
+    'New Capital properties', 'Sheikh Zayed real estate', 'North Coast properties',
+    'premium Egyptian developer', 'luxury villas Egypt', 'apartments Cairo',
+    'real estate investment Egypt', 'Egyptian property market', 'compound Egypt',
+    'تطوير عقاري مصر', 'عقارات فاخرة مصر', 'فلل للبيع مصر', 'شقق للبيع القاهرة'
+  ],
   alternates: {
     canonical: 'https://developments.elemangroup.com',
     languages: {
-      'ar-EG': '/ar',
-      'en-US': '/en',
+      'ar-EG': 'https://developments.elemangroup.com/ar',
+      'en-US': 'https://developments.elemangroup.com/en',
     },
   },
   openGraph: {
     title: 'El Eman Group | الإيمان جروب - Egypt\'s Leading Real Estate Developer',
-    description: 'El Eman Group - Premium real estate developments across Egypt. Luxury properties in Cairo, New Capital, and North Coast.',
+    description: 'Discover premium real estate developments across Egypt. Luxury properties in New Cairo, Sheikh Zayed, and North Coast with world-class amenities.',
     url: 'https://developments.elemangroup.com',
     siteName: 'El Eman Group',
     locale: 'ar_EG',
+    alternateLocale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/images/brand/logo_png.png',
+        width: 1200,
+        height: 630,
+        alt: 'El Eman Group - Egypt\'s Premier Real Estate Developer',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'El Eman Group - Egypt\'s Leading Real Estate Developer',
+    description: 'Premium real estate developments across Egypt. Luxury properties with world-class amenities.',
+    images: ['/images/brand/logo_png.png'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
+  other: {
+    'geo.region': 'EG',
+    'geo.placename': 'Egypt',
+    'target-country': 'EG',
+    'language': 'ar,en',
+  }
 };
 
 // Root page - redirects to Arabic (default locale for Egyptian market)
