@@ -16,7 +16,10 @@ const nextConfig = withNextIntl({
   },
   // Turbopack does not support experimental.typedRoutes in dev.
   // Keep it only for production builds.
-  ...(isProd ? { experimental: { typedRoutes: true } } : {})
+  ...(isProd ? { experimental: { typedRoutes: true } } : {}),
+  
+  // Skip build static generation for problematic paths during development
+  skipMiddlewareUrlNormalize: true,
 });
 
 module.exports = nextConfig;

@@ -1,0 +1,72 @@
+Core SEO setup
+Define per‑page metadata using the Next.js Metadata API or generateMetadata, including unique titles, meta descriptions, canonical URLs, and Open Graph/Twitter tags for all routes to improve CTR and social sharing previews.
+
+Use semantic HTML (header, nav, main, section, article, footer) and descriptive headings to help crawlers understand layout and content hierarchy for each page and property detail.
+
+Optimize images: responsive sizes, modern formats (WebP/AVIF), correct width/height, and lazy loading to reduce LCP and improve Core Web Vitals on mobile.
+
+Add canonical tags for language versions and filtered/sorted listing states to avoid duplicate content and consolidate ranking signals.
+
+Generate XML sitemaps (root, properties, blog) and a robots.txt that allows crawling of vital pages while excluding faceted pages with query params.
+
+App Router specifics
+Prefer SSG or SSR for content pages and property detail pages to ensure HTML is available to crawlers; avoid client‑only rendering on SEO‑critical pages; use the Metadata API rather than head tags inside components for consistency and no FOUC.
+
+Use Partial Prerendering/hybrid rendering only where needed and ensure metadata is resolved server‑side; keep “use client” components localized to interactive islands (forms, calculators).
+
+International SEO (Arabic‑first)
+Separate language URLs: /ar/... and /en/... with mirrored content; set defaultLocale Arabic and ensure server‑side metadata is localized (title/description/OG) for each locale.
+
+Output hreflang tags for each localized page pair (ar‑EG and en‑US/en), plus x‑default to the Arabic root; this prevents duplicate content and sends the right language to users in SERPs.
+
+Localize structured data (name, description, address, priceCurrency EGP) and on‑page copy; ensure RTL markup and Arabic alt text are present for images in Arabic pages.
+
+Real estate schema and rich results
+Implement JSON‑LD for:
+
+Organization and WebSite (with SearchAction) on root for sitelinks search box eligibility.
+
+LocalBusiness (or RealEstateAgent/Residence where appropriate) for sales office pages with geo/address/phone/hours.
+
+Product/Offer on unit detail pages with price, priceCurrency EGP, availability, area, numberOfRooms, floorPlan, and image; use BreadcrumbList on all property pages to enhance SERP trails.
+
+For listings index pages, include ItemList with ListItem entries pointing to the canonical detail URLs to help discovery and sitelinks.
+
+Performance and Core Web Vitals
+Target <2s LCP on mobile: compress/resize hero images, prioritize above‑the‑fold images, preconnect to CDNs, and defer non‑critical JS; measure with Lighthouse/PSI and fix CLS and INP issues iteratively.
+
+Use Next.js image optimization, route‑based code splitting, dynamic imports for heavy widgets (maps, virtual tours), and avoid blocking third‑party scripts early in the waterfall.
+
+Cache and serve static assets via CDN; prefetch internal links and use link rel=preload for critical fonts to speed first render.
+
+Content and internal linking
+Build intent‑matched pages: “Our Projects”, “Project Detail”, “Payment Plans”, “Locations” with area guides; include unique descriptives beyond specs to avoid thin/duplicate content; map keywords to each page in Arabic/English.
+
+Create evergreen content hubs: construction updates, investment tips, neighborhood guides; internally link from these to relevant property pages using descriptive anchors in both languages to distribute PageRank and improve topical authority.
+
+Add FAQ sections with concise Q/A and optional FAQPage JSON‑LD on detail pages to earn rich results and improve long‑tail capture.
+
+URL design and routing
+Short, readable, hyphenated slugs in each language, e.g., /ar/projects/اسم‑المشروع and /en/projects/project‑name; keep parameters out of canonical URLs; use rel=“prev/next” or a canonical strategy for paginated listings.
+
+Avoid indexable search results and filtered pages; block via robots.txt or meta robots noindex on faceted states while keeping canonical to the base listing.
+
+Tracking, monitoring, and QA
+Install GA4 and Search Console; submit sitemaps per locale; track conversions, scroll depth, and lead submissions; monitor coverage, Core Web Vitals, and hreflang reports in GSC.
+
+Add social tags: Open Graph (og:title/description/locale, image 1200×630) and Twitter Summary Large Image for all shareable pages.
+
+Create custom 404 and 410 handling; return proper status codes; maintain redirect maps for renamed projects to preserve equity.
+
+Developer‑ready snippets
+Basic JSON‑LD (Organization + WebSite):
+
+Provide name, url, logo, contactPoint, and potentialAction SearchAction on root to enhance brand presence and sitelinks search.
+
+Hreflang block:
+
+For /ar/contact and /en/contact include alternate links with ar‑EG, en‑US, and x‑default to indicate language targeting to Google.
+
+Property Offer schema:
+
+Use Product with offers: { price, priceCurrency: "EGP", availability, url }, and additionalProperty for area and bedrooms to enrich snippets on unit pages

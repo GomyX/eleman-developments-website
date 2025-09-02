@@ -52,7 +52,7 @@ export async function generateMetadata({
               alt: 'الاستثمار العقاري مع الإيمان للتطوير',
             },
             {
-              url: `${baseUrl}/images/brand/logo_png.png`,
+              url: `${baseUrl}/images/brand/logo_svg_ar.svg`,
               width: 800,
               height: 600,
               alt: 'شعار الإيمان للتطوير العقاري',
@@ -115,7 +115,7 @@ export async function generateMetadata({
               alt: 'Real Estate Investment with El Eman Developments',
             },
             {
-              url: `${baseUrl}/images/brand/logo_png.png`,
+              url: `${baseUrl}/images/brand/logo_svg_ar.svg`,
               width: 800,
               height: 600,
               alt: 'El Eman Developments Logo',
@@ -230,7 +230,7 @@ export default async function InvestmentPage({
           '@id': `${baseUrl}#organization`,
           name: locale === 'ar' ? 'الإيمان للتطوير العقاري' : 'El Eman Developments',
           url: baseUrl,
-          logo: `${baseUrl}/images/brand/logo_png.png`,
+          logo: `${baseUrl}/images/brand/logo_svg_ar.svg`,
           contactPoint: {
             '@type': 'ContactPoint',
             telephone: '+201234567890',

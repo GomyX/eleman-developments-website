@@ -108,29 +108,29 @@ export default function HeroSection() {
       {/* Elegant Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className={`absolute ${isRTL ? 'right-6 md:right-12' : 'left-6 md:left-12'} top-1/2 -translate-y-1/2 z-30 
-          group p-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 
-          rounded-full transition-all duration-500 hover:scale-110 shadow-2xl`}
+        className={`absolute ${isRTL ? 'right-4 md:right-8' : 'left-4 md:left-8'} top-1/2 -translate-y-1/2 z-30 
+          group p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 
+          rounded-full transition-all duration-300 hover:scale-110 shadow-lg`}
       >
         {isRTL ? 
-          <ChevronRightIcon className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" /> : 
-          <ChevronLeftIcon className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" />
+          <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white" /> : 
+          <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
         }
       </button>
       <button
         onClick={nextSlide}
-        className={`absolute ${isRTL ? 'left-6 md:left-12' : 'right-6 md:right-12'} top-1/2 -translate-y-1/2 z-30 
-          group p-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 
-          rounded-full transition-all duration-500 hover:scale-110 shadow-2xl`}
+        className={`absolute ${isRTL ? 'left-4 md:left-8' : 'right-4 md:right-8'} top-1/2 -translate-y-1/2 z-30 
+          group p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 
+          rounded-full transition-all duration-300 hover:scale-110 shadow-lg`}
       >
         {isRTL ? 
-          <ChevronLeftIcon className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" /> : 
-          <ChevronRightIcon className="w-6 h-6 text-white group-hover:text-primary transition-colors duration-300" />
+          <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white" /> : 
+          <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
         }
       </button>
 
       {/* Main Content with Enhanced Animations */}
-      <div className={`relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center text-white transform transition-all duration-1000 ${
+      <div className={`relative z-20 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 text-center text-white transform transition-all duration-1000 ${
         isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       }`}>
         
@@ -197,7 +197,7 @@ export default function HeroSection() {
         </div>
 
         {/* Sophisticated Slide Indicators */}
-        <div className={`flex justify-center items-center space-x-3 rtl:space-x-reverse transform transition-all duration-1000 delay-900 ${
+        <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex justify-center items-center space-x-3 rtl:space-x-reverse transform transition-all duration-1000 delay-900 ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`}>
           {slides.map((_, index) => (
@@ -206,33 +206,25 @@ export default function HeroSection() {
               onClick={() => setCurrentSlide(index)}
               className={`relative transition-all duration-500 group ${
                 index === currentSlide 
-                  ? 'w-12 h-3 bg-primary rounded-full' 
-                  : 'w-3 h-3 bg-white/40 hover:bg-white/60 rounded-full hover:scale-125'
+                  ? 'w-8 h-2 bg-primary rounded-full' 
+                  : 'w-2 h-2 bg-white/50 hover:bg-white rounded-full'
               }`}
             >
               {index === currentSlide && (
-                <div className="absolute inset-0 bg-primary rounded-full animate-pulse"></div>
+                <div 
+                  className="absolute -top-1 -left-1 w-4 h-4 bg-primary/30 rounded-full animate-ping"
+                  style={{ animationDuration: '1.5s' }}
+                ></div>
               )}
             </button>
           ))}
-        </div>
-
-        {/* Slide Progress Bar */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-20">
-          <div 
-            className="h-full bg-gradient-to-r from-primary to-primary-dark transition-all duration-300 ease-linear"
-            style={{ 
-              width: isPaused ? '100%' : `${((currentSlide + 1) / slides.length) * 100}%`,
-              transition: isPaused ? 'none' : 'width 6s linear'
-            }}
-          ></div>
         </div>
       </div>
 
       {/* Pause/Play Indicator */}
       {isPaused && (
-        <div className="absolute top-8 right-8 z-30 bg-black/50 backdrop-blur-sm rounded-full p-3">
-          <PlayIcon className="w-5 h-5 text-white" />
+        <div className="absolute top-6 right-6 z-30 bg-black/50 backdrop-blur-sm rounded-full p-2.5">
+          <PlayIcon className="w-4 h-4 text-white" />
         </div>
       )}
     </section>

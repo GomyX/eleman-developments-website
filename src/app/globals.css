@@ -170,6 +170,16 @@ html {
   scrollbar-color: var(--color-primary) var(--color-sand-light);
 }
 
+/* Hidden Scrollbar Utility for Featured Projects */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Safari and Chrome */
+}
+
 /* Enhanced Text Shadows for Elegance */
 .text-shadow {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);

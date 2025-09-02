@@ -63,7 +63,7 @@ export async function generateMetadata({
             type: 'image/jpeg',
           },
           {
-            url: '/images/brand/logo_png.png',
+            url: '/images/brand/logo_svg_ar.svg',
             width: 800,
             height: 600,
             alt: 'شعار الإيمان للتطوير العقاري',
@@ -143,7 +143,7 @@ export async function generateMetadata({
           type: 'image/jpeg',
         },
         {
-          url: '/images/brand/logo_png.png',
+          url: '/images/brand/logo_svg_ar.svg',
           width: 800,
           height: 600,
           alt: 'El Eman Developments Logo',
@@ -214,7 +214,7 @@ export default async function AboutPage({
         "url": baseUrl,
         "logo": {
           "@type": "ImageObject",
-          "url": `${baseUrl}/images/brand/logo_png.png`,
+          "url": `${baseUrl}/images/brand/logo_svg_ar.svg`,
           "width": 800,
           "height": 600
         },

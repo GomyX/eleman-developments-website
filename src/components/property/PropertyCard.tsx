@@ -126,54 +126,76 @@ export default function PropertyCard({
   };
 
   const cardClasses = {
-    default: 'bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group',
-    compact: 'bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group',
-    featured: 'bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-saffron/20'
+    default: 'bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group border border-gray-100 hover:border-eleman-gold/30 transform hover:-translate-y-2',
+    compact: 'bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-400 overflow-hidden group border border-gray-100 hover:border-eleman-gold/20 transform hover:-translate-y-1',
+    featured: 'bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-600 overflow-hidden group border-2 border-eleman-gold/20 hover:border-eleman-gold/40 transform hover:-translate-y-3 relative'
   };
 
   const imageHeight = {
-    default: 'h-48 sm:h-56',
-    compact: 'h-40',
-    featured: 'h-64 sm:h-72'
+    default: 'h-52 sm:h-60',
+    compact: 'h-44',
+    featured: 'h-68 sm:h-80'
   };
 
   return (
-    <div className={cardClasses[variant]}>
+    <div className={`${cardClasses[variant]} relative`}>
+      {/* Featured badge for featured variant */}
+      {variant === 'featured' && (
+        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-eleman-gold to-eleman-dark-gold text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg z-10">
+          {locale === 'ar' ? 'مميز' : 'FEATURED'}
+        </div>
+      )}
+
       {/* Property Image */}
       <div className={`relative ${imageHeight[variant]} overflow-hidden`}>
+        {/* Background gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10"></div>
+        
         {/* Image or Placeholder */}
         {!imageError && property.image ? (
           <Image
             src={property.image}
             alt={locale === 'ar' ? property.title.ar : property.title.en}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-saffron/20 to-teal/20 flex items-center justify-center">
-            <div className="text-center text-gray-500">
-              <div className="w-16 h-16 bg-saffron/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-2xl font-bold text-saffron">إ</span>
+          <div className="w-full h-full bg-gradient-to-br from-eleman-gold/15 via-white to-eleman-dark-gold/15 flex items-center justify-center relative">
+            {/* Decorative background pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-4 left-4 w-8 h-8 border border-eleman-gold rounded-full"></div>
+              <div className="absolute bottom-6 right-6 w-6 h-6 bg-eleman-gold/20 rounded-full"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-eleman-gold/30 rounded-full"></div>
+            </div>
+            
+            <div className="text-center relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-r from-eleman-gold to-eleman-dark-gold rounded-full flex items-center justify-center mx-auto mb-3 shadow-xl">
+                <span className="text-3xl font-bold text-white">إ</span>
               </div>
-              <p className="text-sm">{locale === 'ar' ? property.title.ar : property.title.en}</p>
+              <h4 className="text-base font-bold text-gray-800 mb-1">
+                {locale === 'ar' ? property.title.ar : property.title.en}
+              </h4>
+              <p className="text-sm text-gray-600 font-medium">
+                {locale === 'ar' ? 'صورة قادمة قريباً' : 'Image coming soon'}
+              </p>
             </div>
           </div>
         )}
 
-        {/* Status Badge */}
-        <div className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'}`}>
-          <div className={`flex items-center space-x-1 rtl:space-x-reverse px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(property.status)}`}>
+        {/* Enhanced Status Badge */}
+        <div className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'} z-20`}>
+          <div className={`flex items-center space-x-1 rtl:space-x-reverse px-3 py-2 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm ${getStatusColor(property.status)}`}>
             {getStatusIcon(property.status)}
             <span>{t(property.status)}</span>
           </div>
         </div>
 
-        {/* Favorite Button */}
+        {/* Enhanced Favorite Button */}
         {showFavorite && (
           <button
             onClick={handleFavoriteClick}
-            className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} p-2 bg-white/90 rounded-full hover:bg-white transition-colors duration-200`}
+            className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} p-2.5 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 z-20`}
           >
             {isFavorite ? (
               <HeartSolid className="w-5 h-5 text-red-500" />
@@ -183,19 +205,19 @@ export default function PropertyCard({
           </button>
         )}
 
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <div className="flex space-x-3 rtl:space-x-reverse">
+        {/* Enhanced Overlay with gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-15">
+          <div className="flex space-x-4 rtl:space-x-reverse transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
             <button
               onClick={handleWhatsAppClick}
-              className="bg-green-500 text-white p-3 rounded-full hover:bg-green-600 transition-colors duration-200 flex items-center space-x-2 rtl:space-x-reverse"
+              className="bg-green-500 text-white p-3 rounded-full hover:bg-green-600 transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse shadow-lg hover:shadow-xl transform hover:scale-110"
               title={t('whatsapp')}
             >
               <ChatBubbleLeftRightIcon className="w-5 h-5" />
             </button>
             <button
               onClick={handlePhoneClick}
-              className="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center space-x-2 rtl:space-x-reverse"
+              className="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse shadow-lg hover:shadow-xl transform hover:scale-110"
               title={t('call_now')}
             >
               <PhoneIcon className="w-5 h-5" />
@@ -204,72 +226,83 @@ export default function PropertyCard({
         </div>
       </div>
 
-      {/* Property Details */}
-      <div className={variant === 'featured' ? 'p-8' : 'p-6'}>
-        {/* Project Name (if provided) */}
+      {/* Enhanced Property Details */}
+      <div className={`${variant === 'featured' ? 'p-8' : 'p-6'} relative`}>
+        {/* Project Name with enhanced styling */}
         {property.projectName && (
-          <p className={`text-sm text-saffron font-semibold mb-2 ${
-            isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-          }`}>
-            {locale === 'ar' ? property.projectName.ar : property.projectName.en}
-          </p>
+          <div className="mb-3">
+            <span className={`inline-flex items-center text-sm text-eleman-gold font-bold px-3 py-1 bg-eleman-gold/10 rounded-full border border-eleman-gold/20 ${
+              isRTL ? 'font-arabic' : 'font-latin'
+            }`}>
+              <div className="w-2 h-2 bg-eleman-gold rounded-full mr-2 rtl:mr-0 rtl:ml-2"></div>
+              {locale === 'ar' ? property.projectName.ar : property.projectName.en}
+            </span>
+          </div>
         )}
 
-        {/* Property Title */}
-        <h3 className={`${variant === 'featured' ? 'text-2xl' : 'text-xl'} font-bold text-gray-900 mb-2 ${
+        {/* Property Title with better typography */}
+        <h3 className={`${variant === 'featured' ? 'text-2xl' : 'text-xl'} font-bold text-gray-900 mb-3 leading-tight group-hover:text-eleman-gold transition-colors duration-300 ${
           isRTL ? 'font-arabic text-right' : 'font-latin text-left'
         }`}>
           {locale === 'ar' ? property.title.ar : property.title.en}
         </h3>
 
-        {/* Location */}
-        <div className={`flex items-center text-gray-600 mb-4 ${
+        {/* Enhanced Location */}
+        <div className={`flex items-center text-gray-600 mb-5 ${
           isRTL ? 'flex-row-reverse' : 'flex-row'
         }`}>
-          <MapPinIcon className={`w-4 h-4 ${isRTL ? 'mr-0 ml-2' : 'mr-2 ml-0'}`} />
-          <span className="text-sm">
+          <div className="p-1.5 bg-gray-100 rounded-full mr-2 rtl:mr-0 rtl:ml-2 group-hover:bg-eleman-gold/10 transition-colors duration-300">
+            <MapPinIcon className="w-4 h-4 text-gray-500 group-hover:text-eleman-gold transition-colors duration-300" />
+          </div>
+          <span className="text-sm font-medium">
             {locale === 'ar' ? property.location.ar : property.location.en}
           </span>
         </div>
 
-        {/* Key Details */}
-        <div className={`grid grid-cols-3 gap-4 mb-4 ${variant === 'compact' ? 'text-xs' : 'text-sm'}`}>
+        {/* Enhanced Key Details */}
+        <div className={`grid grid-cols-3 gap-4 mb-6 ${variant === 'compact' ? 'text-xs' : 'text-sm'}`}>
           {/* Bedrooms */}
-          <div className={`text-center ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <HomeIcon className="w-5 h-5 text-gray-400 mx-auto mb-1" />
-            <p className="font-semibold text-gray-900">{property.bedrooms}</p>
-            <p className="text-gray-600">{t('bedrooms')}</p>
+          <div className={`text-center p-3 bg-gray-50 rounded-xl hover:bg-eleman-gold/5 transition-colors duration-300 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <div className="p-2 bg-white rounded-lg shadow-sm mx-auto mb-2 w-fit">
+              <HomeIcon className="w-5 h-5 text-eleman-gold mx-auto" />
+            </div>
+            <p className="font-bold text-gray-900 text-lg">{property.bedrooms}</p>
+            <p className="text-gray-600 font-medium text-xs">{t('bedrooms')}</p>
           </div>
 
           {/* Area */}
-          <div className={`text-center ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <div className="w-5 h-5 bg-gray-400 rounded mx-auto mb-1"></div>
-            <p className="font-semibold text-gray-900">{property.area}</p>
-            <p className="text-gray-600">{t('sqm')}</p>
+          <div className={`text-center p-3 bg-gray-50 rounded-xl hover:bg-eleman-gold/5 transition-colors duration-300 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <div className="p-2 bg-white rounded-lg shadow-sm mx-auto mb-2 w-fit">
+              <div className="w-5 h-5 bg-eleman-gold rounded mx-auto"></div>
+            </div>
+            <p className="font-bold text-gray-900 text-lg">{property.area}</p>
+            <p className="text-gray-600 font-medium text-xs">{t('sqm')}</p>
           </div>
 
           {/* Delivery */}
-          <div className={`text-center ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <CalendarIcon className="w-5 h-5 text-gray-400 mx-auto mb-1" />
-            <p className="font-semibold text-gray-900">{property.deliveryDate}</p>
-            <p className="text-gray-600">{t('delivery')}</p>
+          <div className={`text-center p-3 bg-gray-50 rounded-xl hover:bg-eleman-gold/5 transition-colors duration-300 ${isRTL ? 'font-arabic' : 'font-latin'}`}>
+            <div className="p-2 bg-white rounded-lg shadow-sm mx-auto mb-2 w-fit">
+              <CalendarIcon className="w-5 h-5 text-eleman-gold mx-auto" />
+            </div>
+            <p className="font-bold text-gray-900 text-lg">{property.deliveryDate}</p>
+            <p className="text-gray-600 font-medium text-xs">{t('delivery')}</p>
           </div>
         </div>
 
-        {/* Features (if provided) */}
+        {/* Enhanced Features */}
         {property.features && property.features.length > 0 && (
-          <div className="mb-4">
+          <div className="mb-6">
             <div className={`flex flex-wrap gap-2 ${isRTL ? 'justify-end' : 'justify-start'}`}>
               {property.features.slice(0, 3).map((feature, index) => (
                 <span
                   key={index}
-                  className="bg-sand text-teal text-xs px-2 py-1 rounded-full font-medium"
+                  className="bg-gradient-to-r from-eleman-gold/10 to-eleman-dark-gold/10 text-gray-800 text-xs px-3 py-2 rounded-full font-medium border border-eleman-gold/20 hover:border-eleman-gold/40 hover:bg-eleman-gold/20 transition-all duration-300"
                 >
                   {t(`features.${feature}`) || feature}
                 </span>
               ))}
               {property.features.length > 3 && (
-                <span className="text-xs text-gray-500 px-2 py-1">
+                <span className="text-xs text-gray-600 px-3 py-2 font-medium bg-gray-100 rounded-full">
                   +{property.features.length - 3} {isRTL ? 'أخرى' : 'more'}
                 </span>
               )}
@@ -277,36 +310,42 @@ export default function PropertyCard({
           </div>
         )}
 
-        {/* Price */}
-        <div className={`mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
-          <p className="text-xs text-gray-500 mb-1">{t('starting_from')}</p>
-          <p className={`${variant === 'featured' ? 'text-2xl' : 'text-xl'} font-bold text-saffron ${
+        {/* Enhanced Price Section */}
+        <div className={`mb-6 p-4 bg-gradient-to-r from-gray-50 to-eleman-gold/5 rounded-xl border border-gray-100 ${isRTL ? 'text-right' : 'text-left'}`}>
+          <p className="text-xs text-gray-600 mb-1 font-medium uppercase tracking-wide">{t('starting_from')}</p>
+          <p className={`${variant === 'featured' ? 'text-3xl' : 'text-2xl'} font-bold text-transparent bg-gradient-to-r from-eleman-gold to-eleman-dark-gold bg-clip-text ${
             isRTL ? 'font-arabic' : 'font-latin'
           }`}>
             {formatPrice(property.startingPrice)}
           </p>
         </div>
 
-        {/* Action Buttons */}
+        {/* Enhanced Action Buttons */}
         <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
           <button
             onClick={handleWhatsAppClick}
-            className="flex-1 bg-saffron text-white py-3 px-4 rounded-lg font-semibold hover:bg-saffron/90 transition-colors duration-200 flex items-center justify-center space-x-2 rtl:space-x-reverse"
+            className="group flex-1 bg-green-600 hover:bg-green-700 text-white py-4 px-4 rounded-xl font-bold hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse transform hover:scale-[1.02] relative overflow-hidden"
           >
-            <ChatBubbleLeftRightIcon className="w-4 h-4" />
-            <span>{t('book_visit')}</span>
+            {/* Button shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+            <ChatBubbleLeftRightIcon className="w-5 h-5 relative z-10" />
+            <span className="relative z-10">{t('book_visit')}</span>
           </button>
           
           <Link
             href={`/projects/${property.slug}` as any}
-            className="flex-1 bg-teal text-white py-3 px-4 rounded-lg font-semibold hover:bg-teal/90 transition-colors duration-200 flex items-center justify-center space-x-2 rtl:space-x-reverse"
+            className="group flex-1 bg-eleman-gold hover:bg-eleman-dark-gold text-white py-4 px-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse hover:shadow-lg transform hover:scale-[1.02] relative overflow-hidden"
           >
-            <span>{t('learn_more')}</span>
-            {isRTL ? (
-              <ArrowLeftIcon className="w-4 h-4" />
-            ) : (
-              <ArrowRightIcon className="w-4 h-4" />
-            )}
+            {/* Button shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+            <span className="relative z-10">{t('learn_more')}</span>
+            <div className="relative z-10">
+              {isRTL ? (
+                <ArrowLeftIcon className="w-4 h-4" />
+              ) : (
+                <ArrowRightIcon className="w-4 h-4" />
+              )}
+            </div>
           </Link>
         </div>
       </div>

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/brand/logo_png.png',
+        url: '/images/brand/logo_svg_ar.svg',
         width: 1200,
         height: 630,
         alt: 'El Eman Group - Egypt\'s Premier Real Estate Developer',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'El Eman Group - Egypt\'s Leading Real Estate Developer',
     description: 'Premium real estate developments across Egypt. Luxury properties with world-class amenities.',
-    images: ['/images/brand/logo_png.png'],
+    images: ['/images/brand/logo_svg_ar.svg'],
   },
   robots: {
     index: true,

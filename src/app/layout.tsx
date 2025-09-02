@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     alternateLocale: 'en_US',
     images: [
       {
-        url: '/images/brand/logo_png.png',
+        url: '/images/brand/logo_svg_ar.svg',
         width: 1200,
         height: 630,
         alt: 'El Eman Developments Logo',
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'El Eman Developments | Egypt\'s Premier Real Estate Developer',
     description: 'Premium real estate developments across Egypt. Luxury properties in Cairo, Sheikh Zayed, North Coast.',
-    images: ['/images/brand/logo_png.png'],
+    images: ['/images/brand/logo_svg_ar.svg'],
     creator: '@elemangroup',
     site: '@elemangroup',
   },
@@ -108,7 +108,7 @@ const structuredData = {
   "name": "El Eman Developments",
   "alternateName": "الإيمان للتطوير العقاري",
   "url": "https://developments.elemangroup.com",
-  "logo": "https://developments.elemangroup.com/images/brand/logo_png.png",
+  "logo": "https://developments.elemangroup.com/images/brand/logo_svg_ar.svg",
   "description": "Egypt's premier real estate developer specializing in luxury properties and premium developments",
   "address": {
     "@type": "PostalAddress",
@@ -143,7 +143,7 @@ export default function RootLayout({
     <html suppressHydrationWarning className={`${notoSansArabic.variable} ${montserrat.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/logo_png.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/logo_svg_ar.svg" />
         <link rel="manifest" href="/manifest.json" />
         <script
           type="application/ld+json"

@@ -173,50 +173,50 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
   }, [filters, sortBy]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-saffron to-teal text-white py-16">
+      <div className="bg-gradient-to-r from-eleman-gold to-eleman-dark-gold text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center ${isRTL ? 'font-arabic' : 'font-latin'}`}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-shadow-md">
               {t('title')}
             </h1>
-            <p className="text-xl sm:text-2xl mb-8 opacity-90">
+            <p className="text-xl sm:text-2xl mb-8 opacity-90 max-w-3xl mx-auto text-shadow">
               {t('subtitle')}
             </p>
           </div>
           
           {/* Search Bar */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto mt-12">
             <PropertySearch onSearch={handleSearch} />
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
-          <div className="lg:w-80 flex-shrink-0">
+          <aside className="lg:w-80 flex-shrink-0">
             <SearchFilters
               filters={filters}
               onFiltersChange={setFilters}
               onClearFilters={clearFilters}
               isOpen={filtersOpen}
               onToggle={() => setFiltersOpen(!filtersOpen)}
-              className="sticky top-4"
+              className="sticky top-6 bg-gray-50 p-6 rounded-xl shadow-sm"
             />
-          </div>
+          </aside>
 
           {/* Results Section */}
-          <div className="flex-1">
+          <main className="flex-1">
             {/* Results Header */}
-            <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 ${
+            <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 p-4 bg-gray-50 rounded-xl ${
               isRTL ? 'sm:flex-row-reverse' : ''
             }`}>
               {/* Results Count */}
               <div className={isRTL ? 'text-right' : 'text-left'}>
-                <p className="text-gray-600">
+                <p className="text-gray-800 font-medium">
                   {t('showing_results', { 
                     count: paginatedProperties.length,
                     total: filteredAndSortedProperties.length 
@@ -228,13 +228,13 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
               <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 {/* Sort Dropdown */}
                 <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <label className="text-sm text-gray-600 whitespace-nowrap">
+                  <label className="text-sm text-gray-700 whitespace-nowrap font-medium">
                     {t('sort_by')}:
                   </label>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-saffron focus:border-saffron"
+                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-800 bg-white focus:ring-2 focus:ring-eleman-gold focus:border-eleman-gold transition"
                   >
                     {Object.entries(t.raw('sort_options')).map(([key, value]) => (
                       <option key={key} value={key}>
@@ -245,13 +245,13 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
                 </div>
 
                 {/* View Mode Toggle */}
-                <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                <div className="flex border border-gray-300 rounded-lg overflow-hidden bg-white">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 ${
+                    className={`p-2 transition-colors ${
                       viewMode === 'grid'
-                        ? 'bg-saffron text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
+                        ? 'bg-eleman-gold text-white'
+                        : 'text-gray-600 hover:bg-gray-100'
                     }`}
                     title={locale === 'ar' ? 'عرض الشبكة' : 'Grid View'}
                   >
@@ -259,10 +259,10 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2 ${
+                    className={`p-2 transition-colors ${
                       viewMode === 'list'
-                        ? 'bg-saffron text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
+                        ? 'bg-eleman-gold text-white'
+                        : 'text-gray-600 hover:bg-gray-100'
                     }`}
                     title={locale === 'ar' ? 'عرض القائمة' : 'List View'}
                   >
@@ -277,8 +277,8 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
               <>
                 <div className={
                   viewMode === 'grid'
-                    ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'
-                    : 'space-y-6'
+                    ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'
+                    : 'space-y-8'
                 }>
                   {paginatedProperties.map((property) => (
                     <PropertyCard
@@ -292,13 +292,13 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                  <div className="flex justify-center mt-12">
-                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                  <div className="flex justify-center mt-16">
+                    <nav className="flex items-center space-x-2 rtl:space-x-reverse">
                       {/* Previous Button */}
                       <button
                         onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                         disabled={currentPage === 1}
-                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
                       >
                         {isRTL ? 'التالي' : 'Previous'}
                       </button>
@@ -308,10 +308,10 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
-                          className={`px-4 py-2 rounded-lg ${
+                          className={`px-4 py-2 rounded-lg transition-colors ${
                             currentPage === page
-                              ? 'bg-saffron text-white'
-                              : 'border border-gray-300 hover:bg-gray-50'
+                              ? 'bg-eleman-gold text-white font-bold shadow-md'
+                              : 'border border-gray-300 text-gray-700 hover:bg-gray-100'
                           }`}
                         >
                           {page}
@@ -322,17 +322,17 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
                       <button
                         onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                         disabled={currentPage === totalPages}
-                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
                       >
                         {isRTL ? 'السابق' : 'Next'}
                       </button>
-                    </div>
+                    </nav>
                   </div>
                 )}
               </>
             ) : (
               /* No Results */
-              <div className="text-center py-16">
+              <div className="text-center py-20 bg-gray-50 rounded-xl">
                 <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
                   <AdjustmentsHorizontalIcon className="w-12 h-12 text-gray-400" />
                 </div>
@@ -341,18 +341,18 @@ export default function ProjectsClient({ locale }: ProjectsClientProps) {
                 }`}>
                   {t('no_results')}
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 mb-8 max-w-md mx-auto">
                   {t('no_results_message')}
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="bg-saffron text-white px-6 py-3 rounded-lg font-semibold hover:bg-saffron/90 transition-colors duration-200"
+                  className="bg-eleman-gold text-white px-8 py-3 rounded-lg font-semibold hover:bg-eleman-dark-gold transition-colors duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 >
                   {t('clear_filters')}
                 </button>
               </div>
             )}
-          </div>
+          </main>
         </div>
       </div>
     </div>

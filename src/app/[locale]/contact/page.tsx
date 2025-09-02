@@ -52,7 +52,7 @@ export async function generateMetadata({
               alt: 'تواصل مع الإيمان للتطوير العقاري',
             },
             {
-              url: `${baseUrl}/images/brand/logo_png.png`,
+              url: `${baseUrl}/images/brand/logo_svg_ar.svg`,
               width: 800,
               height: 600,
               alt: 'شعار الإيمان للتطوير العقاري',
@@ -118,7 +118,7 @@ export async function generateMetadata({
               alt: 'Contact El Eman Developments',
             },
             {
-              url: `${baseUrl}/images/brand/logo_png.png`,
+              url: `${baseUrl}/images/brand/logo_svg_ar.svg`,
               width: 800,
               height: 600,
               alt: 'El Eman Developments Logo',
@@ -225,7 +225,7 @@ export default async function ContactPage({
         name: locale === 'ar' ? 'الإيمان للتطوير العقاري' : 'El Eman Developments',
         alternateName: 'El Eman Group',
         url: baseUrl,
-        logo: `${baseUrl}/images/brand/logo_png.png`,
+        logo: `${baseUrl}/images/brand/logo_svg_ar.svg`,
         contactPoint: [
           {
             '@type': 'ContactPoint',

@@ -29,12 +29,21 @@ export default function FeaturedProjects() {
   const projects: Project[] = [
     {
       id: '1',
-      nameKey: 'luxury_villa_825',
-      locationKey: 'luxury_villa_825',
-      descriptionKey: 'luxury_villa_825',
+      nameKey: 'noor_villa',
+      locationKey: 'noor_villa',
+      descriptionKey: 'noor_villa',
       startingPrice: '8500000',
-      image: '/images/properties/villa-1.jpg',
-      slug: 'luxury-villa-825'
+      image: '/images/properties/noor villa/1.jpg',
+      slug: 'noor-villa'
+    },
+    {
+      id: '2',
+      nameKey: 'modern_penthouse',
+      locationKey: 'modern_penthouse',
+      descriptionKey: 'modern_penthouse',
+      startingPrice: '12000000',
+      image: '/images/properties/villa-2-2.jpg',
+      slug: 'modern-penthouse'
     }
   ];
 
@@ -51,7 +60,7 @@ export default function FeaturedProjects() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 ${
+          <h2 className={`text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 text-center ${
             isRTL ? 'font-arabic' : 'font-latin'
           }`}>
             {t('title')}
@@ -65,24 +74,22 @@ export default function FeaturedProjects() {
         </div>
 
         {/* Projects Grid */}
-        <div className="flex justify-center mb-12">
-          <div className="max-w-md w-full">
+        <div className="mb-12">
+          <div className="w-full space-y-8">
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group"
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group w-full"
               >
                 {/* Project Image */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-saffron/20 to-teal/20 flex items-center justify-center">
-                    {/* Placeholder for project image */}
-                    <div className="text-center text-gray-500">
-                      <div className="w-16 h-16 bg-saffron/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <span className="text-2xl font-bold text-saffron">إ</span>
-                      </div>
-                      <p className="text-sm">{locale === 'ar' ? 'فيلا فاخرة ٨٢٥م' : 'Luxury Villa 825m'}</p>
-                    </div>
-                  </div>
+                  <Image
+                    src={project.image}
+                    alt={`Project ${project.id}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                  />
                   
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -106,7 +113,12 @@ export default function FeaturedProjects() {
                   <h3 className={`text-xl font-bold text-gray-900 mb-2 ${
                     isRTL ? 'font-arabic text-right' : 'font-latin text-left'
                   }`}>
-                    {locale === 'ar' ? 'فيلا فاخرة ٨٢٥م' : 'Luxury Villa 825m'}
+                    {project.id === '1' 
+                      ? (locale === 'ar' ? 'فيلا فاخرة ٨٢٥م' : 'Luxury Villa 825m')
+                      : project.id === '2'
+                      ? (locale === 'ar' ? 'بنتهاوس عصري' : 'Modern Penthouse')
+                      : (locale === 'ar' ? 'كمبوند عائلي' : 'Family Compound')
+                    }
                   </h3>
 
                   {/* Location */}
@@ -115,19 +127,62 @@ export default function FeaturedProjects() {
                   }`}>
                     <MapPinIcon className={`w-4 h-4 ${isRTL ? 'mr-0 ml-1' : 'mr-1 ml-0'}`} />
                     <span className="text-sm">
-                      {locale === 'ar' ? 'القاهرة الجديدة' : 'New Cairo'}
+                      {project.id === '1'
+                        ? (locale === 'ar' ? 'القاهرة الجديدة' : 'New Cairo')
+                        : project.id === '2'
+                        ? (locale === 'ar' ? 'الشيخ زايد' : 'Sheikh Zayed')
+                        : (locale === 'ar' ? 'الرحاب' : 'Rehab City')
+                      }
+                    </span>
+                  </div>
+
+                  {/* Project Name */}
+                  <h3 className={`text-xl font-bold text-gray-900 mb-2 ${
+                    isRTL ? 'font-arabic text-right' : 'font-latin text-left'
+                  }`}>
+                    {project.id === '1' 
+                      ? (locale === 'ar' ? 'فيلا نور' : 'Noor Villa')
+                      : (locale === 'ar' ? 'بنتهاوس عصري' : 'Modern Penthouse')
+                    }
+                  </h3>
+
+                  {/* Location */}
+                  <div className={`flex items-center text-gray-600 mb-3 ${
+                    isRTL ? 'flex-row-reverse' : 'flex-row'
+                  }`}>
+                    <MapPinIcon className={`w-4 h-4 ${isRTL ? 'mr-0 ml-1' : 'mr-1 ml-0'}`} />
+                    <span className="text-sm">
+                      {project.id === '1'
+                        ? (locale === 'ar' ? 'القاهرة الجديدة' : 'New Cairo')
+                        : (locale === 'ar' ? 'الشيخ زايد' : 'Sheikh Zayed')
+                      }
                     </span>
                   </div>
 
                   {/* Description */}
-                  <p className={`text-gray-600 text-sm mb-4 line-clamp-2 ${
+                  <div className={`text-gray-600 text-sm mb-4 ${
                     isRTL ? 'font-arabic text-right' : 'font-latin text-left'
                   }`}>
-                    {locale === 'ar' 
-                      ? 'فيلا فاخرة ٨٢٥م مع حمام سباحة ٦٠م وحديقة خاصة ١٨٠م'
-                      : 'Luxury 825m villa with 60m swimming pool and 180m private garden'
-                    }
-                  </p>
+                    {project.id === '1' ? (
+                      locale === 'ar' ? (
+                        <div className="space-y-2">
+                          <p>مباني ٤٢٠م • حمام سباحة ٦٠م مع سقف مغطى متحرك • حديقة خاصة نجيلة طبيعية ١٨٠م</p>
+                          <p className="text-xs">الدور الأرضي: ريسبشن ٣ قطع - حمام كبير - مطبخ كبير - غرفة ماستر - ٢ تراس</p>
+                          <p className="text-xs">الدور الثاني: ٤ غرف (منهم ٢ ماستر) - ريسبشن - حمام - تراس كبير على حمام السباحة - ٣ بلكونة</p>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <p>Built area 420m • 60m swimming pool with movable covered roof • Private natural grass garden 180m</p>
+                          <p className="text-xs">Ground floor: 3-piece reception - large bathroom - large kitchen - master room - 2 terraces</p>
+                          <p className="text-xs">Second floor: 4 rooms (2 master) - reception - bathroom - large terrace overlooking pool - 3 balconies</p>
+                        </div>
+                      )
+                    ) : (
+                      locale === 'ar'
+                        ? 'بنتهاوس عصري مع إطلالة بانورامية وتراس واسع'
+                        : 'Modern penthouse with panoramic views and spacious terrace'
+                    )}
+                  </div>
 
                   {/* Price */}
                   <div className={`flex items-center justify-between ${
@@ -162,7 +217,7 @@ export default function FeaturedProjects() {
         <div className="text-center">
           <Link
             href={`/${locale}/projects`}
-            className="inline-flex items-center space-x-3 rtl:space-x-reverse bg-teal text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-teal/90 shadow-lg hover:shadow-xl transition-all duration-300"
+            className="inline-flex items-center space-x-3 rtl:space-x-reverse bg-teal-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-teal-700 shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <span>{t('view_all')}</span>
             {isRTL ? (
@@ -177,3 +232,6 @@ export default function FeaturedProjects() {
   );
 }
 
+
+
+ 
