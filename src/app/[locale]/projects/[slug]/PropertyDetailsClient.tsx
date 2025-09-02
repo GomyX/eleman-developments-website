@@ -78,7 +78,12 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
   const [showContactForm, setShowContactForm] = useState(false);
   const [contactFormType, setContactFormType] = useState<'visit' | 'call'>('visit');
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Touch gesture constants
+  const minSwipeDistance = 50;
 
   // Story slides data
   const storySlides = [
@@ -200,6 +205,31 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
     setCurrentStoryIndex((prev) => 
       prev === 0 ? prev : prev - 1
     );
+  };
+
+  // Touch gesture handlers
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && currentStoryIndex < storySlides.length - 1) {
+      goToNextStory();
+    }
+    if (isRightSwipe && currentStoryIndex > 0) {
+      goToPreviousStory();
+    }
   };
 
   // Auto-scroll through images
@@ -606,190 +636,227 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
 
 
 
-      {/* Storytelling Journey - Slide Format */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-8 sm:py-16">
+      {/* Storytelling Journey - Mobile-First Slide Format */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-6 sm:py-8 lg:py-16">
         <div className="relative">
-          {/* Slide Navigation Header */}
-          <div className="flex justify-between items-center mb-8">
-            <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
-              <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent ${
+          {/* Mobile-Optimized Navigation Header */}
+          <div className="mb-3 sm:mb-4 lg:mb-6">
+            <div className={`text-center sm:text-left mb-2 sm:mb-3 ${isRTL ? 'sm:text-right' : 'sm:text-left'}`}>
+              <h2 className={`text-lg xs:text-xl sm:text-2xl lg:text-4xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent mb-1 sm:mb-2 ${
                 isRTL ? 'font-arabic' : 'font-latin'
               }`}>
                 {locale === 'ar' ? 'رحلة عبر الفيلا' : 'Villa Journey'}
               </h2>
-              <p className="text-gray-600 mt-2">
-                {locale === 'ar' ? `${currentStoryIndex + 1} من ${storySlides.length}` : `${currentStoryIndex + 1} of ${storySlides.length}`}
-              </p>
+              
+              {/* Mobile Progress Bar */}
+              <div className="flex items-center justify-center sm:justify-start space-x-2 sm:space-x-3 rtl:space-x-reverse">
+                <span className="text-xs sm:text-sm text-gray-600">
+                  {locale === 'ar' ? `${currentStoryIndex + 1} من ${storySlides.length}` : `${currentStoryIndex + 1} of ${storySlides.length}`}
+                </span>
+                <div className="flex-1 max-w-24 xs:max-w-28 sm:max-w-32 lg:max-w-40 h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${((currentStoryIndex + 1) / storySlides.length) * 100}%` }}
+                  />
+                </div>
+              </div>
             </div>
             
-            {/* Navigation Buttons */}
-            <div className="flex space-x-2 rtl:space-x-reverse">
+            {/* Mobile Navigation Buttons */}
+            <div className="flex justify-center sm:justify-end space-x-2 sm:space-x-3 rtl:space-x-reverse">
               <button
                 onClick={goToPreviousStory}
                 disabled={currentStoryIndex === 0}
-                className={`p-3 rounded-full transition-all duration-300 ${
+                className={`p-2 sm:p-3 rounded-full transition-all duration-300 touch-manipulation min-h-[44px] min-w-[44px] ${
                   currentStoryIndex === 0 
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                    : 'bg-amber-100 text-amber-700 hover:bg-amber-200 hover:scale-110'
+                    : 'bg-white text-amber-600 border border-amber-200 hover:bg-amber-50 shadow-md hover:shadow-lg active:scale-95'
                 }`}
               >
-                <ChevronLeftIcon className="w-5 h-5" />
+                <ChevronLeftIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button
                 onClick={goToNextStory}
                 disabled={currentStoryIndex === storySlides.length - 1}
-                className={`p-3 rounded-full transition-all duration-300 ${
+                className={`p-2 sm:p-3 rounded-full transition-all duration-300 touch-manipulation min-h-[44px] min-w-[44px] ${
                   currentStoryIndex === storySlides.length - 1 
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                    : 'bg-amber-100 text-amber-700 hover:bg-amber-200 hover:scale-110'
+                    : 'bg-white text-amber-600 border border-amber-200 hover:bg-amber-50 shadow-md hover:shadow-lg active:scale-95'
                 }`}
               >
-                <ChevronRightIcon className="w-5 h-5" />
+                <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>
 
-          {/* Slide Container */}
-          <div className="relative h-[600px] sm:h-[700px] lg:h-[800px] overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-gray-900 to-black">
-            {/* Current Slide */}
-            <div className="absolute inset-0 transition-all duration-700 ease-in-out">
+          {/* Mobile-First Slide Container with Touch Support */}
+          <div 
+            className="relative h-[400px] xs:h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl bg-gradient-to-br from-gray-900 via-black to-gray-800"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            {/* Image with Mobile-Optimized Loading */}
+            <div className="absolute inset-0 transition-all duration-700 ease-out">
               <Image
                 src={storySlides[currentStoryIndex]?.image || property.images[0]?.url || '/images/properties/villa-facade.jpg'}
                 alt={storySlides[currentStoryIndex]?.title[locale as 'ar' | 'en'] || 'Villa'}
                 fill
-                className="object-cover"
-                sizes="100vw"
+                className="object-cover transition-transform duration-[2000ms] ease-out hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 80vw"
                 priority
               />
-              
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-              
-              {/* Content Overlay */}
-              <div className="absolute inset-0 flex items-end p-6 sm:p-8 lg:p-12">
-                <div className="w-full max-w-4xl">
-                  {/* Icon and Title */}
-                  <div className="flex items-center space-x-4 rtl:space-x-reverse mb-6">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${storySlides[currentStoryIndex]?.colorFrom} ${storySlides[currentStoryIndex]?.colorTo} rounded-2xl flex items-center justify-center shadow-xl`}>
-                      {storySlides[currentStoryIndex]?.icon && (() => {
-                        const IconComponent = storySlides[currentStoryIndex].icon;
-                        return <IconComponent className="w-8 h-8 text-white" />;
-                      })()}
-                    </div>
-                    <div>
-                      <h3 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 ${
-                        isRTL ? 'font-arabic text-right' : 'font-latin text-left'
-                      }`}>
-                        {storySlides[currentStoryIndex]?.title[locale as 'ar' | 'en']}
-                      </h3>
-                      <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                        <div className="w-12 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full"></div>
-                        <span className="text-amber-200 font-medium">
-                          {locale === 'ar' ? `المرحلة ${currentStoryIndex + 1}` : `Step ${currentStoryIndex + 1}`}
-                        </span>
-                      </div>
+            </div>
+            
+            {/* Mobile-Optimized Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent sm:from-black/80 sm:via-black/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20"></div>
+            
+            {/* Mobile-First Content Layout */}
+            <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
+              {/* Icon and Title - Mobile Optimized */}
+              <div className="mb-4">
+                <div className="flex items-center space-x-3 rtl:space-x-reverse mb-3">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${storySlides[currentStoryIndex]?.colorFrom} ${storySlides[currentStoryIndex]?.colorTo} rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg`}>
+                    {storySlides[currentStoryIndex]?.icon && (() => {
+                      const IconComponent = storySlides[currentStoryIndex].icon;
+                      return <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />;
+                    })()}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className={`text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight ${
+                      isRTL ? 'font-arabic text-right' : 'font-latin text-left'
+                    }`}>
+                      {storySlides[currentStoryIndex]?.title[locale as 'ar' | 'en']}
+                    </h3>
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse mt-1">
+                      <div className={`h-0.5 bg-gradient-to-r ${storySlides[currentStoryIndex]?.colorFrom} ${storySlides[currentStoryIndex]?.colorTo} rounded-full transition-all duration-500`} 
+                           style={{ width: '30px' }}></div>
+                      <span className="text-amber-200 text-xs">
+                        {currentStoryIndex + 1}/{storySlides.length}
+                      </span>
                     </div>
                   </div>
-                  
-                  {/* Content */}
-                  <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${isRTL ? 'text-right' : 'text-left'}`}>
-                    <div className="space-y-4">
-                      <p className="text-xl sm:text-2xl text-white font-medium leading-relaxed">
-                        {storySlides[currentStoryIndex]?.mainText[locale as 'ar' | 'en']}
-                      </p>
-                      <p className="text-lg text-gray-200 leading-relaxed">
-                        {storySlides[currentStoryIndex]?.subText[locale as 'ar' | 'en']}
-                      </p>
-                    </div>
-                    
-                    {/* Features/Stats */}
-                    <div className="space-y-4">
-                      {storySlides[currentStoryIndex]?.features && (
-                        <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {storySlides[currentStoryIndex].features.map((feature: any, index: number) => (
-                              <div key={index} className="flex items-center space-x-3 rtl:space-x-reverse">
-                                <div className="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center">
-                                  <CheckCircleIcon className="w-5 h-5 text-white" />
-                                </div>
-                                <span className="text-white font-medium">{feature[locale as 'ar' | 'en']}</span>
-                              </div>
-                            ))}
+                </div>
+                
+                {/* Main Content - Mobile Responsive */}
+                <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
+                  <p className={`text-xs xs:text-sm sm:text-base md:text-lg text-white leading-relaxed ${isRTL ? 'text-right' : 'text-left'}`}>
+                    {storySlides[currentStoryIndex]?.mainText[locale as 'ar' | 'en']}
+                  </p>
+                  <p className={`text-xs sm:text-sm text-gray-200 leading-relaxed ${isRTL ? 'text-right' : 'text-left'} line-clamp-2 sm:line-clamp-none`}>
+                    {storySlides[currentStoryIndex]?.subText[locale as 'ar' | 'en']}
+                  </p>
+                </div>
+                
+                {/* Mobile Features Grid */}
+                {storySlides[currentStoryIndex]?.features && (
+                  <div className="mb-3 sm:mb-4">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 gap-1.5 sm:gap-2 lg:gap-3">
+                      {storySlides[currentStoryIndex].features.slice(0, 4).map((feature: any, index: number) => (
+                        <div key={index} 
+                             className="flex items-center space-x-1.5 sm:space-x-2 rtl:space-x-reverse bg-white/10 backdrop-blur-sm p-1.5 sm:p-2 lg:p-3 rounded-md sm:rounded-lg">
+                          <div className={`w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 bg-gradient-to-r ${storySlides[currentStoryIndex]?.colorFrom} ${storySlides[currentStoryIndex]?.colorTo} rounded-full flex items-center justify-center flex-shrink-0`}>
+                            <CheckCircleIcon className="w-1.5 h-1.5 xs:w-2 xs:h-2 sm:w-3 sm:h-3 text-white" />
                           </div>
+                          <span className="text-white text-xs sm:text-sm font-medium leading-tight">
+                            {feature[locale as 'ar' | 'en']}
+                          </span>
                         </div>
-                      )}
-                      
-                      {/* Action Buttons */}
-                      <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse">
-                        <button
-                          onClick={() => handleRequestVisit('visit')}
-                          className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                        >
-                          {locale === 'ar' ? 'احجز زيارتك' : 'Book Your Visit'}
-                        </button>
-                        <button
-                          onClick={() => handleRequestVisit('call')}
-                          className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-6 py-3 rounded-xl font-bold hover:bg-white/30 transition-all duration-300"
-                        >
-                          {locale === 'ar' ? 'اطلب مكالمة' : 'Request Call'}
-                        </button>
-                      </div>
+                      ))}
                     </div>
                   </div>
+                )}
+                
+                {/* Mobile Action Buttons */}
+                <div className="flex space-x-2 rtl:space-x-reverse">
+                  <button
+                    onClick={() => handleRequestVisit('visit')}
+                    className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 xs:px-4 py-2 sm:py-2.5 lg:py-3 rounded-lg font-bold text-xs xs:text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 touch-manipulation"
+                  >
+                    {locale === 'ar' ? 'احجز زيارة' : 'Book Visit'}
+                  </button>
+                  <button
+                    onClick={() => handleRequestVisit('call')}
+                    className="flex-1 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 xs:px-4 py-2 sm:py-2.5 lg:py-3 rounded-lg font-bold text-xs xs:text-sm sm:text-base transition-all duration-300 active:scale-95 touch-manipulation"
+                  >
+                    {locale === 'ar' ? 'اتصل بنا' : 'Call Us'}
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Slide Indicators */}
-          <div className="flex justify-center mt-8 space-x-2 rtl:space-x-reverse">
+          {/* Scalable Mobile-Friendly Slide Indicators */}
+          <div className="flex justify-center mt-3 sm:mt-4 lg:mt-6 space-x-1.5 sm:space-x-2 rtl:space-x-reverse">
             {storySlides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentStoryIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`transition-all duration-300 rounded-full touch-manipulation ${
                   index === currentStoryIndex 
-                    ? 'bg-amber-500 scale-125 shadow-lg' 
-                    : 'bg-gray-300 hover:bg-amber-300'
+                    ? 'w-4 h-2 xs:w-5 xs:h-2.5 sm:w-6 sm:h-3 bg-gradient-to-r from-amber-500 to-orange-500 shadow-md ring-1 ring-amber-200' 
+                    : 'w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-gray-300 hover:bg-amber-300'
                 }`}
               />
             ))}
           </div>
           
-          {/* Slide Titles Navigation */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4 mt-8">
-            {storySlides.map((slide, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentStoryIndex(index)}
-                className={`p-3 sm:p-4 rounded-xl transition-all duration-300 text-left ${
-                  index === currentStoryIndex 
-                    ? 'bg-gradient-to-r from-amber-100 to-orange-100 border-2 border-amber-300 shadow-lg' 
-                    : 'bg-gray-50 hover:bg-amber-50 border border-gray-200'
-                }`}
-              >
-                <div className="flex items-center space-x-2 rtl:space-x-reverse mb-2">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    index === currentStoryIndex ? 'bg-amber-500' : 'bg-gray-300'
-                  }`}>
-                    {slide.icon && (() => {
-                      const IconComponent = slide.icon;
-                      return <IconComponent className="w-4 h-4 text-white" />;
-                    })()}
-                  </div>
-                  <span className={`text-xs sm:text-sm font-bold ${
-                    index === currentStoryIndex ? 'text-amber-700' : 'text-gray-600'
-                  }`}>
-                    {locale === 'ar' ? `${index + 1}` : `${index + 1}`}
-                  </span>
+          {/* Simplified Mobile Navigation */}
+          <div className="mt-3 sm:mt-4 lg:mt-6">
+            {/* Mobile Slide Thumbnails */}
+            <div className="overflow-x-auto scrollbar-hide pb-2">
+              <div className="flex space-x-2 sm:space-x-3 rtl:space-x-reverse px-1" style={{ width: 'max-content' }}>
+                {storySlides.map((slide, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentStoryIndex(index)}
+                    className={`flex-shrink-0 w-16 xs:w-20 sm:w-24 lg:w-32 p-1.5 sm:p-2 lg:p-3 rounded-md sm:rounded-lg transition-all duration-300 text-left touch-manipulation ${
+                      index === currentStoryIndex 
+                        ? 'bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 sm:border-2 shadow-sm sm:shadow-md' 
+                        : 'bg-white border border-gray-200 hover:bg-amber-25 hover:border-amber-200'
+                    }`}
+                  >
+                    <div className="flex flex-col items-center space-y-1">
+                      <div className={`w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-md sm:rounded-lg flex items-center justify-center transition-all duration-300 ${
+                        index === currentStoryIndex 
+                          ? `bg-gradient-to-r ${slide.colorFrom} ${slide.colorTo}` 
+                          : 'bg-gray-200'
+                      }`}>
+                        {slide.icon && (() => {
+                          const IconComponent = slide.icon;
+                          return <IconComponent className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-white" />;
+                        })()}
+                      </div>
+                      <div className="text-center">
+                        <span className={`text-xs font-bold block ${
+                          index === currentStoryIndex ? 'text-amber-700' : 'text-gray-600'
+                        }`}>
+                          {index + 1}
+                        </span>
+                        <h4 className={`text-xs leading-tight line-clamp-2 font-medium ${
+                          index === currentStoryIndex ? 'text-amber-700' : 'text-gray-700'
+                        }`}>
+                          {slide.title[locale as 'ar' | 'en']}
+                        </h4>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Swipe Hint for Mobile */}
+            <div className="flex sm:hidden justify-center mt-2">
+              <div className="flex items-center space-x-1.5 rtl:space-x-reverse text-gray-400 text-xs">
+                <div className="flex space-x-0.5">
+                  <div className="w-1 h-1 bg-gray-400 rounded-full animate-pulse"></div>
+                  <div className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-1 h-1 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
                 </div>
-                <h4 className={`text-xs sm:text-sm font-medium ${
-                  index === currentStoryIndex ? 'text-amber-700' : 'text-gray-700'
-                } ${isRTL ? 'text-right' : 'text-left'}`}>
-                  {slide.title[locale as 'ar' | 'en']}
-                </h4>
-              </button>
-            ))}
+                <span>{locale === 'ar' ? 'اسحب للتنقل' : 'Swipe to navigate'}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -872,71 +939,286 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
         </div>
       )}
 
-      {/* Add CSS for animations and mobile optimization */}
+      {/* Mobile-First Enhanced CSS */}
       <style jsx>{`
+        /* Core animations optimized for mobile */
         @keyframes slow-zoom {
-          0% { transform: scale(1.1); }
-          100% { transform: scale(1.2); }
+          0% { transform: scale(1.02); }
+          100% { transform: scale(1.08); }
         }
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes mobile-slide-in {
+          from { 
+            opacity: 0; 
+            transform: translateY(20px) scale(0.98); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+          }
         }
-        @keyframes slide-in-right {
-          from { transform: translateX(100%); }
-          to { transform: translateX(0); }
+        @keyframes mobile-fade-up {
+          from { 
+            opacity: 0; 
+            transform: translateY(10px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0); 
+          }
         }
-        @keyframes slide-in-left {
-          from { transform: translateX(-100%); }
-          to { transform: translateX(0); }
-        }
+        
         .animate-slow-zoom {
           animation: slow-zoom 20s ease-in-out infinite alternate;
         }
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
+        .animate-mobile-slide-in {
+          animation: mobile-slide-in 0.4s ease-out forwards;
         }
-        .animate-slide-in-right {
-          animation: slide-in-right 0.8s ease-out forwards;
+        .animate-mobile-fade-up {
+          animation: mobile-fade-up 0.3s ease-out forwards;
         }
-        .animate-slide-in-left {
-          animation: slide-in-left 0.8s ease-out forwards;
-        }
+        
+        /* Mobile scrolling optimization */
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
+          scroll-behavior: smooth;
         }
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
+        
+        /* Line clamp utility for mobile */
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        /* Mobile-first optimizations */
         @media (max-width: 640px) {
+          /* Touch optimizations */
           .touch-manipulation {
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
           }
+          
+          /* Slower animations to reduce battery drain */
           .animate-slow-zoom {
             animation-duration: 25s;
           }
-          button, a {
+          
+          /* Minimum touch targets */
+          button, a, [role="button"] {
             min-height: 44px;
             min-width: 44px;
           }
+          
+          /* Better scrolling performance */
           .overflow-x-auto {
             -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+          }
+          
+          /* Prevent zoom on form inputs */
+          input, textarea, select {
+            font-size: 16px !important;
+            transform: translateZ(0);
+          }
+          
+          /* Optimize background attachments */
+          .bg-fixed {
+            background-attachment: scroll;
+          }
+          
+          /* Better mobile spacing */
+          .mobile-spacing > * + * {
+            margin-top: 0.75rem;
+          }
+          
+          /* Mobile text optimization */
+          .mobile-text-base {
+            font-size: 0.875rem;
+            line-height: 1.4;
+          }
+          
+          /* Mobile gradient overlay improvement */
+          .mobile-gradient {
+            background: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 0.95) 0%,
+              rgba(0, 0, 0, 0.8) 25%,
+              rgba(0, 0, 0, 0.6) 50%,
+              rgba(0, 0, 0, 0.3) 75%,
+              rgba(0, 0, 0, 0.1) 100%
+            );
+          }
+          
+          /* Improve button press feedback */
+          button:active, [role="button"]:active {
+            transform: scale(0.97);
+            transition: transform 0.1s ease-out;
           }
         }
-        @media (prefers-reduced-motion: reduce) {
+        
+        /* Extra small screens (xs breakpoint - 475px and below) */
+        @media (max-width: 475px) {
+          .xs-text-xs {
+            font-size: 0.75rem;
+          }
+          
+          .xs-text-sm {
+            font-size: 0.875rem;
+          }
+          
+          .xs-text-base {
+            font-size: 1rem;
+          }
+          
+          .xs-p-1 {
+            padding: 0.25rem;
+          }
+          
+          .xs-p-2 {
+            padding: 0.5rem;
+          }
+          
+          .xs-space-y-1 > * + * {
+            margin-top: 0.25rem;
+          }
+          
+          .xs-space-y-2 > * + * {
+            margin-top: 0.5rem;
+          }
+          
+          .xs-w-16 {
+            width: 4rem;
+          }
+          
+          .xs-w-20 {
+            width: 5rem;
+          }
+          
+          .xs-h-2 {
+            height: 0.5rem;
+          }
+          
+          .xs-h-2\.5 {
+            height: 0.625rem;
+          }
+          
+          .xs-h-3 {
+            height: 0.75rem;
+          }
+          
+          .xs-h-3\.5 {
+            height: 0.875rem;
+          }
+          
+          .xs-h-4 {
+            height: 1rem;
+          }
+          
+          .xs-h-7 {
+            height: 1.75rem;
+          }
+          
+          .xs-w-2 {
+            width: 0.5rem;
+          }
+          
+          .xs-w-2\.5 {
+            width: 0.625rem;
+          }
+          
+          .xs-w-3 {
+            width: 0.75rem;
+          }
+          
+          .xs-w-3\.5 {
+            width: 0.875rem;
+          }
+          
+          .xs-w-4 {
+            width: 1rem;
+          }
+          
+          .xs-w-5 {
+            width: 1.25rem;
+          }
+          
+          .xs-w-7 {
+            width: 1.75rem;
+          }
+          
+          .xs-max-w-28 {
+            max-width: 7rem;
+          }
+        }
+        
+        /* Small tablet optimization */
+        @media (min-width: 641px) and (max-width: 768px) {
           .animate-slow-zoom {
-            animation: none;
+            animation-duration: 22s;
           }
-          .animate-fade-in {
-            animation: none;
+        }
+        
+        /* Reduce motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+          .animate-slow-zoom,
+          .animate-mobile-slide-in,
+          .animate-mobile-fade-up {
+            animation: none !important;
           }
+          
           * {
             transition-duration: 0.01ms !important;
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
           }
+        }
+        
+        /* Enhanced accessibility */
+        @media (prefers-contrast: high) {
+          .text-gray-200 {
+            color: #f3f4f6;
+          }
+          .text-gray-600 {
+            color: #374151;
+          }
+        }
+        
+        /* Focus styles for keyboard navigation */
+        button:focus-visible, 
+        a:focus-visible,
+        [role="button"]:focus-visible {
+          outline: 3px solid #f59e0b;
+          outline-offset: 2px;
+          border-radius: 0.5rem;
+        }
+        
+        /* Backdrop blur fallback */
+        @supports not (backdrop-filter: blur(12px)) {
+          .backdrop-blur-sm {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+          .backdrop-blur-md {
+            background-color: rgba(255, 255, 255, 0.15);
+          }
+        }
+        
+        /* Performance optimization */
+        .will-change-transform {
+          will-change: transform;
+        }
+        
+        .gpu-accelerated {
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          perspective: 1000px;
         }
       `}</style>
     </div>
