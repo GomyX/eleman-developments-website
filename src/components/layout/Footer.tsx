@@ -13,6 +13,10 @@ import {
   BanknotesIcon
 } from '@heroicons/react/24/outline';
 
+interface FooterProps {
+  theme?: 'light' | 'dark';
+}
+
 // Proper social media icons (using proper SVGs for better SEO)
 const FacebookIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -44,12 +48,34 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-export default function Footer() {
+export default function Footer({ theme = 'light' }: FooterProps) {
   const locale = useLocale();
   const t = useTranslations('footer');
   const navT = useTranslations('navigation');
   
   const currentYear = useMemo(() => new Date().getFullYear(), []);
+  
+  // Theme-based styling
+  const isLight = theme === 'light';
+  const themeClasses = {
+    container: isLight 
+      ? 'bg-white text-gray-900 border-t border-gray-200' 
+      : 'bg-black text-white',
+    text: {
+      primary: isLight ? 'text-gray-900' : 'text-white',
+      secondary: isLight ? 'text-gray-600' : 'text-gray-300',
+      tertiary: isLight ? 'text-gray-500' : 'text-gray-400',
+      accent: 'text-amber-600',
+      hover: isLight ? 'hover:text-amber-600' : 'hover:text-white hover:text-primary'
+    },
+    bg: {
+      card: isLight ? 'bg-gray-50 border border-gray-200' : 'bg-gray-800 border border-gray-700',
+      cardHover: isLight ? 'hover:bg-amber-50 hover:border-amber-200' : 'hover:bg-primary hover:border-primary/50',
+      gradient: isLight ? 'bg-gradient-to-r from-gray-900 to-amber-600' : 'bg-gradient-to-r from-white to-primary',
+      overlay: isLight ? 'bg-gray-100/30' : 'bg-primary/10'
+    },
+    border: isLight ? 'border-gray-200' : 'border-gray-800'
+  };
 
   const quickLinks = [
     { key: 'home', href: '/', icon: HomeIcon },
@@ -188,7 +214,7 @@ export default function Footer() {
       />
 
       <footer 
-        className="bg-black text-white relative overflow-hidden" 
+        className={`${themeClasses.container} relative overflow-hidden`}
         itemScope 
         itemType="https://schema.org/RealEstateAgent"
         role="contentinfo"
@@ -196,8 +222,8 @@ export default function Footer() {
       >
         {/* Enhanced Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-sand/15 rounded-full blur-3xl"></div>
+          <div className={`absolute top-0 right-0 w-96 h-96 ${themeClasses.bg.overlay} rounded-full blur-3xl`}></div>
+          <div className={`absolute bottom-0 left-0 w-64 h-64 ${isLight ? 'bg-amber-100/30' : 'bg-sand/15'} rounded-full blur-3xl`}></div>
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDIwIDAgTCAwIDAgMCAyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
         </div>
@@ -213,25 +239,25 @@ export default function Footer() {
                   <img 
                     src="/images/brand/logo_svg_ar.svg" 
                     alt={locale === 'ar' ? "شعار مجموعة الإيمان" : "El Eman Group Logo"}
-                    className="h-20 w-auto brightness-0 invert filter drop-shadow-lg"
+                    className={`h-20 w-auto filter drop-shadow-lg ${isLight ? 'brightness-0' : 'brightness-0 invert'}`}
                     itemProp="logo"
                     width="80"
                     height="80"
                   />
                   {/* Brand glow effect */}
-                  <div className="absolute inset-0 h-20 w-20 bg-primary/30 rounded-full blur-xl -z-10"></div>
+                  <div className={`absolute inset-0 h-20 w-20 ${isLight ? 'bg-amber-400/30' : 'bg-primary/30'} rounded-full blur-xl -z-10`}></div>
                 </div>
               </div>
               
               <div itemProp="description">
-                <p className="text-gray-300 mb-8 leading-relaxed text-lg font-medium">
+                <p className={`${themeClasses.text.secondary} mb-8 leading-relaxed text-lg font-medium`}>
                   {t('description')}
                 </p>
               </div>
               
               {/* Enhanced Social Media Links */}
               <div>
-                <h4 className="font-bold text-xl mb-6 text-gradient bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">
+                <h4 className={`font-bold text-xl mb-6 text-gradient ${themeClasses.bg.gradient} bg-clip-text text-transparent`}>
                   {t('follow_us')}
                 </h4>
                 <div className="flex space-x-3 rtl:space-x-reverse" role="list" aria-label={locale === 'ar' ? 'وسائل التواصل الاجتماعي' : 'Social Media Links'}>
@@ -241,14 +267,14 @@ export default function Footer() {
                       <a
                         key={social.name}
                         href={social.href}
-                        className={`group relative w-12 h-12 bg-gray-800 backdrop-blur-sm border border-gray-700 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/25 ${social.color}`}
+                        className={`group relative w-12 h-12 ${themeClasses.bg.card} rounded-xl flex items-center justify-center ${themeClasses.bg.cardHover} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-600/25 ${social.color}`}
                         aria-label={social.ariaLabel}
                         target="_blank"
                         rel="noopener noreferrer"
                         role="listitem"
                       >
                         <IconComponent />
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                        <div className={`absolute inset-0 ${isLight ? 'bg-gradient-to-r from-amber-400/0 via-amber-400/20 to-amber-400/0' : 'bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0'} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl`}></div>
                       </a>
                     );
                   })}
@@ -258,7 +284,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <nav aria-label={locale === 'ar' ? 'روابط سريعة' : 'Quick Navigation'}>
-              <h4 className="font-bold text-xl mb-6 text-gradient bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">
+              <h4 className={`font-bold text-xl mb-6 text-gradient ${themeClasses.bg.gradient} bg-clip-text text-transparent`}>
                 {t('quick_links')}
               </h4>
               <ul className="space-y-4" role="list">
@@ -268,10 +294,10 @@ export default function Footer() {
                     <li key={link.key} role="listitem">
                       <Link
                         href={`/${locale}${link.href}`}
-                        className="group text-gray-300 hover:text-white hover:text-primary transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse text-lg font-medium"
+                        className={`group ${themeClasses.text.secondary} ${themeClasses.text.hover} transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse text-lg font-medium`}
                         aria-label={navT(link.key)}
                       >
-                        <IconComponent className="w-4 h-4 text-primary/60 group-hover:text-primary group-hover:scale-125 transition-all duration-300" />
+                        <IconComponent className={`w-4 h-4 ${themeClasses.text.accent}/60 group-hover:${themeClasses.text.accent} group-hover:scale-125 transition-all duration-300`} />
                         <span className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300">
                           {navT(link.key)}
                         </span>
@@ -284,7 +310,7 @@ export default function Footer() {
 
             {/* El Eman Group Ecosystem */}
             <div>
-              <h4 className="font-bold text-xl mb-6 text-gradient bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">
+              <h4 className={`font-bold text-xl mb-6 text-gradient ${themeClasses.bg.gradient} bg-clip-text text-transparent`}>
                 {t('el_eman_group')}
               </h4>
               <ul className="space-y-4" role="list">
@@ -292,11 +318,11 @@ export default function Footer() {
                   <li key={index} role="listitem">
                     <a
                       href={company.href}
-                      className="group text-gray-300 hover:text-white hover:text-primary transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse text-lg font-medium"
+                      className={`group ${themeClasses.text.secondary} ${themeClasses.text.hover} transition-all duration-300 flex items-center space-x-2 rtl:space-x-reverse text-lg font-medium`}
                       title={company.description}
                       aria-label={company.description}
                     >
-                      <span className="w-2 h-2 bg-sand/60 rounded-full group-hover:bg-sand group-hover:scale-125 transition-all duration-300"></span>
+                      <span className={`w-2 h-2 ${isLight ? 'bg-amber-400/60 group-hover:bg-amber-400' : 'bg-sand/60 group-hover:bg-sand'} rounded-full group-hover:scale-125 transition-all duration-300`}></span>
                       <span className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300">
                         {company.name}
                       </span>
@@ -308,7 +334,7 @@ export default function Footer() {
 
             {/* Contact Information */}
             <div itemScope itemType="https://schema.org/ContactPoint">
-              <h4 className="font-bold text-xl mb-6 text-gradient bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">
+              <h4 className={`font-bold text-xl mb-6 text-gradient ${themeClasses.bg.gradient} bg-clip-text text-transparent`}>
                 {t('contact_info')}
               </h4>
               <address className="not-italic">
@@ -319,18 +345,18 @@ export default function Footer() {
                       <li key={index} role="listitem">
                         <a
                           href={contact.href}
-                          className="group flex items-start space-x-4 rtl:space-x-reverse text-gray-300 hover:text-white transition-all duration-300"
+                          className={`group flex items-start space-x-4 rtl:space-x-reverse ${themeClasses.text.secondary} ${themeClasses.text.hover} transition-all duration-300`}
                           itemProp={contact.itemProp}
                           aria-label={`${contact.label}: ${contact.value}`}
                         >
-                          <div className="w-12 h-12 bg-gray-800 backdrop-blur-sm border border-gray-700 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:border-primary/50 group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/25 flex-shrink-0">
-                            <IconComponent className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
+                          <div className={`w-12 h-12 ${themeClasses.bg.card} rounded-xl flex items-center justify-center ${themeClasses.bg.cardHover} group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-amber-600/25 flex-shrink-0`}>
+                            <IconComponent className={`w-5 h-5 ${themeClasses.text.accent} ${isLight ? 'group-hover:text-white' : 'group-hover:text-white'} transition-colors duration-300`} />
                           </div>
                           <div className="flex-1">
-                            <div className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors duration-300">
+                            <div className={`font-semibold text-lg mb-1 ${isLight ? 'group-hover:text-amber-600' : 'group-hover:text-primary'} transition-colors duration-300`}>
                               {contact.label}
                             </div>
-                            <div className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed">
+                            <div className={`${themeClasses.text.tertiary} ${isLight ? 'group-hover:text-gray-600' : 'group-hover:text-gray-300'} transition-colors duration-300 leading-relaxed`}>
                               {contact.value}
                             </div>
                           </div>
@@ -345,34 +371,34 @@ export default function Footer() {
         </div>
 
         {/* Enhanced Bottom Bar */}
-        <div className="relative border-t border-gray-800">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-sand/5"></div>
+        <div className={`relative ${themeClasses.border} border-t`}>
+          <div className={`absolute inset-0 ${isLight ? 'bg-gradient-to-r from-amber-400/5 via-transparent to-amber-400/5' : 'bg-gradient-to-r from-primary/5 via-transparent to-sand/5'}`}></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
-              <div className="text-gray-400 text-lg font-medium" itemProp="copyrightHolder">
+              <div className={`${themeClasses.text.tertiary} text-lg font-medium`} itemProp="copyrightHolder">
                 © {currentYear} <span itemProp="name">{t('company_name')}</span>. {t('all_rights_reserved')}.
               </div>
               <nav aria-label={locale === 'ar' ? 'السياسات والشروط' : 'Legal Links'}>
                 <div className="flex space-x-8 rtl:space-x-reverse">
                   <Link
                     href={`/${locale}/privacy` as any}
-                    className="group text-gray-400 hover:text-white hover:text-primary transition-all duration-300 text-lg font-medium relative"
+                    className={`group ${themeClasses.text.tertiary} ${themeClasses.text.hover} transition-all duration-300 text-lg font-medium relative`}
                     aria-label={t('privacy_policy')}
                   >
                     <span className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300">
                       {t('privacy_policy')}
                     </span>
-                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-sand group-hover:w-full transition-all duration-500"></div>
+                    <div className={`absolute bottom-0 left-0 w-0 h-0.5 ${isLight ? 'bg-gradient-to-r from-amber-400 to-amber-600' : 'bg-gradient-to-r from-primary to-sand'} group-hover:w-full transition-all duration-500`}></div>
                   </Link>
                   <Link
                     href={`/${locale}/terms` as any}
-                    className="group text-gray-400 hover:text-white hover:text-primary transition-all duration-300 text-lg font-medium relative"
+                    className={`group ${themeClasses.text.tertiary} ${themeClasses.text.hover} transition-all duration-300 text-lg font-medium relative`}
                     aria-label={t('terms_conditions')}
                   >
                     <span className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300">
                       {t('terms_conditions')}
                     </span>
-                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-sand group-hover:w-full transition-all duration-500"></div>
+                    <div className={`absolute bottom-0 left-0 w-0 h-0.5 ${isLight ? 'bg-gradient-to-r from-amber-400 to-amber-600' : 'bg-gradient-to-r from-primary to-sand'} group-hover:w-full transition-all duration-500`}></div>
                   </Link>
                 </div>
               </nav>
