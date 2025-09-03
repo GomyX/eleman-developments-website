@@ -1112,6 +1112,9 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
             min-height: 48px;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
           }
         }
         
