@@ -228,30 +228,30 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
   // Villa features data for the slider
   const villaFeatures = [
     {
-      id: 1,
+      id: 4,
       title: { 
-        ar: 'في قلب مجتمع من القصور والفيلات الفاخرة', 
-        en: 'Surrounded by luxurious castles and villas' 
+        ar: 'أفضل موقع في أجمل مناطق الريف الأوروبي', 
+        en: 'Prime location in the finest European countryside' 
       },
       description: { 
-        ar: 'موقع استثنائي وسط أرقى المجتمعات السكنية', 
-        en: 'Exceptional location among the finest residential communities' 
+        ar: 'إطلالات خلابة وطبيعة ساحرة تحيط بك', 
+        en: 'Stunning views and enchanting nature surrounding you' 
       },
-      image: property.images[0]?.url || '/images/properties/villa-community.jpg',
-      color: 'from-amber-500 to-orange-600'
+      image: property.images[4]?.url || '/images/properties/villa-location.jpg',
+      color: 'from-rose-500 to-pink-600'
     },
     {
-      id: 2,
+      id: 6,
       title: { 
-        ar: 'حمام سباحة خاص للاستجمام والرفاهية', 
-        en: 'Private swimming pool for relaxation and luxury' 
+        ar: 'خصوصية كاملة حتى داخل حمام السباحة', 
+        en: 'Complete privacy even in the pool area' 
       },
       description: { 
-        ar: 'مساحة مائية خاصة لقضاء أوقات لا تُنسى', 
-        en: 'Private aquatic space for unforgettable moments' 
+        ar: 'سقف متحرك وستائر تضمن الخصوصية التامة', 
+        en: 'Retractable roof and curtains ensure complete privacy' 
       },
-      image: property.images[1]?.url || '/images/properties/villa-pool.jpg',
-      color: 'from-blue-500 to-cyan-600'
+      image: property.images[5]?.url || '/images/properties/villa-private-pool.jpg',
+      color: 'from-purple-500 to-violet-600'
     },
     {
       id: 3,
@@ -263,34 +263,34 @@ export default function PropertyDetailsClient({ property, locale }: PropertyDeta
         ar: 'هدوء الطبيعة في قلب الريف الأوروبي', 
         en: 'Nature\'s tranquility in the heart of European countryside' 
       },
-      image: property.images[2]?.url || '/images/properties/villa-garden.jpg',
-      color: 'from-green-500 to-emerald-600'
+      image: property.images[1]?.url || '/images/properties/villa-garden.jpg',
+      color: 'from-green-500 to-cyan-600'
     },
     {
-      id: 4,
+      id: 2,
       title: { 
-        ar: 'خصوصية كاملة حتى داخل حمام السباحة', 
-        en: 'Complete privacy even in the pool area' 
+        ar: 'حمام سباحة خاص للاستجمام والرفاهية', 
+        en: 'Private swimming pool for relaxation and luxury' 
       },
       description: { 
-        ar: 'سقف متحرك وستائر تضمن الخصوصية التامة', 
-        en: 'Retractable roof and curtains ensure complete privacy' 
+        ar: 'مساحة مائية خاصة لقضاء أوقات لا تُنسى', 
+        en: 'Private aquatic space for unforgettable moments' 
       },
-      image: property.images[3]?.url || '/images/properties/villa-private-pool.jpg',
-      color: 'from-purple-500 to-violet-600'
+      image: property.images[3]?.url || '/images/properties/villa-pool.jpg',
+      color: 'from-blue-500 to-cyan-600'
     },
     {
-      id: 5,
+      id: 1,
       title: { 
-        ar: 'أفضل موقع في أجمل مناطق الريف الأوروبي', 
-        en: 'Prime location in the finest European countryside' 
+        ar: 'في قلب مجتمع من القصور والفيلات الفاخرة', 
+        en: 'Surrounded by luxurious castles and villas' 
       },
       description: { 
-        ar: 'إطلالات خلابة وطبيعة ساحرة تحيط بك', 
-        en: 'Stunning views and enchanting nature surrounding you' 
+        ar: 'موقع استثنائي وسط أرقى المجتمعات السكنية', 
+        en: 'Exceptional location among the finest residential communities' 
       },
-      image: property.images[4]?.url || '/images/properties/villa-location.jpg',
-      color: 'from-rose-500 to-pink-600'
+      image: property.images[0]?.url || '/images/properties/villa-community.jpg',
+      color: 'from-amber-500 to-orange-600'
     }
   ];
 

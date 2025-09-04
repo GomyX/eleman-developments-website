@@ -29,15 +29,16 @@ const getPropertyBySlug = async (slug: string) => {
       },
       amenities: {
         unit: ['pool', 'garden', 'parking', 'balcony', 'terrace'],
-        project: ['security', 'maintenance', 'landscaping']
+        project: ['security', 'maintenance', 'landscaping'],
+        nearby: ['schools', 'hospitals', 'shopping', 'transportation']
       },
       images: [
         { id: '1', url: '/images/properties/noor villa/1.jpg', alt: 'Noor Villa Main Facade View', type: 'image' as const },
         { id: '2', url: '/images/properties/noor villa/2.jpg', alt: 'Swimming Pool Area', type: 'image' as const },
         { id: '3', url: '/images/properties/noor villa/3.jpg', alt: 'Private Garden Landscape', type: 'image' as const },
         { id: '5', url: '/images/properties/noor villa/5.jpg', alt: 'Interior Living Space', type: 'image' as const },
-        // { id: '6', url: '/images/properties/noor villa/6.jpg', alt: 'Villa Exterior Side View', type: 'image' as const },
-        // { id: '7', url: '/images/properties/noor villa/7.jpg', alt: 'Elegant Living Room', type: 'image' as const },
+        { id: '4', url: '/images/properties/noor villa/4.jpg', alt: 'Villa Exterior Side View', type: 'image' as const },
+        { id: '6', url: '/images/properties/noor villa/6.jpg', alt: 'Elegant Living Room', type: 'image' as const },
         // { id: '8', url: '/images/properties/noor villa/8.jpg', alt: 'Modern Kitchen Design', type: 'image' as const },
         { id: '9', url: '/images/properties/noor villa/9.jpg', alt: 'Luxurious Master Bedroom', type: 'image' as const },
         // { id: '10', url: '/images/properties/noor villa/10.jpg', alt: 'Premium Bathroom Design', type: 'image' as const },
